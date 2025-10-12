@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voir Tous les Administrateurs - Parfumerie</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script type="module" src="./Scripts/sidebar-component.js"></script>
+    <script type="module" src="./Scripts/header-component.js"></script>
+
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; }
+        header { margin: 0; padding: 1rem 2rem; box-sizing: border-box; }
+    </style>
+</head>
+
+<body class="bg-gradient-to-r from-indigo-200 to-purple-300 flex">
+
+    <aside class="w-64 h-screen bg-white shadow-md fixed overflow-y-auto">
+        <sidebar-component></sidebar-component>
+    </aside>
+
+    <main class="flex-1 ml-64 p-6">
+        <header-component></header-component>
+
+        <div class="p-8">
+            <h1 class="text-4xl font-serif font-semibold text-center text-purple-700 mt-6 mb-6">Voir Tous les Administrateurs</h1>
+
+            <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-purple-600 text-white">
+                        <th class="py-3 px-6 text-left">ID</th>
+                        <th class="py-3 px-6 text-left">Nom</th>
+                        <th class="py-3 px-6 text-left">Prénoms</th>
+                        <th class="py-3 px-6 text-left">Contact</th>
+                        <th class="py-3 px-6 text-left">Email</th>
+                        <th class="py-3 px-6 text-left">Rôle</th>
+                        <th class="py-3 px-6 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="adminList" class="text-gray-700"></tbody>
+            </table>
+
+            <div class="mt-6 text-center">
+                <button id="openModalBtn" class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-300">
+                    Ajouter un Administrateur
+                </button>
+            </div>
+        </div>
+
+        <!-- MODALES -->
+        <!-- Ajouter Admin -->
+        <div id="addAdminModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg w-96 p-6 shadow-lg relative">
+                <h2 class="text-2xl font-semibold mb-4">Ajouter un Administrateur</h2>
+                <form id="addAdminForm" class="space-y-4">
+                    <input type="text" name="nom" placeholder="Nom" required class="w-full border rounded px-3 py-2" />
+                    <input type="text" name="prenoms" placeholder="Prénoms" required class="w-full border rounded px-3 py-2" />
+                    <input type="text" name="contact" placeholder="Contact" required class="w-full border rounded px-3 py-2" />
+                    <input type="email" name="email" placeholder="Email" required class="w-full border rounded px-3 py-2" />
+                    <input type="password" name="password" placeholder="Mot de passe" required class="w-full border rounded px-3 py-2" />
+                    <input type="text" name="role" placeholder="Rôle" required class="w-full border rounded px-3 py-2" value="admin" />
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" id="closeAddModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Annuler</button>
+                        <button type="submit" class="px-4 py-2 rounded bg-purple-600 text-white hover:bg-purple-700">Ajouter</button>
+                    </div>
+                </form>
+                <button id="closeAddX" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+            </div>
+        </div>
+
+        <!-- Détails Admin -->
+        <div id="detailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg w-96 p-6 shadow-lg relative">
+                <h2 class="text-2xl font-semibold mb-4">Détails Administrateur</h2>
+                <div id="detailsContent" class="space-y-2"></div>
+                <div class="flex justify-end mt-4">
+                    <button id="closeDetails" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Fermer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modifier Admin -->
+        <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg w-96 p-6 shadow-lg relative">
+                <h2 class="text-2xl font-semibold mb-4">Modifier Administrateur</h2>
+                <form id="editAdminForm" class="space-y-4">
+                    <input type="hidden" name="id" />
+                    <input type="text" name="nom" placeholder="Nom" required class="w-full border rounded px-3 py-2" />
+                    <input type="text" name="prenoms" placeholder="Prénoms" required class="w-full border rounded px-3 py-2" />
+                    <input type="text" name="contact" placeholder="Contact" required class="w-full border rounded px-3 py-2" />
+                    <input type="email" name="email" placeholder="Email" required class="w-full border rounded px-3 py-2" />
+                    <input type="text" name="role" placeholder="Rôle" required class="w-full border rounded px-3 py-2" />
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" id="closeEditModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Annuler</button>
+                        <button type="submit" class="px-4 py-2 rounded bg-yellow-500 text-white hover:bg-yellow-600">Modifier</button>
+                    </div>
+                </form>
+                <button id="closeEditX" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const API_URL = 'https://luxeparfum-backend.onrender.com/api/auth';
+        const adminList = document.getElementById('adminList');
+
+        const addModal = document.getElementById('addAdminModal');
+        const openAddBtn = document.getElementById('openModalBtn');
+        const closeAddBtn = document.getElementById('closeAddModal');
+        const closeAddX = document.getElementById('closeAddX');
+        const addForm = document.getElementById('addAdminForm');
+
+        const detailsModal = document.getElementById('detailsModal');
+        const detailsContent = document.getElementById('detailsContent');
+        const closeDetails = document.getElementById('closeDetails');
+
+        const editModal = document.getElementById('editModal');
+        const editForm = document.getElementById('editAdminForm');
+        const closeEditBtn = document.getElementById('closeEditModal');
+        const closeEditX = document.getElementById('closeEditX');
+
+        // Fonction pour ajouter un admin dans le tableau
+        function ajouterAdminDansTable(admin) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="py-3 px-6">${admin.id}</td>
+                <td class="py-3 px-6">${admin.nom}</td>
+                <td class="py-3 px-6">${admin.prenoms}</td>
+                <td class="py-3 px-6">${admin.contact}</td>
+                <td class="py-3 px-6">${admin.email}</td>
+                <td class="py-3 px-6">${admin.role}</td>
+                <td class="py-3 px-6">
+                    <button class="text-blue-600 hover:text-blue-800" onclick="viewAdminDetails(${admin.id})"><i class="fas fa-eye"></i></button>
+                    <button class="text-yellow-600 hover:text-yellow-800 ml-2" onclick="editAdmin(${admin.id})"><i class="fas fa-pen"></i></button>
+                    <button class="text-red-600 hover:text-red-800 ml-2" onclick="deleteAdmin(${admin.id})"><i class="fas fa-trash-alt"></i></button>
+                </td>`;
+            adminList.appendChild(row);
+        }
+
+        // Charger tous les admins
+        async function chargerAdmins() {
+            try {
+                adminList.innerHTML = '';
+                const res = await fetch(`${API_URL}/getUsersByRole/admin`);
+                const admins = await res.json();
+                admins.forEach(admin => ajouterAdminDansTable(admin));
+            } catch (err) {
+                console.error('Erreur chargement admins', err);
+                alert('Impossible de charger les administrateurs');
+            }
+        }
+
+        chargerAdmins();
+
+        // Modales Ajouter
+        openAddBtn.addEventListener('click', () => addModal.classList.remove('hidden'));
+        closeAddBtn.addEventListener('click', () => addModal.classList.add('hidden'));
+        closeAddX.addEventListener('click', () => addModal.classList.add('hidden'));
+
+        addForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(addForm);
+            const newAdmin = {
+                nom: formData.get('nom').trim(),
+                prenoms: formData.get('prenoms').trim(),
+                contact: formData.get('contact').trim(),
+                email: formData.get('email').trim(),
+                password: formData.get('password'),
+                role: formData.get('role').trim()
+            };
+            try {
+                const res = await fetch(`${API_URL}/add_user`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newAdmin)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    ajouterAdminDansTable(data.user);
+                    addForm.reset();
+                    addModal.classList.add('hidden');
+                } else alert(data.message || data.error);
+            } catch { alert('Erreur réseau'); }
+        });
+
+        // Détails
+        function viewAdminDetails(id) {
+            const row = Array.from(adminList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+            if (!row) return;
+            detailsContent.innerHTML = `
+                <p><strong>ID:</strong> ${row.cells[0].textContent}</p>
+                <p><strong>Nom:</strong> ${row.cells[1].textContent}</p>
+                <p><strong>Prénoms:</strong> ${row.cells[2].textContent}</p>
+                <p><strong>Contact:</strong> ${row.cells[3].textContent}</p>
+                <p><strong>Email:</strong> ${row.cells[4].textContent}</p>
+                <p><strong>Rôle:</strong> ${row.cells[5].textContent}</p>`;
+            detailsModal.classList.remove('hidden');
+        }
+        closeDetails.addEventListener('click', () => detailsModal.classList.add('hidden'));
+
+        // Edit
+        function editAdmin(id) {
+            const row = Array.from(adminList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+            if (!row) return;
+            editForm.id.value = id;
+            editForm.nom.value = row.cells[1].textContent;
+            editForm.prenoms.value = row.cells[2].textContent;
+            editForm.contact.value = row.cells[3].textContent;
+            editForm.email.value = row.cells[4].textContent;
+            editForm.role.value = row.cells[5].textContent;
+            editModal.classList.remove('hidden');
+        }
+        closeEditBtn.addEventListener('click', () => editModal.classList.add('hidden'));
+        closeEditX.addEventListener('click', () => editModal.classList.add('hidden'));
+
+        editForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(editForm);
+            const id = formData.get('id');
+            const updatedAdmin = {
+                nom: formData.get('nom').trim(),
+                prenoms: formData.get('prenoms').trim(),
+                contact: formData.get('contact').trim(),
+                email: formData.get('email').trim(),
+                role: formData.get('role').trim()
+            };
+            try {
+                const res = await fetch(`${API_URL}/updateUser/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedAdmin)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    const row = Array.from(adminList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+                    row.cells[1].textContent = updatedAdmin.nom;
+                    row.cells[2].textContent = updatedAdmin.prenoms;
+                    row.cells[3].textContent = updatedAdmin.contact;
+                    row.cells[4].textContent = updatedAdmin.email;
+                    row.cells[5].textContent = updatedAdmin.role;
+                    editModal.classList.add('hidden');
+                } else alert(data.message || data.error);
+            } catch { alert('Erreur réseau'); }
+        });
+
+        // Delete
+        function deleteAdmin(id) {
+            if (!confirm("Voulez-vous vraiment supprimer cet administrateur ?")) return;
+            fetch(`${API_URL}/deleteUser/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.message === 'Utilisateur supprimé') {
+                        const row = Array.from(adminList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+                        if (row) row.remove();
+                    } else alert(data.message || 'Erreur suppression');
+                }).catch(() => alert('Erreur réseau'));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voir Toutes les Commandes - Parfumerie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script type="module" src="./Scripts/sidebar-component.js"></script>
+    <script type="module" src="./Scripts/header-component.js"></script>
+</head>
+
+<body class="bg-gradient-to-r from-indigo-200 to-purple-300">
+    <aside class="w-64 h-screen bg-white shadow-md fixed overflow-y-auto">
+        <sidebar-component></sidebar-component>
+    </aside>
+
+    <!-- Contenu principal (avec marge à gauche pour la sidebar) -->
+    <main class="flex-1 ml-64 p-6">
+        <header-component></header-component>
+        <div class="max-w-4xl mx-auto p-8">
+            <h1 class="text-4xl font-serif font-semibold text-center text-purple-700 mb-6">Voir Toutes les Commandes
+            </h1>
+
+            <!-- Liste des commandes -->
+            <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-purple-600 text-white">
+                        <th class="py-3 px-6 text-left">ID Commande</th>
+                        <th class="py-3 px-6 text-left">Client</th>
+                        <th class="py-3 px-6 text-left">Produits</th>
+                        <th class="py-3 px-6 text-left">Date</th>
+                        <th class="py-3 px-6 text-left">Statut</th>
+                        <th class="py-3 px-6 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orderList" class="text-gray-700">
+                    <!-- Les commandes seront insérées ici dynamiquement -->
+                </tbody>
+            </table>
+
+        </div>
+    </main>
+        <script>
+            // Charger les commandes à partir du fichier JSON (exemple)
+            document.addEventListener('DOMContentLoaded', function () {
+                fetch('data/orders.json')  // Assurez-vous que le fichier JSON contient les commandes
+                    .then(response => response.json())
+                    .then(data => {
+                        const orderList = document.getElementById('orderList');
+                        if (data.length === 0) {
+                            orderList.innerHTML = `<tr><td colspan="6" class="text-center py-4">Aucune commande trouvée.</td></tr>`;
+                        } else {
+                            data.forEach(order => {
+                                const row = document.createElement('tr');
+                                row.classList.add('transition', 'duration-300', 'hover:bg-indigo-100');
+                                row.innerHTML = `
+                                <td class="py-3 px-6">${order.id}</td>
+                                <td class="py-3 px-6">${order.client}</td>
+                                <td class="py-3 px-6">${order.products.join(', ')}</td>
+                                <td class="py-3 px-6">${order.date}</td>
+                                <td class="py-3 px-6">${order.status}</td>
+                                <td class="py-3 px-6">
+                                    <button class="text-blue-600 hover:text-blue-800" onclick="viewOrderDetails(${order.id})">
+                                        <i class="fas fa-eye"></i> Détails
+                                    </button>
+                                    <button class="text-yellow-600 hover:text-yellow-800 ml-4" onclick="editOrderStatus(${order.id})">
+                                        <i class="fas fa-pen"></i> Modifier Statut
+                                    </button>
+                                </td>
+                            `;
+                                orderList.appendChild(row);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors du chargement des commandes:', error);
+                        document.getElementById('orderList').innerHTML = `<tr><td colspan="6" class="text-center py-4 text-red-600">Erreur de chargement des commandes. Veuillez réessayer plus tard.</td></tr>`;
+                    });
+            });
+
+            // Fonction pour afficher les détails d'une commande
+            function viewOrderDetails(orderId) {
+                alert(`Voir les détails de la commande ID: ${orderId}`);
+                // Tu peux rediriger vers une page de détails ou afficher un modal avec les infos détaillées de la commande
+            }
+
+            // Fonction pour modifier le statut de la commande
+            function editOrderStatus(orderId) {
+                const newStatus = prompt("Entrez le nouveau statut de la commande (ex: En préparation, Expédiée, Livrée):");
+                if (newStatus) {
+                    console.log(`Commande ID: ${orderId} - Nouveau statut: ${newStatus}`);
+                    // Optionnellement, tu peux envoyer ce changement au backend ou modifier le fichier JSON
+                }
+            }
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+ <div class="sidebar bg-indigo-800 text-white w-64 flex flex-col">
+            <!-- Logo -->
+            <div class="p-4 flex items-center space-x-2 border-b border-indigo-700">
+                <i class="fas fa-spa text-2xl text-pink-300"></i>
+                <span class="logo-text text-xl font-bold">Parfumerie Admin</span>
+            </div>
+
+            <!-- User Profile -->
+            <div class="p-4 flex items-center space-x-3 border-b border-indigo-700">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Admin" class="w-10 h-10 rounded-full">
+                <div class="nav-text">
+                    <p class="font-medium">Admin</p>
+                    <p class="text-xs text-indigo-300">admin@parfumerie.com</p>
+                    <button onclick="openModal()" class="text-indigo-600 text-xs">Modifier le profil</button>
+                    <!-- Bouton pour ouvrir la modale -->
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto">
+                <ul>
+                    <li>
+                        <a href="#" class="flex items-center p-4 space-x-3 hover:bg-indigo-700 bg-indigo-700">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span class="nav-text">Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="relative group">
+                        <button class="flex items-center p-4 space-x-3 w-full hover:bg-indigo-700 focus:outline-none">
+                            <i class="fas fa-pump-soap"></i>
+                            <span class="nav-text">Produits</span>
+                            <svg class="w-4 h-4 ml-auto transform group-hover:rotate-180 transition-transform duration-200"
+                                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown -->
+                        <ul
+                            class="absolute left-0 w-full bg-indigo-800 text-white shadow-lg rounded-md hidden group-hover:block z-10">
+                            <li>
+                                <a href="./ajouter-produit.html" class="block px-4 py-2 hover:bg-indigo-600">Ajouter
+                                    produit</a>
+                            </li>
+                            <li>
+                                <a href="./gerer-produits.html" class="block px-4 py-2 hover:bg-indigo-600">Gérer les
+                                    produits</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="relative group">
+                        <button class="flex items-center p-4 space-x-3 w-full hover:bg-indigo-700 focus:outline-none">
+                            <i class="fas fa-tags"></i>
+                            <span class="nav-text">Catégories</span>
+                            <svg class="w-4 h-4 ml-auto transform group-hover:rotate-180 transition-transform duration-200"
+                                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+
+                        <ul
+                            class="absolute left-0 w-full bg-indigo-800 text-white shadow-lg rounded-md hidden group-hover:block z-10">
+                            <li>
+                                <a href="./ajouter-categorie.html" class="block px-4 py-2 hover:bg-indigo-600">Ajouter
+                                    catégorie</a>
+                            </li>
+                            <li>
+                                <a href="./gerer-categories.html" class="block px-4 py-2 hover:bg-indigo-600">Gérer les
+                                    catégories</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="./commande-list.html" class="flex items-center p-4 space-x-3 hover:bg-indigo-700">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="nav-text">Voir toutes les commandes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./users-list.html" class="flex items-center p-4 space-x-3 hover:bg-indigo-700">
+                            <i class="fas fa-users"></i>
+                            <span class="nav-text">Voir tous les clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./admin-list.html" class="flex items-center p-4 space-x-3 hover:bg-indigo-700">
+                            <i class="fas fa-user-shield"></i>
+                            <span class="nav-text">Administrateurs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./statistic.html" class="flex items-center p-4 space-x-3 hover:bg-indigo-700">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="nav-text">Statistiques</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./paramtre.html" class="flex items-center p-4 space-x-3 hover:bg-indigo-700">
+                            <i class="fas fa-cog"></i>
+                            <span class="nav-text">Paramètres</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./login.html" class="flex items-center p-4 space-x-3 hover:bg-indigo-700">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="nav-text">Deconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Collapse Button -->
+            <div class="p-4 border-t border-indigo-700">
+                <button id="toggleSidebar" class="w-full flex items-center space-x-3 text-indigo-200 hover:text-white">
+                    <i class="fas fa-chevron-left"></i>
+                    <span class="nav-text">Réduire</span>
+                </button>
+            </div>
+        </div>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord Statistiques</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome (CDN stable) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Web components -->
+  <script type="module" src="./Scripts/sidebar-component.js"></script>
+  <script type="module" src="./Scripts/header-component.js"></script>
+  
+  <style>
+    /* Style personnalisé pour les graphiques */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+    }
+    
+    /* Style pour l'espacement du header */
+    header-component {
+      display: block;
+      margin-bottom: 1.5rem; /* Ajout d'espace sous le header */
+    }
+    
+    /* Amélioration responsive */
+    @media (max-width: 1024px) {
+      main {
+        margin-left: 0 !important;
+        width: 100%;
+      }
+      
+      aside {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 40;
+      }
+      
+      aside.active {
+        transform: translateX(0);
+      }
+      
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 30;
+      }
+      
+      .overlay.active {
+        display: block;
+      }
+      
+      .menu-toggle {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex h-screen">
+
+  <!-- Overlay pour mobile -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Bouton menu mobile -->
+  <button class="menu-toggle fixed top-4 left-4 z-50 bg-white p-2 rounded shadow-md md:hidden" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar fixe -->
+  <aside class="w-64 h-screen fixed bg-white shadow-md overflow-y-auto" id="sidebar">
+    <sidebar-component></sidebar-component>
+  </aside>
+
+  <!-- Contenu principal -->
+  <main class="flex-1 ml-0 lg:ml-64 p-4 md:p-6 h-screen overflow-y-auto">
+    <header-component class="mb-6"></header-component> <!-- Ajout de la classe mb-6 -->
+
+    <!-- Statistiques - Cartes -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+      <div class="bg-white rounded-lg shadow p-4 md:p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm md:text-base">Ventes totales</p>
+            <h3 class="text-xl md:text-2xl font-bold">24,780 €</h3>
+            <p class="text-green-500 text-xs md:text-sm flex items-center">
+              <i class="fas fa-arrow-up mr-1"></i>+12.5%
+            </p>
+          </div>
+          <div class="bg-blue-100 p-2 md:p-3 rounded-full">
+            <i class="fas fa-shopping-bag text-blue-600 text-lg md:text-xl"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow p-4 md:p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm md:text-base">Nouveaux clients</p>
+            <h3 class="text-xl md:text-2xl font-bold">1,245</h3>
+            <p class="text-green-500 text-xs md:text-sm flex items-center">
+              <i class="fas fa-arrow-up mr-1"></i>+8.3%
+            </p>
+          </div>
+          <div class="bg-green-100 p-2 md:p-3 rounded-full">
+            <i class="fas fa-users text-green-600 text-lg md:text-xl"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow p-4 md:p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm md:text-base">Commandes</p>
+            <h3 class="text-xl md:text-2xl font-bold">356</h3>
+            <p class="text-red-500 text-xs md:text-sm flex items-center">
+              <i class="fas fa-arrow-down mr-1"></i>-2.4%
+            </p>
+          </div>
+          <div class="bg-orange-100 p-2 md:p-3 rounded-full">
+            <i class="fas fa-tags text-orange-600 text-lg md:text-xl"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow p-4 md:p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm md:text-base">Produits en stock</p>
+            <h3 class="text-xl md:text-2xl font-bold">1,024</h3>
+            <p class="text-green-500 text-xs md:text-sm flex items-center">
+              <i class="fas fa-arrow-up mr-1"></i>+5.7%
+            </p>
+          </div>
+          <div class="bg-purple-100 p-2 md:p-3 rounded-full">
+            <i class="fas fa-boxes text-purple-600 text-lg md:text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graphiques -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
+      <div class="bg-white rounded-lg shadow p-4 md:p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold">Ventes mensuelles</h2>
+          <select class="bg-gray-100 border border-gray-300 text-gray-700 py-1 px-3 rounded text-sm">
+            <option>2023</option>
+            <option>2022</option>
+            <option>2021</option>
+          </select>
+        </div>
+        <div class="chart-container">
+          <canvas id="salesChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-4 md:p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold">Top parfums</h2>
+          <select class="bg-gray-100 border border-gray-300 text-gray-700 py-1 px-3 rounded text-sm">
+            <option>Ce mois</option>
+            <option>Ce trimestre</option>
+            <option>Cette année</option>
+          </select>
+        </div>
+        <div class="chart-container">
+          <canvas id="topProductsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commandes récentes & Meilleurs clients -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
+      <!-- Commandes récentes -->
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-4 md:p-6 border-b border-gray-200">
+          <h2 class="text-lg font-semibold">Commandes récentes</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+                <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Client</th>
+                <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Montant</th>
+                <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#3258</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sophie Martin</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">245 €</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-800">Livré</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#3257</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jean Dupont</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">189 €</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">En cours</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#3256</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">Marie Laurent</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">320 €</td>
+                <td class="px-4 md:px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-blue-100 text-blue-800">Expédié</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="p-4 border-t border-gray-200 text-center">
+          <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Voir toutes les commandes</a>
+        </div>
+      </div>
+
+      <!-- Meilleurs clients -->
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-4 md:p-6 border-b border-gray-200">
+          <h2 class="text-lg font-semibold">Meilleurs clients</h2>
+        </div>
+        <div class="divide-y divide-gray-200">
+          <div class="p-4 flex items-center">
+            <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Client" class="w-10 h-10 rounded-full">
+            <div class="ml-4 flex-1">
+              <h3 class="text-sm font-medium text-gray-900">Camille Dubois</h3>
+              <p class="text-sm text-gray-500">1,245 € dépensés</p>
+            </div>
+            <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">VIP</span>
+          </div>
+          <div class="p-4 flex items-center">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-10 h-10 rounded-full">
+            <div class="ml-4 flex-1">
+              <h3 class="text-sm font-medium text-gray-900">Thomas Bernard</h3>
+              <p class="text-sm text-gray-500">980 € dépensés</p>
+            </div>
+            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Régulier</span>
+          </div>
+          <div class="p-4 flex items-center">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client" class="w-10 h-10 rounded-full">
+            <div class="ml-4 flex-1">
+              <h3 class="text-sm font-medium text-gray-900">Léa Petit</h3>
+              <p class="text-sm text-gray-500">875 € dépensés</p>
+            </div>
+            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Régulier</span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-gray-200 text-center">
+          <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Voir tous les clients</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produits en rupture de stock -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+      <div class="p-4 md:p-6 border-b border-gray-200">
+        <h2 class="text-lg font-semibold">Produits en rupture de stock</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Produit</th>
+              <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Catégorie</th>
+              <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+              <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-4 md:px-6 py-4 text-sm font-medium text-gray-900">Parfum Floral</td>
+              <td class="px-4 md:px-6 py-4 text-sm text-gray-500">Fleur</td>
+              <td class="px-4 md:px-6 py-4 text-sm text-gray-500">0</td>
+              <td class="px-4 md:px-6 py-4">
+                <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-red-100 text-red-800">Rupture</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-4 md:px-6 py-4 text-sm font-medium text-gray-900">Parfum Citrus</td>
+              <td class="px-4 md:px-6 py-4 text-sm text-gray-500">Agrumes</td>
+              <td class="px-4 md:px-6 py-4 text-sm text-gray-500">2</td>
+              <td class="px-4 md:px-6 py-4">
+                <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Bas</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-4 md:px-6 py-4 text-sm font-medium text-gray-900">Parfum Boisé</td>
+              <td class="px-4 md:px-6 py-4 text-sm text-gray-500">Bois</td>
+              <td class="px-4 md:px-6 py-4 text-sm text-gray-500">5</td>
+              <td class="px-4 md:px-6 py-4">
+                <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Bas</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="p-4 border-t border-gray-200 text-center">
+        <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Voir tous les produits</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Graphiques -->
+  <script>
+    // Attendre que le DOM soit chargé
+    document.addEventListener('DOMContentLoaded', function() {
+      // Ventes mensuelles
+      new Chart(document.getElementById('salesChart'), {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+          datasets: [{
+            label: 'Ventes (€)',
+            data: [5000, 6000, 7000, 8000, 9000, 9500, 10000, 10500, 11000, 11500, 12000, 12500],
+            borderColor: 'rgba(79, 70, 229, 1)',
+            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { 
+            y: { 
+              beginAtZero: true,
+              grid: {
+                drawBorder: false
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+
+      // Top produits
+      new Chart(document.getElementById('topProductsChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Parfum Floral', 'Parfum Citrus', 'Parfum Oriental', 'Parfum Boisé', 'Parfum Frais'],
+          datasets: [{
+            label: 'Ventes (€)',
+            data: [1200, 800, 500, 450, 400],
+            backgroundColor: [
+              'rgba(79, 70, 229, 0.7)',
+              'rgba(99, 102, 241, 0.7)',
+              'rgba(129, 140, 248, 0.7)',
+              'rgba(165, 180, 252, 0.7)',
+              'rgba(199, 210, 254, 0.7)'
+            ],
+            borderColor: [
+              'rgba(79, 70, 229, 1)',
+              'rgba(99, 102, 241, 1)',
+              'rgba(129, 140, 248, 1)',
+              'rgba(165, 180, 252, 1)',
+              'rgba(199, 210, 254, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { 
+            y: { 
+              beginAtZero: true,
+              grid: {
+                drawBorder: false
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+      
+      // Gestion du menu mobile
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      
+      if (menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('active');
+          overlay.classList.toggle('active');
+        });
+        
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

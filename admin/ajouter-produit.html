@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter Produit - Parfumerie</title>
+
+  <!-- ✅ Tailwind CSS (librairie CSS pour le design rapide) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ✅ Font Awesome (librairie d'icônes) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- ✅ Web Components personnalisés (si tu les utilises pour ton header/sidebar) -->
+  <script src="./Scripts/header-component.js"></script>
+  <script src="./Scripts/sidebar-component.js"></script>
+
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to right, #c7d2fe, #ddd6fe);
+      display: flex;
+    }
+
+    @media (max-width: 1024px) {
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Sidebar -->
+  <aside class="w-64 h-screen bg-white shadow-md fixed overflow-y-auto">
+    <sidebar-component></sidebar-component>
+  </aside>
+
+  <!-- ✅ Zone principale -->
+  <main class="flex-1 ml-64 p-6">
+    <header-component></header-component>
+
+    <!-- ✅ Titre principal -->
+    <h1 class="text-4xl font-serif font-semibold text-center text-purple-700 my-8">
+      Ajouter un Parfum
+    </h1>
+
+    <!-- ✅ Formulaire d’ajout -->
+    <form id="addProductForm"
+      class="bg-white p-8 rounded-lg shadow-lg space-y-6 border-t-4 border-purple-600 max-w-3xl mx-auto">
+
+      <!-- ✅ Upload image -->
+      <div class="flex justify-center">
+        <label for="imagePath"
+          class="cursor-pointer w-40 h-40 rounded-full bg-indigo-100 flex flex-col items-center justify-center text-indigo-600 border-4 border-purple-500 hover:bg-indigo-200 transition duration-300 overflow-hidden relative">
+
+          <!-- Icône + texte affichés par défaut -->
+          <div id="defaultUpload" class="flex flex-col items-center justify-center">
+            <i class="fas fa-camera text-3xl"></i>
+            <span class="mt-2 text-sm font-medium text-gray-600">Sélectionner une photo</span>
+          </div>
+
+          <!-- Input fichier (caché) -->
+          <input type="file" id="imagePath" name="image" accept="image/*" class="hidden"
+            onchange="previewImage(event)">
+
+          <!-- Image preview (affichée seulement si une photo est choisie) -->
+          <img id="imagePreview" src="" alt="Aperçu"
+            class="absolute inset-0 w-full h-full object-cover hidden rounded-full">
+        </label>
+      </div>
+
+      <!-- ✅ Nom du parfum -->
+      <div>
+        <label for="nom" class="block text-lg font-medium text-gray-700">Nom du parfum</label>
+        <input type="text" id="nom" name="nom" required
+          class="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+      </div>
+
+      <!-- ✅ Description -->
+      <div>
+        <label for="description" class="block text-lg font-medium text-gray-700">Description</label>
+        <textarea id="description" name="description" required rows="4"
+          class="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"></textarea>
+      </div>
+
+      <!-- ✅ Prix -->
+      <div>
+        <label for="prix" class="block text-lg font-medium text-gray-700">Prix (€)</label>
+        <input type="number" id="prix" name="prix" required min="0"
+          class="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+      </div>
+
+      <!-- ✅ Quantité -->
+      <div>
+        <label for="quantite" class="block text-lg font-medium text-gray-700">Quantité</label>
+        <input type="number" id="quantite" name="quantite" required min="0"
+          class="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+      </div>
+
+      <!-- ✅ Catégorie -->
+      <div>
+        <label for="categorie" class="block text-lg font-medium text-gray-700">Catégorie</label>
+        <select id="categorie" name="categorie" required
+          class="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <option value="">Sélectionner une catégorie</option>
+          <!-- Les catégories seront chargées dynamiquement -->
+        </select>
+      </div>
+
+      <!-- ✅ Genre -->
+      <div>
+        <label for="genre" class="block text-lg font-medium text-gray-700">Genre</label>
+        <select id="genre" name="genre" required
+          class="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <option value="">Sélectionner le genre</option>
+          <option value="Homme">Homme</option>
+          <option value="Femme">Femme</option>
+          <option value="Unisexe">Unisexe</option>
+        </select>
+      </div>
+
+      <!-- ✅ Bouton -->
+      <div class="flex justify-center">
+        <button type="submit"
+          class="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600">
+          Ajouter le parfum
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <!-- ✅ Script -->
+  <script>
+  /**
+   * ✅ Fonction previewImage()
+   * Quand l’utilisateur choisit une photo, elle est affichée dans la zone ronde
+   */
+  function previewImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    const defaultUpload = document.getElementById('defaultUpload');
+    const imagePreview = document.getElementById('imagePreview');
+
+    if (file) {
+      reader.onload = function () {
+        imagePreview.src = reader.result;   // charge l’image en "base64"
+        imagePreview.classList.remove('hidden'); // affiche l’image
+        defaultUpload.classList.add('hidden');   // cache l’icône + texte
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  /**
+   * ✅ Gestion de l’envoi du formulaire avec JWT
+   */
+  document.getElementById('addProductForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // empêche le rechargement automatique de la page
+
+    // Récupère le token depuis le localStorage ou un cookie
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      alert("⚠️ Vous devez être connecté !");
+      return;
+    }
+
+    // Crée l’objet FormData pour envoyer les données du formulaire
+    const formData = new FormData();
+    formData.append("nom", document.getElementById('nom').value.trim());
+    formData.append("description", document.getElementById('description').value.trim());
+    formData.append("prix", Number(document.getElementById('prix').value)); // cast en nombre
+    formData.append("quantite", document.getElementById('quantite').value);
+    formData.append("categorie", document.getElementById('categorie').value);
+    formData.append("genre", document.getElementById('genre').value); // Ajout du genre
+
+    // Ajout de l’image si elle existe
+    const imageFile = document.getElementById('imagePath').files[0];
+    if (imageFile) formData.append("image", imageFile);
+
+    // Debug : log le contenu du FormData
+    for (let pair of formData.entries()) {
+      console.log(pair[0]+ ':', pair[1]);
+    }
+
+    try {
+      const response = await fetch('https://luxeparfum-backend.onrender.com/api/products/add_product', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}` // JWT dans le header
+        },
+        body: formData // les données du formulaire
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("✅ Produit ajouté avec succès !");
+        // Réinitialisation du formulaire et de l’aperçu image
+        this.reset();
+        document.getElementById('imagePreview').classList.add('hidden');
+        document.getElementById('imagePreview').src = "";
+        document.getElementById('defaultUpload').classList.remove('hidden');
+      } else {
+        // Affiche la réponse complète pour le debug
+        console.error("Réponse serveur:", data);
+        alert("❌ Erreur: " + (data.error || "Impossible d’ajouter le produit"));
+      }
+    } catch (err) {
+      alert("⚠️ Erreur réseau ou serveur : " + err.message);
+      console.error("Erreur fetch:", err);
+    }
+  });
+
+  // Fonction pour charger les catégories
+  async function loadCategories() {
+    try {
+      const response = await fetch('https://luxeparfum-backend.onrender.com/api/categories/get_categories');
+      const categories = await response.json();
+      
+      const selectElement = document.getElementById('categorie');
+      selectElement.innerHTML = '<option value="">Sélectionner une catégorie</option>';
+      
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.nom;
+        option.textContent = category.nom;
+        selectElement.appendChild(option);
+      });
+    } catch (error) {
+      console.error('Erreur lors du chargement des catégories:', error);
+    }
+  }
+
+  // Charger les catégories au chargement de la page
+  document.addEventListener('DOMContentLoaded', loadCategories);
+
+  /**
+   * Fonction pour créer une carte produit (pour l'affichage des produits)
+   */
+  function createProductCard(product) {
+    // Extraction du nom du fichier de l'URL complète
+    const getImageFileName = (path) => {
+        if (!path) return null;
+        const parts = path.split('/');
+        return parts[parts.length - 1];
+    };
+
+    // Construction de l'URL de l'image
+    const imageFileName = getImageFileName(product.imagePath);
+    const imageUrl = imageFileName ? 
+        `https://luxeparfum-backend.onrender.com/uploads/${imageFileName}` : 
+        'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+        
+    return `
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm transition duration-300 hover:shadow-md">
+            <div class="relative h-64 overflow-hidden">
+                <img src="${imageUrl}" 
+                     alt="${product.nom}" 
+                     class="w-full h-full object-cover transition duration-300 hover:scale-105"
+                     onerror="this.src='https://via.placeholder.com/300x300?text=Image+Non+Disponible'">
+            </div>
+            <div class="p-4">
+                <h2 class="text-xl font-semibold text-gray-800">${product.nom}</h2>
+                <p class="mt-2 text-gray-600">${product.description}</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-lg font-bold text-purple-600">${product.prix} €</span>
+                    <span class="text-sm px-3 py-1 rounded-full"
+                          style="background-color: ${getCategoryColor(product.categorie)}">
+                          ${product.categorie}
+                    </span>
+                </div>
+            </div>
+        </div>
+    `;
+  }
+
+  /**
+   * Fonction pour obtenir la couleur d'une catégorie (pour l'affichage des produits)
+   */
+  function getCategoryColor(categorie) {
+    switch (categorie) {
+      case 'Fleurie':
+        return '#f9c2ff';
+      case 'Fruité':
+        return '#c2f9c2';
+      case 'Boisé':
+        return '#c2dfff';
+      case 'Oriental':
+        return '#ffe0b2';
+      default:
+        return '#e0e0e0';
+    }
+  }
+  </script>
+
+  <!--<script>
+    /**
+     * ✅ Fonction previewImage()
+     * Quand l’utilisateur choisit une photo, elle est affichée dans la zone ronde
+     */
+    function previewImage(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      const defaultUpload = document.getElementById('defaultUpload');
+      const imagePreview = document.getElementById('imagePreview');
+
+      if (file) {
+        reader.onload = function () {
+          imagePreview.src = reader.result;   // charge l’image en "base64"
+          imagePreview.classList.remove('hidden'); // affiche l’image
+          defaultUpload.classList.add('hidden');   // cache l’icône + texte
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    /**
+     * ✅ Gestion de l’envoi du formulaire
+     * Ici on utilise `fetch()` pour envoyer les données au backend (API).
+     */
+    document.getElementById('addProductForm').addEventListener('submit', async function (event) {
+      event.preventDefault(); // empêche le rechargement automatique de la page
+
+      /**
+       * 👉 FormData est un objet JavaScript qui permet de regrouper
+       * toutes les données du formulaire (texte, nombres, fichiers, etc.)
+       * et de les envoyer facilement au serveur.
+       */
+      const formData = new FormData();
+      formData.append("nom", document.getElementById('nom').value.trim());
+      formData.append("description", document.getElementById('description').value.trim());
+      formData.append("prix", document.getElementById('prix').value.trim());
+      formData.append("quantite", document.getElementById('quantite').value);
+      formData.append("categorie", document.getElementById('categorie').value);
+
+      // Ajout de l’image (si l’utilisateur en a sélectionné une)
+      const imageFile = document.getElementById('imagePath').files[0];
+      if (imageFile) formData.append("image", imageFile);
+
+      try {
+        /**
+         * 👉 fetch() = méthode moderne pour appeler une API depuis le navigateur.
+         *
+         * - URL : 'https://luxeparfum-backend.onrender.com/api/produit/add_product'
+         *   => correspond à ton backend Node.js/Express
+         *
+         * - method: 'POST'
+         *   => car on veut créer/ajouter un produit
+         *
+         * - body: formData
+         *   => on envoie les données du formulaire
+         */
+        const response = await fetch('https://luxeparfum-backend.onrender.com/api/products/add_product', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}` // <-- ajout du token ici
+          },
+          body: formData
+        
+
+      });
+
+    // On récupère la réponse JSON envoyée par le backend
+    const data = await response.json();
+
+    // ✅ Si l’API répond "ok" (status 200 par exemple)
+    if (response.ok) {
+      alert("✅ Produit ajouté avec succès !");
+
+      // On réinitialise le formulaire
+      this.reset();
+      document.getElementById('imagePreview').classList.add('hidden');
+      document.getElementById('imagePreview').src = "";
+      document.getElementById('defaultUpload').classList.remove('hidden');
+    } else {
+      // ⚠️ Si l’API renvoie une erreur (ex: validation échouée)
+      alert("❌ Erreur: " + (data.error || "Impossible d’ajouter le produit"));
+    }
+      } catch (err) {
+      // ⚠️ Si le serveur ne répond pas (ex: API arrêtée ou mauvaise URL)
+      alert("⚠️ Erreur réseau ou serveur");
+      console.error(err);
+    }
+    });
+  </script>-->
+</body>
+
+</html>

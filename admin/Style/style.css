@@ -1,0 +1,66 @@
+/*Importer talwindcss*/
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+/* Style/style.css */
+        .sidebar {
+            transition: all 0.3s;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .logo-text {
+            display: none;
+        }
+
+        .main-content {
+            transition: margin-left 0.3s;
+        }
+
+        .chart-container {
+            height: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                z-index: 100;
+                margin-left: -250px;
+            }
+
+            .sidebar.collapsed {
+                margin-left: -70px;
+            }
+
+            .sidebar.active {
+                margin-left: 0;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+            }
+        }
+
+        /* Modale (initialement cachée) */
+        .modal {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            max-height: 70%;
+            overflow-y: auto;
+        }
+
+        /* Quand la modale est affichée */
+        .modal.show {
+            display: block;
+            opacity: 1;
+        }
+
+    

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - Élégance Parfumée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1523293182086-7651a899d37f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .collection-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .collection-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
+                <a href="./collections.html" class="text-purple-600 font-semibold transition">Collections</a>
+                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
+                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
+            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
+            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
+            <a href="./collections.html" class="block py-2 text-purple-600 font-semibold transition">Collections</a>
+            <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
+            <a href="../visiteur.html" id="logout" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">Nos Collections</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Découvrez nos gammes de parfums exclusifs et éditions limitées</p>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Explorez nos univers</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Collection 1 -->
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center relative">
+                        <i class="fas fa-crown text-5xl text-blue-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <h3 class="font-bold text-lg">Collection Prestige</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Nos parfums les plus exclusifs, créés avec des ingrédients rares et précieux.</p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Collection 2 -->
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center relative">
+                        <i class="fas fa-leaf text-5xl text-green-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <h3 class="font-bold text-lg">Collection Nature</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Des fragrances inspirées par la nature, avec des ingrédients biologiques et durables.</p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Collection 3 -->
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-amber-100 to-amber-300 flex items-center justify-center relative">
+                        <i class="fas fa-gem text-5xl text-amber-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <h3 class="font-bold text-lg">Collection Exclusive</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Éditions limitées et créations uniques pour les amateurs de parfums rares.</p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Collection 4 -->
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-purple-100 to-purple-300 flex items-center justify-center relative">
+                        <i class="fas fa-heart text-5xl text-purple-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <h3 class="font-bold text-lg">Collection Romantique</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Des fragrances délicates et envoûtantes pour célébrer l'amour et la romance.</p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Collection 5 -->
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-red-100 to-red-300 flex items-center justify-center relative">
+                        <i class="fas fa-fire text-5xl text-red-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <h3 class="font-bold text-lg">Collection Sensuelle</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Des parfums audacieux et captivants qui éveillent les sens et suscitent l'émotion.</p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Collection 6 -->
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-teal-100 to-teal-300 flex items-center justify-center relative">
+                        <i class="fas fa-wind text-5xl text-teal-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <h3 class="font-bold text-lg">Collection Fraîcheur</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Des fragrances légères et aériennes, parfaites pour les journées ensoleillées.</p>
+                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Limited Edition Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Éditions Limitées</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Découvrez nos créations exclusives disponibles en quantités limitées</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-96 bg-gradient-to-br from-purple-500 to-indigo-700 flex items-center justify-center relative">
+                        <div class="text-white text-center p-6">
+                            <span class="bg-white text-purple-600 text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">Nouveau</span>
+                            <h3 class="text-2xl font-bold mb-2">Midnight Orchid</h3>
+                            <p class="mb-4">Une fragrance mystérieuse aux notes d'orchidée noire et de vanille</p>
+                            <button class="bg-white text-purple-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition">
+                                Découvrir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-96 bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center relative">
+                        <div class="text-white text-center p-6">
+                            <span class="bg-white text-amber-600 text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">Bientôt</span>
+                            <h3 class="text-2xl font-bold mb-2">Golden Amber</h3>
+                            <p class="mb-4">Une création chaude et enveloppante aux notes d'ambre et de santal</p>
+                            <button class="bg-white text-amber-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition">
+                                Être alerté
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-spray-can text-2xl text-purple-400"></i>
+                        <h3 class="text-xl font-bold">Élégance Parfumée</h3>
+                    </div>
+                    <p class="text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Boutique</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
+                        <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
+                        <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
+                        <li><a href="./collections.html" class="text-gray-400 hover:text-white transition">Collections</a></li>
+                        <li><a href="./apropos.html" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                        <li><a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Informations</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Paiement sécurisé</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Retours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Conditions générales</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">12 Rue des Parfums, 75001 Paris</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
+                            <span class="text-gray-400">01 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                            <span class="text-gray-400">contact@elegance-parfumee.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Élégance Parfumée. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  // ==========================
+  // Vérification connexion
+  // ==========================
+  const logoutLinks = document.querySelectorAll("#logout");
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    // Utilisateur connecté → Déconnexion
+    logoutLinks.forEach(link => {
+      link.textContent = "Déconnexion";
+      link.classList.remove("hidden");
+      link.href = "#"; // neutre
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("cart");
+        window.location.href = "../visiteur.html"; // redirection après logout
+      });
+    });
+  } else {
+    // Pas connecté → Connexion
+    logoutLinks.forEach(link => {
+      link.textContent = "Connexion";
+      link.classList.remove("hidden");
+      link.href = "../utils/login.html";
+    });
+  }
+
+  // ==========================
+  // Gestion du panier (localStorage)
+  // ==========================
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) {
+    cartCountEl.textContent =
+      cart.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+
+  // ==========================
+  // Synchronisation panier avec la BD si connecté
+  // ==========================
+  async function syncCartFromLocal() {
+    if (!token || !cart.length) return;
+
+    try {
+      const response = await fetch("http://localhost:2025/api/cart/sync", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ cart }),
+      });
+
+      if (response.ok) {
+        console.log("✅ Panier synchronisé avec la BD");
+        localStorage.removeItem("cart"); // vider panier local
+        cart = [];
+      } else {
+        console.error("❌ Erreur lors de la synchro panier");
+      }
+    } catch (err) {
+      console.error("⚠️ Impossible de synchroniser le panier :", err);
+    }
+  }
+
+  if (token) {
+    await syncCartFromLocal();
+  }
+
+  // ==========================
+  // Menu mobile
+  // ==========================
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
+});
+</script>
+
+
+</body>
+</html>

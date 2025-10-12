@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voir Tous les Clients - Parfumerie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module" src="./Scripts/sidebar-component.js"></script>
+    <script type="module" src="./Scripts/header-component.js"></script>
+</head>
+<body class="bg-gradient-to-r from-indigo-200 to-purple-300 flex">
+
+<aside class="w-64 h-screen bg-white shadow-md fixed overflow-y-auto">
+    <sidebar-component></sidebar-component>
+</aside>
+
+<main class="flex-1 ml-64 p-6">
+    <header-component></header-component>
+
+    <div class="p-8">
+        <h1 class="text-4xl font-serif font-semibold text-center text-purple-700 mt-6 mb-6">
+            Voir Tous les Clients
+        </h1>
+
+        <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead>
+                <tr class="bg-purple-600 text-white">
+                    <th class="py-3 px-6 text-left">ID</th>
+                    <th class="py-3 px-6 text-left">Nom</th>
+                    <th class="py-3 px-6 text-left">Prénoms</th>
+                    <th class="py-3 px-6 text-left">Contact</th>
+                    <th class="py-3 px-6 text-left">Email</th>
+                    <th class="py-3 px-6 text-left">Rôle</th>
+                    <th class="py-3 px-6 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="clientList" class="text-gray-700"></tbody>
+        </table>
+
+        <div class="mt-6 text-center">
+            <button id="openAddClientBtn" class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-300">
+                Ajouter un Client
+            </button>
+        </div>
+    </div>
+
+    <!-- Ajouter Client Modal -->
+    <div id="addClientModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg w-96 p-6 shadow-lg relative">
+            <h2 class="text-2xl font-semibold mb-4">Ajouter un Client</h2>
+            <form id="addClientForm" class="space-y-4">
+                <input type="text" name="nom" placeholder="Nom" required class="w-full border rounded px-3 py-2" />
+                <input type="text" name="prenoms" placeholder="Prénoms" required class="w-full border rounded px-3 py-2" />
+                <input type="text" name="contact" placeholder="Contact" required class="w-full border rounded px-3 py-2" />
+                <input type="email" name="email" placeholder="Email" required class="w-full border rounded px-3 py-2" />
+                <input type="text" name="role" placeholder="Rôle" required class="w-full border rounded px-3 py-2" />
+                <input type="password" name="password" placeholder="Mot de passe" required class="w-full border rounded px-3 py-2" />
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" id="closeAddClientModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Annuler</button>
+                    <button type="submit" class="px-4 py-2 rounded bg-purple-600 text-white hover:bg-purple-700">Ajouter</button>
+                </div>
+            </form>
+            <button id="closeAddClientX" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+        </div>
+    </div>
+
+    <!-- Détails Client Modal -->
+    <div id="detailsClientModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg w-96 p-6 shadow-lg relative">
+            <h2 class="text-2xl font-semibold mb-4">Détails Client</h2>
+            <div id="detailsClientContent" class="space-y-2"></div>
+            <div class="flex justify-end mt-4">
+                <button id="closeDetailsClient" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modifier Client Modal -->
+    <div id="editClientModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg w-96 p-6 shadow-lg relative">
+            <h2 class="text-2xl font-semibold mb-4">Modifier Client</h2>
+            <form id="editClientForm" class="space-y-4">
+                <input type="hidden" name="id" />
+                <input type="text" name="nom" placeholder="Nom" required class="w-full border rounded px-3 py-2" />
+                <input type="text" name="prenoms" placeholder="Prénoms" required class="w-full border rounded px-3 py-2" />
+                <input type="text" name="contact" placeholder="Contact" required class="w-full border rounded px-3 py-2" />
+                <input type="email" name="email" placeholder="Email" required class="w-full border rounded px-3 py-2" />
+                <input type="text" name="role" placeholder="Rôle" required class="w-full border rounded px-3 py-2" />
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" id="closeEditClientModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Annuler</button>
+                    <button type="submit" class="px-4 py-2 rounded bg-yellow-500 text-white hover:bg-yellow-600">Modifier</button>
+                </div>
+            </form>
+            <button id="closeEditClientX" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+        </div>
+    </div>
+
+</main>
+
+<script>
+const clientList = document.getElementById('clientList');
+const addClientModal = document.getElementById('addClientModal');
+const openAddClientBtn = document.getElementById('openAddClientBtn');
+const closeAddClientModal = document.getElementById('closeAddClientModal');
+const closeAddClientX = document.getElementById('closeAddClientX');
+const addClientForm = document.getElementById('addClientForm');
+
+const detailsClientModal = document.getElementById('detailsClientModal');
+const detailsClientContent = document.getElementById('detailsClientContent');
+const closeDetailsClient = document.getElementById('closeDetailsClient');
+
+const editClientModal = document.getElementById('editClientModal');
+const editClientForm = document.getElementById('editClientForm');
+const closeEditClientModal = document.getElementById('closeEditClientModal');
+const closeEditClientX = document.getElementById('closeEditClientX');
+
+// Fonction pour créer une ligne client
+function ajouterClientDansTable(client) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td class="py-3 px-6">${client.id}</td>
+        <td class="py-3 px-6">${client.nom}</td>
+        <td class="py-3 px-6">${client.prenoms}</td>
+        <td class="py-3 px-6">${client.contact}</td>
+        <td class="py-3 px-6">${client.email}</td>
+        <td class="py-3 px-6">${client.role}</td>
+        <td class="py-3 px-6">
+            <button class="text-blue-600 hover:text-blue-800" onclick="viewClientDetails(${client.id})">
+                <i class="fas fa-eye"></i>
+            </button>
+            <button class="text-yellow-600 hover:text-yellow-800 ml-2" onclick="editClient(${client.id})">
+                <i class="fas fa-pen"></i>
+            </button>
+            <button class="text-red-600 hover:text-red-800 ml-2" onclick="deleteClient(${client.id})">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </td>`;
+    clientList.appendChild(row);
+}
+
+// Charger tous les clients
+async function chargerClients() {
+    try {
+        const res = await fetch('https://luxeparfum-backend.onrender.com/api/auth/getUsersByRole/user');
+        const data = await res.json();
+        clientList.innerHTML = '';
+        if (data.length === 0) {
+            clientList.innerHTML = `<tr><td colspan="7" class="text-center py-4">Aucun client trouvé.</td></tr>`;
+        } else {
+            data.forEach(client => ajouterClientDansTable(client));
+        }
+    } catch (err) {
+        clientList.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-red-600">Erreur de chargement.</td></tr>`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', chargerClients);
+
+// Gestion Modales
+openAddClientBtn.addEventListener('click', () => addClientModal.classList.remove('hidden'));
+closeAddClientModal.addEventListener('click', () => addClientModal.classList.add('hidden'));
+closeAddClientX.addEventListener('click', () => addClientModal.classList.add('hidden'));
+
+addClientForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(addClientForm);
+    const newClient = {
+        nom: formData.get('nom').trim(),
+        prenoms: formData.get('prenoms').trim(),
+        contact: formData.get('contact').trim(),
+        email: formData.get('email').trim(),
+        role: formData.get('role').trim(),
+        password: formData.get('password')
+    };
+    try {
+        const res = await fetch('https://luxeparfum-backend.onrender.com/api/auth/add_user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newClient)
+        });
+        const data = await res.json();
+        if (res.ok) {
+            ajouterClientDansTable(data.user);
+            addClientForm.reset();
+            addClientModal.classList.add('hidden');
+        } else alert(data.message || data.error);
+    } catch { alert('Erreur réseau'); }
+});
+
+// Détails Client
+function viewClientDetails(id) {
+    const row = Array.from(clientList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+    if (!row) return;
+    detailsClientContent.innerHTML = `
+        <p><strong>ID:</strong> ${row.cells[0].textContent}</p>
+        <p><strong>Nom:</strong> ${row.cells[1].textContent}</p>
+        <p><strong>Prénoms:</strong> ${row.cells[2].textContent}</p>
+        <p><strong>Contact:</strong> ${row.cells[3].textContent}</p>
+        <p><strong>Email:</strong> ${row.cells[4].textContent}</p>
+        <p><strong>Rôle:</strong> ${row.cells[5].textContent}</p>`;
+    detailsClientModal.classList.remove('hidden');
+}
+closeDetailsClient.addEventListener('click', () => detailsClientModal.classList.add('hidden'));
+
+// Edit Client
+function editClient(id) {
+    const row = Array.from(clientList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+    if (!row) return;
+    editClientForm.id.value = id;
+    editClientForm.nom.value = row.cells[1].textContent;
+    editClientForm.prenoms.value = row.cells[2].textContent;
+    editClientForm.contact.value = row.cells[3].textContent;
+    editClientForm.email.value = row.cells[4].textContent;
+    editClientForm.role.value = row.cells[5].textContent;
+    editClientModal.classList.remove('hidden');
+}
+closeEditClientModal.addEventListener('click', () => editClientModal.classList.add('hidden'));
+closeEditClientX.addEventListener('click', () => editClientModal.classList.add('hidden'));
+
+editClientForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(editClientForm);
+    const id = formData.get('id');
+    const updatedClient = {
+        nom: formData.get('nom').trim(),
+        prenoms: formData.get('prenoms').trim(),
+        contact: formData.get('contact').trim(),
+        email: formData.get('email').trim(),
+        role: formData.get('role').trim()
+    };
+    try {
+        const res = await fetch(`https://luxeparfum-backend.onrender.com/api/auth/updateUser/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedClient)
+        });
+        const data = await res.json();
+        if (res.ok) {
+            const row = Array.from(clientList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+            row.cells[1].textContent = updatedClient.nom;
+            row.cells[2].textContent = updatedClient.prenoms;
+            row.cells[3].textContent = updatedClient.contact;
+            row.cells[4].textContent = updatedClient.email;
+            row.cells[5].textContent = updatedClient.role;
+            editClientModal.classList.add('hidden');
+        } else alert(data.message || data.error);
+    } catch { alert('Erreur réseau'); }
+});
+
+// Supprimer Client
+function deleteClient(id) {
+    if (!confirm("Voulez-vous vraiment supprimer ce client ?")) return;
+    fetch(`https://luxeparfum-backend.onrender.com/api/auth/deleteUser/${id}`, { method: 'DELETE' })
+        .then(res => res.json())
+        .then(data => {
+            if (data.message === 'Utilisateur supprimé') {
+                const row = Array.from(clientList.querySelectorAll('tr')).find(r => r.cells[0].textContent == id);
+                if (row) row.remove();
+            } else alert(data.message || 'Erreur suppression');
+        }).catch(() => alert('Erreur réseau'));
+}
+</script>
+</body>
+</html>

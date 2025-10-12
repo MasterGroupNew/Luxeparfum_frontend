@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - Gestion de la Parfumerie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module" src="./Scripts/sidebar-component.js"></script>
+    <script type="module" src="./Scripts/header-component.js"></script>
+    <link rel="stylesheet" href="./Style/style.css">
+</head>
+
+<body class="bg-gray-100 flex">
+
+    <!-- Sidebar (fixée à gauche + scrollable) -->
+    <aside class="w-64 h-screen bg-white shadow-md fixed overflow-y-auto">
+        <sidebar-component></sidebar-component>
+    </aside>
+
+    <!-- Contenu principal (avec marge à gauche pour la sidebar) -->
+    <main class="flex-1 ml-64 p-6">
+        <header-component></header-component>
+
+        <h1 class="text-3xl font-semibold text-center text-purple-700 mb-8">
+            Paramètres de la Boutique
+        </h1>
+
+        <!-- Formulaire des paramètres -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-purple-600 mb-4">Informations de la Boutique</h2>
+
+            <form id="settingsForm">
+                <!-- Nom de la boutique -->
+                <div class="mb-4">
+                    <label for="storeName" class="block text-gray-700 text-sm font-medium mb-2">Nom de la
+                        Boutique</label>
+                    <input type="text" id="storeName" name="storeName"
+                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="Nom de votre boutique"
+                        required>
+                </div>
+
+                <!-- Adresse de la boutique -->
+                <div class="mb-4">
+                    <label for="storeAddress" class="block text-gray-700 text-sm font-medium mb-2">Adresse de la
+                        Boutique</label>
+                    <input type="text" id="storeAddress" name="storeAddress"
+                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="Adresse de la boutique"
+                        required>
+                </div>
+
+                <!-- Email de contact -->
+                <div class="mb-4">
+                    <label for="contactEmail" class="block text-gray-700 text-sm font-medium mb-2">Email de
+                        Contact</label>
+                    <input type="email" id="contactEmail" name="contactEmail"
+                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="contact@boutique.com"
+                        required>
+                </div>
+
+                <!-- Téléphone de contact -->
+                <div class="mb-4">
+                    <label for="contactPhone" class="block text-gray-700 text-sm font-medium mb-2">Téléphone de
+                        Contact</label>
+                    <input type="text" id="contactPhone" name="contactPhone"
+                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="Téléphone de la boutique">
+                </div>
+
+                <h2 class="text-xl font-semibold text-purple-600 mb-4 mt-8">Paramètres de Stock</h2>
+
+                <!-- Seuil de Stock Minimum -->
+                <div class="mb-4">
+                    <label for="minStockLevel" class="block text-gray-700 text-sm font-medium mb-2">Seuil de Stock
+                        Minimum</label>
+                    <input type="number" id="minStockLevel" name="minStockLevel"
+                        class="w-full p-3 border border-gray-300 rounded-md"
+                        placeholder="Quantité minimale avant alerte">
+                </div>
+
+                <!-- Notifications pour Stock bas -->
+                <div class="mb-4">
+                    <label for="lowStockNotification" class="block text-gray-700 text-sm font-medium mb-2">Notification
+                        Stock Bas</label>
+                    <select id="lowStockNotification" name="lowStockNotification"
+                        class="w-full p-3 border border-gray-300 rounded-md">
+                        <option value="1">Oui</option>
+                        <option value="0">Non</option>
+                    </select>
+                </div>
+
+                <h2 class="text-xl font-semibold text-purple-600 mb-4 mt-8">Paramètres de Paiement</h2>
+
+                <!-- Mode de Paiement -->
+                <div class="mb-4">
+                    <label for="paymentMethod" class="block text-gray-700 text-sm font-medium mb-2">Méthode de
+                        Paiement</label>
+                    <select id="paymentMethod" name="paymentMethod"
+                        class="w-full p-3 border border-gray-300 rounded-md">
+                        <option value="creditCard">Carte de Crédit</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="cashOnDelivery">Paiement à la livraison</option>
+                    </select>
+                </div>
+
+                <!-- Accepter crypto -->
+                <div class="mb-4">
+                    <label for="enableCryptoPayments" class="block text-gray-700 text-sm font-medium mb-2">Accepter les
+                        Cryptomonnaies</label>
+                    <select id="enableCryptoPayments" name="enableCryptoPayments"
+                        class="w-full p-3 border border-gray-300 rounded-md">
+                        <option value="1">Oui</option>
+                        <option value="0">Non</option>
+                    </select>
+                </div>
+
+                <!-- Bouton -->
+                <div class="mt-8 flex justify-center">
+                    <button type="submit"
+                        class="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition duration-300">
+                        Sauvegarder les Paramètres
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('settingsForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Récupérer toutes les valeurs via FormData
+            const formData = new FormData(this);
+            const params = Object.fromEntries(formData.entries());
+
+            console.log('Paramètres sauvegardés :', params);
+
+            // Ici tu pourras remplacer par un fetch POST vers ton backend
+            alert('✅ Les paramètres ont été sauvegardés avec succès !');
+        });
+    </script>
+</body>
+
+</html>

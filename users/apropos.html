@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Élégance Parfumée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1774&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #8b5cf6;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px #8b5cf6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
+                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
+                <a href="./apropos.html" class="text-purple-600 font-semibold transition">À propos</a>
+                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
+            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
+            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
+            <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
+            <a href="./apropos.html" class="block py-2 text-purple-600 font-semibold transition">À propos</a>
+            <a href="../visiteur.html" id="logout" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">Notre Histoire</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Découvrez l'univers d'Élégance Parfumée et notre passion pour les fragrances d'exception</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Qui sommes-nous ?</h2>
+                
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-gray-600 mb-6">
+                        Fondée en 2010, Élégance Parfumée est née de la passion pour les fragrances rares et authentiques. 
+                        Notre maison de parfums allie savoir-faire traditionnel et innovation pour créer des senteurs uniques 
+                        qui racontent une histoire et subliment la personnalité de chacun.
+                    </p>
+                    
+                    <p class="text-gray-600 mb-6">
+                        Nous sélectionnons rigoureusement nos ingrédients auprès des meilleurs producteurs à travers le monde, 
+                        privilégiant toujours la qualité et la durabilité. Chaque flacon est une invitation au voyage, une 
+                        expérience olfactive qui éveille les sens et suscite l'émotion.
+                    </p>
+                    
+                    <p class="text-gray-600 mb-6">
+                        Notre équipe de parfumeurs talentueux crée des compositions uniques en harmonie avec les tendances 
+                        contemporaines tout en respectant les traditions de la parfumerie française.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Nos Valeurs</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Durabilité</h3>
+                    <p class="text-gray-600">Nous nous engageons à réduire notre impact environnemental en utilisant des ingrédients durables et des emballages écologiques.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-star text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Qualité</h3>
+                    <p class="text-gray-600">Chaque parfum est le résultat d'un processus de création exigeant et d'une sélection rigoureuse des matières premières.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heart text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Passion</h3>
+                    <p class="text-gray-600">Notamour pour les belles fragrances se traduit dans chaque création, chaque détail, chaque expérience client.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Notre Histoire</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">2010</h3>
+                        <p class="text-gray-600">Fondation d'Élégance Parfumée par Sophie Laurent, passionnée de parfumerie.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">2012</h3>
+                        <p class="text-gray-600">Lancement de notre première collection signature avec 5 fragrances uniques.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">2015</h3>
+                        <p class="text-gray-600">Ouverture de notre première boutique flagship à Paris, rue Saint-Honoré.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">2018</h3>
+                        <p class="text-gray-600">Lancement de notre ligne de parfums biologiques et durables.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">2020</h3>
+                        <p class="text-gray-600">Expansion internationale avec l'ouverture de boutiques à New York et Tokyo.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">2023</h3>
+                        <p class="text-gray-600">Lancement de notre programme de personnalisation de parfums sur mesure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Notre Équipe</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1 text-gray-800">Sophie Laurent</h3>
+                    <p class="text-purple-600 mb-3">Fondatrice & Directrice Créative</p>
+                    <p class="text-gray-600">Ancienne nez chez plusieurs grandes maisons, Sophie apporte son expertise et sa vision unique.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1 text-gray-800">Thomas Martin</h3>
+                    <p class="text-purple-600 mb-3">Maître Parfumeur</p>
+                    <p class="text-gray-600">Avec 20 ans d'expérience, Thomas crée des fragrances qui racontent des histoires et éveillent les émotions.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1 text-gray-800">Camille Dubois</h3>
+                    <p class="text-purple-600 mb-3">Responsable Développement Durable</p>
+                    <p class="text-gray-600">Camille veille à ce que nos pratiques respectent l'environnement et les communautés avec lesquelles nous travaillons.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1 text-gray-800">Jean Lefèvre</h3>
+                    <p class="text-purple-600 mb-3">Directeur Commercial</p>
+                    <p class="text-gray-600">Jean assure le développement de notre présence en France et à l'international avec passion et détermination.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-sm p-8 md:p-12">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Contactez-nous</h2>
+                
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-gray-700 mb-2">Nom complet</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-gray-700 mb-2">Adresse email</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="subject" class="block text-gray-700 mb-2">Sujet</label>
+                        <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="message" class="block text-gray-700 mb-2">Message</label>
+                        <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                    </div>
+                    
+                    <div class="md:col-span-2 text-center">
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded transition">
+                            Envoyer le message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-spray-can text-2xl text-purple-400"></i>
+                        <h3 class="text-xl font-bold">Élégance Parfumée</h3>
+                    </div>
+                    <p class="text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Boutique</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
+                        <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
+                        <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
+                        <li><a href="./collections.html" class="text-gray-400 hover:text-white transition">Collections</a></li>
+                        <li><a href="./apropos.html" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                        <li><a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Informations</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Paiement sécurisé</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Retours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Conditions générales</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">12 Rue des Parfums, 75001 Paris</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
+                            <span class="text-gray-400">01 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                            <span class="text-gray-400">contact@elegance-parfumee.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Élégance Parfumée. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+  <!-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ==========================
+    // Gestion de la déconnexion
+    // ==========================
+    const logoutLinks = document.querySelectorAll("#logout");
+    const token = localStorage.getItem("token");
+
+    if (token && logoutLinks.length > 0) {
+      logoutLinks.forEach(link => link.classList.remove("hidden"));
+
+      logoutLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("token");
+          localStorage.removeItem("role");
+          localStorage.removeItem("cart");
+          window.location.href = "../visiteur.html"; // redirection après logout
+        });
+      });
+    }
+
+    // ==========================
+    // Gestion du panier
+    // ==========================
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCountEl = document.getElementById("cart-count");
+
+    if (cartCountEl) {
+      cartCountEl.textContent = cart.reduce((total, item) => total + item.quantity, 0) || 0;
+    }
+
+    // ==========================
+    // Menu mobile
+    // ==========================
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    }
+  });
+</script>-->
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  // ==========================
+  // Vérification connexion
+  // ==========================
+  const logoutLinks = document.querySelectorAll("#logout");
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    // Si connecté → Déconnexion
+    logoutLinks.forEach(link => {
+      link.textContent = "Déconnexion";
+      link.classList.remove("hidden");
+      link.href = "#"; // lien neutre
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("cart");
+        window.location.href = "../visiteur.html"; // redirection logout
+      });
+    });
+  } else {
+    // Si pas connecté → Connexion
+    logoutLinks.forEach(link => {
+      link.textContent = "Connexion";
+      link.classList.remove("hidden");
+      link.href = "../utils/login.html";
+    });
+  }
+
+  // ==========================
+  // Gestion du panier (localStorage)
+  // ==========================
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) {
+    cartCountEl.textContent =
+      cart.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+
+  // ==========================
+  // Synchronisation panier avec la BD si connecté
+  // ==========================
+  async function syncCartFromLocal() {
+    if (!token || !cart.length) return;
+
+    try {
+      const response = await fetch("http://localhost:2025/api/cart/sync", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ cart }),
+      });
+
+      if (response.ok) {
+        console.log("✅ Panier synchronisé avec la BD");
+        localStorage.removeItem("cart"); // vider panier local
+        cart = []; // reset en mémoire
+      } else {
+        console.error("❌ Erreur lors de la synchro panier");
+      }
+    } catch (err) {
+      console.error("⚠️ Impossible de synchroniser le panier :", err);
+    }
+  }
+
+  if (token) {
+    await syncCartFromLocal();
+  }
+
+  // ==========================
+  // Menu mobile
+  // ==========================
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parfums Homme - Élégance Parfumée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1594035910340-707d0b3097ac?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Styles mobile */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: white;
+                z-index: 40;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            }
+
+            #mobile-filters {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: white;
+                z-index: 40;
+                padding: 1rem;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            }
+
+            #productsContainer {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 1rem;
+                padding: 0.5rem;
+            }
+
+            .product-card {
+                margin-bottom: 1rem;
+            }
+
+            .hero-bg {
+                padding: 2rem 1rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <!-- Barre principale -->
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+                    <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+                </div>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
+                    <a href="./homme.html" class="text-purple-600 font-semibold transition">Homme</a>
+                    <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
+                    <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
+                    <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
+                    <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button id="mobile-filter-btn" class="md:hidden text-gray-600">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                    <button id="search-btn" class="text-gray-600">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button id="cart-btn" class="relative text-gray-600">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtres mobiles -->
+            <div id="mobile-filters" class="md:hidden mt-4 hidden">
+                <div class="space-y-2">
+                    <select id="sortSelect-mobile" class="w-full p-2 border rounded">
+                        <option value="">Trier par</option>
+                        <option value="prixAsc">Prix croissant</option>
+                        <option value="prixDesc">Prix décroissant</option>
+                        <option value="nouveautes">Nouveautés</option>
+                    </select>
+                    <select id="categorySelect-mobile" class="w-full p-2 border rounded">
+                        <option value="">Famille olfactive</option>
+                        <option value="Boisé">Boisé</option>
+                        <option value="Oriental">Oriental</option>
+                        <option value="Frais">Frais</option>
+                        <option value="Épicé">Épicé</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">Parfums Homme</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Des fragrances affirmées pour l'homme moderne</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Notre collection Homme</h2>
+                <div class="flex space-x-4">
+                    <select id="sortSelect" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Trier par</option>
+                        <option value="prixAsc">Prix croissant</option>
+                        <option value="prixDesc">Prix décroissant</option>
+                        <option value="nouveautes">Nouveautés</option>
+                    </select>
+                    <select id="categorySelect" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Famille olfactive</option>
+                        <option value="Boisé">Boisé</option>
+                        <option value="Oriental">Oriental</option>
+                        <option value="Frais">Frais</option>
+                        <option value="Épicé">Épicé</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Container pour les produits -->
+            <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Les produits seront injectés ici dynamiquement -->
+            </div>
+
+            <!-- Pagination -->
+            <div id="pagination" class="mt-12 flex justify-center">
+                <!-- La pagination sera générée dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-spray-can text-2xl text-purple-400"></i>
+                        <h3 class="text-xl font-bold">Élégance Parfumée</h3>
+                    </div>
+                    <p class="text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Boutique</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
+                        <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
+                        <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
+                        <li><a href="./collections.html" class="text-gray-400 hover:text-white transition">Collections</a></li>
+                        <li><a href="./apropos.html" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                        <li><a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Informations</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Paiement sécurisé</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Retours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Conditions générales</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">12 Rue des Parfums, 75001 Paris</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
+                            <span class="text-gray-400">01 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                            <span class="text-gray-400">contact@elegance-parfumee.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Élégance Parfumée. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const logoutLink = document.getElementById("logout");
+
+    // Vérifie si un token existe dans le localStorage
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      // Si connecté -> affiche Déconnexion
+      logoutLink.classList.remove("hidden");
+
+      // Action quand on clique sur Déconnexion
+      logoutLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("cart");
+        window.location.href = "../visiteur.html"; // redirection après logout
+      });
+    } else {
+      // Si pas connecté -> masque le bouton (sécurité)
+      logoutLink.classList.add("hidden");
+    }
+  });
+</script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Fonction pour charger les produits
+            async function loadProducts(page = 1, sort = '', category = '') {
+                try {
+                    //let url = `http://localhost:2025/api/products/genre/Homme`;
+                    let url = `https://luxeparfum-backend.onrender.com/api/products/genre/Homme`;
+                    // Ajout des paramètres de requête
+                    const params = new URLSearchParams();
+                    if (page) params.append('page', page);
+                    if (sort) params.append('sort', sort);
+                    if (category) params.append('categorie', category);
+                    
+                    // Ajout des paramètres à l'URL si présents
+                    if (params.toString()) {
+                        url += `?${params.toString()}`;
+                    }
+
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    return null;
+                }
+            }
+
+            // Fonction pour générer le HTML d'un produit
+            function createProductCard(product) {
+                return `
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm transition duration-300 hover:shadow-md">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="${product.imagePath}" 
+                                 alt="${product.nom}" 
+                                 class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800">${product.nom}</h3>
+                            <p class="text-sm text-gray-500">${product.categorie}</p>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="font-bold text-gray-800">${product.prix.toFixed(2)} €</span>
+                                <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition"
+                                        data-product-id="${product.id}">
+                                    <i class="fas fa-plus mr-1"></i> Ajouter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Fonction pour afficher les produits
+            async function displayProducts() {
+                const productsContainer = document.getElementById('productsContainer');
+                const sortSelect = document.getElementById('sortSelect');
+                const categorySelect = document.getElementById('categorySelect');
+
+                const products = await loadProducts(1, sortSelect.value, categorySelect.value);
+                if (!products) return;
+
+                productsContainer.innerHTML = products.items
+                    .map(product => createProductCard(product))
+                    .join('');
+            }
+
+            // Event listeners pour le tri et le filtrage
+            document.getElementById('sortSelect').addEventListener('change', displayProducts);
+            document.getElementById('categorySelect').addEventListener('change', displayProducts);
+
+            // Chargement initial des produits
+            await displayProducts();
+        });
+    </script>
+
+    <!-- Mise à jour du script pour gérer les filtres mobiles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileFilterBtn = document.getElementById('mobile-filter-btn');
+            const mobileFilters = document.getElementById('mobile-filters');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Toggle menu mobile
+            mobileMenuBtn?.addEventListener('click', () => {
+                mobileMenu?.classList.toggle('hidden');
+                mobileFilters?.classList.add('hidden');
+            });
+
+            // Toggle filtres mobiles
+            mobileFilterBtn?.addEventListener('click', () => {
+                mobileFilters?.classList.toggle('hidden');
+                mobileMenu?.classList.add('hidden');
+            });
+
+            // Synchroniser les filtres mobile et desktop
+            const sortSelectMobile = document.getElementById('sortSelect-mobile');
+            const categorySelectMobile = document.getElementById('categorySelect-mobile');
+            const sortSelect = document.getElementById('sortSelect');
+            const categorySelect = document.getElementById('categorySelect');
+
+            sortSelectMobile?.addEventListener('change', (e) => {
+                if (sortSelect) sortSelect.value = e.target.value;
+                sortSelect?.dispatchEvent(new Event('change'));
+            });
+
+            categorySelectMobile?.addEventListener('change', (e) => {
+                if (categorySelect) categorySelect.value = e.target.value;
+                categorySelect?.dispatchEvent(new Event('change'));
+            });
+        });
+    </script>
+
+    <!-- Mise à jour du script mobile -->
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileFilterBtn = document.getElementById('mobile-filter-btn');
+    const mobileFilters = document.getElementById('mobile-filters');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Toggle menu mobile
+    mobileMenuBtn?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+        mobileFilters?.classList.add('hidden');
+    });
+
+    // Toggle filtres mobiles
+    mobileFilterBtn?.addEventListener('click', () => {
+        mobileFilters?.classList.toggle('hidden');
+        mobileMenu?.classList.add('hidden');
+    });
+
+    // Fermer les menus en cliquant à l'extérieur
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('#mobile-menu') && 
+            !event.target.closest('#mobile-menu-btn') && 
+            !event.target.closest('#mobile-filters') && 
+            !event.target.closest('#mobile-filter-btn')) {
+            
+            mobileMenu?.classList.add('hidden');
+            mobileFilters?.classList.add('hidden');
+        }
+    });
+
+    // Fermer les menus au scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > lastScroll) {
+            mobileMenu?.classList.add('hidden');
+            mobileFilters?.classList.add('hidden');
+        }
+        lastScroll = currentScroll;
+    });
+});
+</script>
+
+</body>
+</html>
