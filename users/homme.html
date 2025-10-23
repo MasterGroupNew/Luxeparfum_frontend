@@ -92,76 +92,58 @@
 <body class="bg-gray-50 font-sans">
 
   <!-- Header -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3">
-      <!-- Barre principale -->
-      <div class="flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-          <button id="mobile-menu-btn" class="mobile-menu-btn text-gray-600">
-            <i class="fas fa-bars text-xl"></i>
-          </button>
-          <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-          <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="../visiteur.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
+                <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
+                <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
+                <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
+                <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
+                <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count"
+                        class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
 
-        <!-- Menu mobile -->
-        <div id="mobile-menu" class="mobile-menu">
-          <div class="flex flex-col space-y-4">
-            <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition py-2 border-b border-gray-100">Accueil</a>
-            <a href="./homme.html" class="text-purple-600 font-semibold transition py-2 border-b border-gray-100">Homme</a>
-            <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition py-2 border-b border-gray-100">Femme</a>
-            <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition py-2 border-b border-gray-100">Collections</a>
-            <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition py-2 border-b border-gray-100">À propos</a>
-            <a href="../utils/login.html" id="auth-link-mobile" class="text-gray-700 hover:text-purple-600 transition py-2 border-b border-gray-100">Connexion</a>
-          </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="../visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
+            <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
+            <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
+            <a href="../users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
+            <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
+            <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
         </div>
 
-        <nav class="hidden md:flex space-x-8 items-center">
-          <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-          <a href="./homme.html" class="text-purple-600 font-semibold transition">Homme</a>
-          <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-          <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-          <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-          <a href="../utils/login.html" id="auth-link" class="text-gray-700 hover:text-purple-600 transition">Connexion</a>
-        </nav>
-
-        <div class="flex items-center space-x-4">
-          <button id="mobile-filter-btn" class="mobile-filters-btn text-gray-600">
-            <i class="fas fa-filter"></i>
-          </button>
-          <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-            <i class="fas fa-search"></i>
-          </button>
-          <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-            <i class="fas fa-shopping-cart"></i>
-            <span id="cart-count"
-              class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              0
-            </span>
-          </button>
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
+            <div class="container mx-auto flex">
+                <input type="text" placeholder="Rechercher un parfum..."
+                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
-      </div>
-
-      <!-- Filtres mobiles -->
-      <div id="mobile-filters" class="mobile-filters-btn mt-4 hidden">
-        <div class="space-y-2">
-          <select id="sortSelect-mobile" class="w-full p-2 border rounded">
-            <option value="">Trier par</option>
-            <option value="prixAsc">Prix croissant</option>
-            <option value="prixDesc">Prix décroissant</option>
-          </select>
-          <select id="categorySelect-mobile" class="w-full p-2 border rounded">
-            <option value="">Famille olfactive</option>
-            <option value="Boisé">Boisé</option>
-            <option value="Oriental">Oriental</option>
-            <option value="Frais">Frais</option>
-            <option value="Épicé">Épicé</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </header>
-
+    </header>
   <!-- Hero -->
   <section class="hero-bg text-white py-20 md:py-32 text-center">
     <h2 class="text-4xl md:text-6xl font-bold mb-4">Parfums Homme</h2>
@@ -415,35 +397,16 @@
         window.location.href = './checkout.html';
       });
 
-      // =====================
-      // MENU MOBILE
-      // =====================
-      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-      const mobileMenu = document.getElementById("mobile-menu");
-      const mobileFilterBtn = document.getElementById("mobile-filter-btn");
-      const mobileFilters = document.getElementById("mobile-filters");
-
-      mobileMenuBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        mobileMenu?.classList.toggle("active");
-        mobileFilters?.classList.add("hidden");
-      });
-
-      mobileFilterBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        mobileFilters?.classList.toggle("hidden");
-        mobileMenu?.classList.remove("active");
-      });
-
-      // Fermer les menus en cliquant à l'extérieur
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('#mobile-menu') && !e.target.closest('#mobile-menu-btn')) {
-          mobileMenu?.classList.remove('active');
-        }
-        if (!e.target.closest('#mobile-filters') && !e.target.closest('#mobile-filter-btn')) {
-          mobileFilters?.classList.add('hidden');
-        }
-      });
+     // =====================
+    // Mobile menu toggle
+    // =====================
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+        });
+    }
 
       // =====================
       // CONNEXION / DÉCONNEXION

@@ -87,55 +87,59 @@
 </head>
 <body class="bg-gray-50 font-sans">
 
-  <!-- Header -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center space-x-3">
-        <button id="mobile-menu-btn" class="text-gray-600 md:hidden">
-          <i class="fas fa-bars text-xl"></i>
-        </button>
-        <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-        <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
-      </div>
+ <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+            </div>
 
-      <nav class="hidden md:flex space-x-8 items-center">
-        <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-        <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-        <a href="./femme.html" class="text-purple-600 font-semibold transition">Femme</a>
-        <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-        <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-        <a href="../utils/login.html" id="auth-link" class="text-gray-700 hover:text-purple-600 transition">Connexion</a>
-      </nav>
+            <nav class="hidden md:flex space-x-8">
+                <a href="../visiteur.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
+                <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
+                <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
+                <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
+                <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
+                <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+            </nav>
 
-      <div class="flex items-center space-x-4">
-        <button id="mobile-filter-btn" class="mobile-filters-btn text-gray-600">
-          <i class="fas fa-filter"></i>
-        </button>
-        <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-          <i class="fas fa-search"></i>
-        </button>
-        <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cart-count"
-            class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-            0
-          </span>
-        </button>
-      </div>
-    </div>
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count"
+                        class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
 
-    <!-- Menu mobile -->
-    <div id="mobile-menu" class="mobile-menu">
-      <div class="flex flex-col space-y-4">
-        <a href="./index.html" class="text-gray-700 hover:text-purple-600">Accueil</a>
-        <a href="./homme.html" class="text-gray-700 hover:text-purple-600">Homme</a>
-        <a href="./femme.html" class="text-purple-600 font-semibold">Femme</a>
-        <a href="./collections.html" class="text-gray-700 hover:text-purple-600">Collections</a>
-        <a href="./apropos.html" class="text-gray-700 hover:text-purple-600">À propos</a>
-        <a href="../utils/login.html" id="auth-link-mobile" class="text-gray-700 hover:text-purple-600">Connexion</a>
-      </div>
-    </div>
-  </header>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="../visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
+            <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
+            <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
+            <a href="../users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
+            <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
+            <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+        </div>
+
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
+            <div class="container mx-auto flex">
+                <input type="text" placeholder="Rechercher un parfum..."
+                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
   <!-- Hero -->
   <section class="hero-bg text-white py-20 md:py-32 text-center">

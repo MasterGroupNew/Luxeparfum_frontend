@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
     <style>
         .hero-bg {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1595425970377-2f8ded5e803a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');
+                        url('https://images.unsplash.com/photo-1595425970377-2f8ded5e803a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
             background-size: cover;
             background-position: center;
         }
@@ -29,8 +30,8 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
 
+<body class="bg-gray-50 font-sans">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -40,14 +41,13 @@
             </div>
 
             <nav class="hidden md:flex space-x-8">
-                <a href="./index.html" class="text-purple-600 font-semibold">Accueil</a>
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
                 <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
                 <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
                 <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
                 <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-                <a href="./profiles.html" id="profile-link" class="text-gray-700 hover:text-purple-600 transition hidden">Mon Profil</a>
+                 <a href="./profiles.html" id="profile-link" class="text-gray-700 hover:text-purple-600 transition hidden">Mon Profil</a>
                 <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
-                <a href="../utils/login.html" id="login-link" class="text-gray-700 hover:text-purple-600 transition">Connexion</a>
             </nav>
 
             <div class="flex items-center space-x-4">
@@ -65,78 +65,248 @@
             </div>
         </div>
 
-        <!-- Menu Mobile -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
             <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
             <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
             <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
             <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
             <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-            <a href="./profiles.html" id="mobile-profile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Mon Profil</a>
-            <a href="../visiteur.html" id="mobile-logout" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
-            <a href="../utils/login.html" id="mobile-login" class="block py-2 text-gray-700 hover:text-purple-600 transition">Connexion</a>
+            <a href="./profiles.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Mon Profil</a>
+            <a href="../visiteur.html" id="mobile-logout" class="block py-2 text-gray-700 hover:text-purple-600 transition">Déconnexion</a>
+        </div>
+
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
+            <div class="container mx-auto flex">
+                <input type="text" placeholder="Rechercher un parfum..."
+                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-bg text-white py-20 md:py-32 text-center">
-        <h2 class="text-4xl md:text-6xl font-bold mb-4">Découvrez votre signature olfactive</h2>
-        <p class="text-xl md:text-2xl mb-8">Des fragrances uniques qui racontent votre histoire</p>
-        <button
-            class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105">
-            Explorer la collection
-        </button>
+    <section class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">Découvrez votre signature olfactive</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Des fragrances uniques qui racontent votre histoire
+            </p>
+            <button
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105">
+                Explorer la collection
+            </button>
+        </div>
+    </section>
+    <!-- Featured Categories -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Nos Catégories</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div id="femmes" class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80');"></div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Parfums Femmes</h3>
+                        <p class="text-gray-600 mb-3">Fragrances florales et fruitées</p>
+                        <a href="./femme.html" class="text-purple-600 font-medium hover:underline">Voir collection</a>
+                    </div>
+                </div>
+                
+                <div id="hommes" class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1595425964073-0be69ec587b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80');"></div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Parfums Hommes</h3>
+                        <p class="text-gray-600 mb-3">Fragrances boisées et épicées</p>
+                        <a href="./homme.html" class="text-purple-600 font-medium hover:underline">Voir collection</a>
+                    </div>
+                </div>
+                
+                <div id="collections" class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1615368144592-84ff1454233b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80');"></div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Parfums Unisexes</h3>
+                        <p class="text-gray-600 mb-3">Fragrances universelles</p>
+                        <a href="#" class="text-purple-600 font-medium hover:underline">Voir collection</a>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');"></div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Collections Limitées</h3>
+                        <p class="text-gray-600 mb-3">Éditions exclusives</p>
+                        <a href="./collections.html" class="text-purple-600 font-medium hover:underline">Voir collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Products -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Nos best-sellers</h2>
+                <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                    Voir tout <i class="fas fa-chevron-right ml-2 text-sm"></i>
+                </a>
+            </div>
+
+            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center py-8">
+                    <i class="fas fa-spinner fa-spin text-4xl text-purple-600 mb-3"></i>
+                    <p>Chargement des produits...</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- le reste de ta page reste inchangé -->
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg max-w-md w-full p-6 relative">
+            <button id="close-product-modal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modal-image" src="" alt="" class="w-full h-64 object-cover mb-4 rounded">
+            <h3 id="modal-name" class="text-xl font-bold mb-2"></h3>
+            <p id="modal-category" class="text-gray-500 mb-2"></p>
+            <p id="modal-description" class="text-gray-600 mb-4"></p>
+            <span id="modal-price" class="font-bold text-gray-800 text-lg"></span>
+        </div>
+    </div>
+ <!-- Newsletter -->
+    <section class="py-12 bg-purple-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Abonnez-vous à notre newsletter</h2>
+            <p class="mb-8 max-w-2xl mx-auto">Recevez en exclusivité nos offres spéciales, nouveautés et conseils parfum.</p>
+            
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Votre email" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button type="submit" class="bg-purple-800 hover:bg-purple-900 px-6 py-3 rounded-r-lg font-medium transition duration-300">
+                    S'abonner
+                </button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-spray-can text-2xl text-purple-400 mr-2"></i>
+                        <h3 class="text-xl font-bold">Élégance <span class="text-purple-400">Parfumée</span></h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Votre destination premium pour des fragrances exceptionnelles.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Boutique</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Nouveautés</a></li>
+                        <li><a href="./femme.html" class="text-gray-400 hover:text-white">Parfums Femmes</a></li>
+                        <li><a href="./homme.html" class="text-gray-400 hover:text-white">Parfums Hommes</a></li>
+                        <li><a href="./collections.html" class="text-gray-400 hover:text-white">Collections</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Offres spéciales</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Informations</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Retours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>123 Rue du Parfum, Paris</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <span>+33 1 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>contact@luxeparfum.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Élégance Parfumée. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Conditions générales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar"
+        class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800">Votre panier</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const token = localStorage.getItem("token");
+            <div id="cart-items" class="space-y-4">
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-shopping-cart text-4xl mb-3 opacity-30"></i>
+                    <p>Votre panier est vide</p>
+                </div>
+            </div>
 
-            const profileLink = document.getElementById("profile-link");
-            const logoutLink = document.getElementById("logout");
-            const loginLink = document.getElementById("login-link");
+            <div class="border-t border-gray-200 mt-6 pt-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Sous-total</span>
+                    <span id="cart-subtotal" class="font-medium">0,00 FCFA</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-600">Livraison</span>
+                    <span class="font-medium">Gratuite</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold">
+                    <span>Total</span>
+                    <span id="cart-total">0,00 FCFA</span>
+                </div>
 
-            const mobileProfile = document.getElementById("mobile-profile");
-            const mobileLogout = document.getElementById("mobile-logout");
-            const mobileLogin = document.getElementById("mobile-login");
+                <button id="checkout-btn"
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded mt-6 transition">
+                    Passer la commande
+                </button>
 
-            if (token) {
-                // ✅ Connecté
-                profileLink.classList.remove("hidden");
-                logoutLink.classList.remove("hidden");
-                loginLink.classList.add("hidden");
-
-                mobileProfile.classList.remove("hidden");
-                mobileLogout.classList.remove("hidden");
-                mobileLogin.classList.add("hidden");
-
-                const logoutHandler = (e) => {
-                    e.preventDefault();
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("role");
-                    localStorage.removeItem("cart");
-                    window.location.href = "../visiteur.html";
-                };
-
-                logoutLink.addEventListener("click", logoutHandler);
-                mobileLogout.addEventListener("click", logoutHandler);
-
-            } else {
-                // 🚫 Non connecté
-                profileLink.classList.add("hidden");
-                logoutLink.classList.add("hidden");
-                loginLink.classList.remove("hidden");
-
-                mobileProfile.classList.add("hidden");
-                mobileLogout.classList.add("hidden");
-                mobileLogin.classList.remove("hidden");
-            }
-        });
-    </script>
+                <a href="#" class="block text-center text-purple-600 hover:text-purple-800 mt-3">
+                    Continuer mes achats
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="cart-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
     <script src="./Script/userScript.js"></script>
     <script src="../scripts/script.js"></script>
 </body>
+
 </html>
