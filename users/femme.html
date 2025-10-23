@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     .hero-bg {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                  url('https://images.unsplash.com/photo-1594035910387-f35580358dc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=880&q=80');
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://images.unsplash.com/photo-1594035910387-f35580358dc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=880&q=80');
       background-size: cover;
       background-position: center;
     }
@@ -45,7 +46,7 @@
         z-index: 50;
         transition: top 0.3s ease-in-out;
         padding: 1rem;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       }
 
       .mobile-menu.active {
@@ -85,61 +86,63 @@
     }
   </style>
 </head>
+
 <body class="bg-gray-50 font-sans">
 
- <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
-            </div>
+  <!-- Header -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+        <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+      </div>
 
-            <nav class="hidden md:flex space-x-8">
-                <a href="../visiteur.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-                <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
-            </nav>
+      <nav class="hidden md:flex space-x-8">
+        <a href="../visiteur.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
+        <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
+        <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
+        <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
+        <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
+        <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+      </nav>
 
-            <div class="flex items-center space-x-4">
-                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-search"></i>
-                </button>
-                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count"
-                        class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </button>
-                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
+      <div class="flex items-center space-x-4">
+        <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+          <i class="fas fa-search"></i>
+        </button>
+        <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart-count"
+            class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+        </button>
+        <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
-            <a href="../visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-            <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-            <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-            <a href="../users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-            <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-            <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
-        </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+      <a href="../visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
+      <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
+      <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
+      <a href="../users/collections.html"
+        class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
+      <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
+      <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+    </div>
 
-        <!-- Search Bar -->
-        <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
-            <div class="container mx-auto flex">
-                <input type="text" placeholder="Rechercher un parfum..."
-                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </header>
+    <!-- Search Bar -->
+    <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
+      <div class="container mx-auto flex">
+        <input type="text" placeholder="Rechercher un parfum..."
+          class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </header>
 
   <!-- Hero -->
   <section class="hero-bg text-white py-20 md:py-32 text-center">
@@ -184,7 +187,7 @@
 
   <!-- Panier Sidebar -->
   <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-  
+
   <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full bg-white z-50 overflow-y-auto">
     <div class="p-6">
       <!-- En-tête du panier -->
@@ -201,7 +204,7 @@
           <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-4"></i>
           <p class="text-gray-500">Votre panier est vide</p>
         </div>
-        
+
         <div id="cart-items" class="hidden">
           <!-- Les articles du panier seront ajoutés ici -->
         </div>
@@ -213,12 +216,14 @@
           <span class="text-lg font-semibold">Total:</span>
           <span id="cart-total" class="text-lg font-bold text-purple-600">0 FCFA</span>
         </div>
-        
-        <button id="checkout-btn" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300">
+
+        <button id="checkout-btn"
+          class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300">
           Commander maintenant
         </button>
-        
-        <button id="continue-shopping" class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 mt-2">
+
+        <button id="continue-shopping"
+          class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 mt-2">
           Continuer mes achats
         </button>
       </div>
@@ -261,7 +266,7 @@
           emptyCart.classList.add('hidden');
           cartItems.classList.remove('hidden');
           cartSummary.classList.remove('hidden');
-          
+
           // Afficher les articles
           cartItems.innerHTML = cart.map(item => `
             <div class="flex items-center space-x-4 py-4 border-b border-gray-200" data-product-id="${item.id}">
@@ -289,13 +294,13 @@
           const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
           cartTotal.textContent = `${total.toFixed(2)} FCFA`;
         }
-        
+
         updateCartCount();
       }
 
       function addToCart(product) {
         const existingItem = cart.find(item => item.id === product.id);
-        
+
         if (existingItem) {
           existingItem.quantity += 1;
         } else {
@@ -303,13 +308,13 @@
             id: product.id,
             name: product.nom,
             price: product.prix,
-            image: product.imagePath ? 
+            image: product.imagePath ?
               `https://luxeparfum-backend.onrender.com/uploads/${product.imagePath.split('\\').pop()}` :
               'https://via.placeholder.com/300x300?text=Image+non+disponible',
             quantity: 1
           });
         }
-        
+
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartDisplay();
         showCartNotification('Produit ajouté au panier !');
@@ -369,7 +374,7 @@
         if (!target) return;
 
         const productId = target.dataset.id;
-        
+
         if (target.classList.contains('increase-qty')) {
           updateQuantity(productId, 1);
         } else if (target.classList.contains('decrease-qty')) {
@@ -381,14 +386,14 @@
 
       checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) return;
-        
+
         const token = localStorage.getItem('token');
         if (!token) {
           alert('Veuillez vous connecter pour passer commande');
           window.location.href = '../utils/login.html';
           return;
         }
-        
+
         // Rediriger vers la page de commande
         window.location.href = './checkout.html';
       });
@@ -405,28 +410,26 @@
       // =====================
       // CONNEXION / DÉCONNEXION
       // =====================
-      const authLink = document.getElementById("auth-link");
-      const authLinkMobile = document.getElementById("auth-link-mobile");
+      const authLinks = document.querySelectorAll("#login");
       const token = localStorage.getItem("token");
 
       if (token) {
-        authLink.textContent = "Déconnexion";
-        authLinkMobile.textContent = "Déconnexion";
-
-        const logoutHandler = (e) => {
-          e.preventDefault();
-          localStorage.clear();
-          window.location.href = "../visiteur.html";
-        };
-
-        authLink.addEventListener("click", logoutHandler);
-        authLinkMobile.addEventListener("click", logoutHandler);
+        authLinks.forEach(link => {
+          link.textContent = "Déconnexion";
+          link.href = "#";
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = "../visiteur.html";
+          });
+        });
       } else {
-        authLink.textContent = "Connexion";
-        authLink.href = "../utils/login.html";
-        authLinkMobile.textContent = "Connexion";
-        authLinkMobile.href = "../utils/login.html";
+        authLinks.forEach(link => {
+          link.textContent = "Se connecter";
+          link.href = "../utils/login.html";
+        });
       }
+
 
       // =====================
       // FONCTIONS PRODUITS
@@ -498,7 +501,7 @@
         }
 
         container.innerHTML = products.map(p => createProductCard(p)).join('');
-        
+
         // Ajouter les événements pour les boutons "Ajouter au panier"
         document.querySelectorAll('.add-to-cart').forEach(button => {
           button.addEventListener('click', (e) => {
@@ -517,4 +520,5 @@
     });
   </script>
 </body>
+
 </html>
