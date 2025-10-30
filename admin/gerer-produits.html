@@ -290,7 +290,7 @@
         if (!product) return;
         document.getElementById('detailImage').src = getProductImage(product, 200);
         document.getElementById('detailName').innerText = product.nom;
-        document.getElementById('detailCategory').innerText = product.categorie;
+        document.getElementById('detailCategory').innerText = getCategoryName(product.categoryId);
         document.getElementById('detailStock').innerText = product.quantite;
         document.getElementById('detailDescription').innerText = product.description || 'N/A';
         document.getElementById('detailPrice').innerText = product.prix || 'N/A';
@@ -334,7 +334,7 @@
         productToEdit = product;
         document.getElementById('editImagePreview').src = getProductImage(product, 200);
         document.getElementById('editName').value = product.nom;
-        document.getElementById('editCategory').value = product.categorie;
+        document.getElementById('editCategory').value = getCategoryName(product.categoryId);
         document.getElementById('editStock').value = product.quantite;
         document.getElementById('editDescription').value = product.description || '';
         document.getElementById('editPrice').value = product.prix || '';
@@ -366,11 +366,10 @@
             body: formData
           });
           if (response.ok) {
-            const updatedProduct = await response.json();
-            const index = products.findIndex(p => p.id === updatedProduct.id);
-            products[index] = updatedProduct;
-            displayProducts();
+            // Recharger tous les produits au lieu de mettre à jour localement
+            await fetchProducts();
             closeEditModal();
+            alert('Produit mis à jour avec succès !');
           } else {
             const err = await response.json();
             alert("Erreur mise à jour: " + err.error);

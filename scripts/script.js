@@ -102,19 +102,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     ? `https://luxeparfum-backend.onrender.com/uploads/${p.imagePath.split('\\').pop()}`
                     : 'https://via.placeholder.com/300x300?text=Image+Non+Disponible');
 
+            // Récupération du nom de la catégorie
+            const categoryName = p.categorie?.nom || 'Non catégorisé';
+
             return `
             <div class="parfum-card bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer transition p-4"
                 data-id="${p.id}"
                 data-name="${p.nom}"
                 data-price="${p.prix}"
-                data-category="${p.categorie}"
+                data-category="${categoryName}"
                 data-description="${p.description}"
                 data-image="${imgUrl}">
                 <div class="relative h-64 overflow-hidden">
                     <img src="${imgUrl}" alt="${p.nom}" class="w-full h-full object-cover parfum-image">
                 </div>
                 <h3 class="font-bold text-gray-800 mt-2">${p.nom}</h3>
-                <p class="text-sm text-gray-500">${p.categorie || 'Unisexe'}</p>
+                <p class="text-sm text-gray-500">${categoryName}</p>
                 <p class="text-gray-600 text-sm mt-1">${p.description}</p>
                 <div class="mt-2 flex justify-between items-center">
                     <span class="font-bold text-gray-800">${p.prix.toFixed(2)} FCFA</span>
