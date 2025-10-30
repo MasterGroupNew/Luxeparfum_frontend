@@ -96,10 +96,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         container.innerHTML = produits.map(p => {
+            // Extraction correcte du nom du fichier
+            const getImageFileName = (path) => {
+                if (!path) return null;
+                // Prend la dernière partie du chemin après le dernier '/'
+                const parts = path.split('/');
+                return parts[parts.length - 1];
+            };
+
             const imgUrl = p.image
                 ? p.image
                 : (p.imagePath
-                    ? `https://luxeparfum-backend.onrender.com/uploads/${p.imagePath.split('\\').pop()}`
+                    ? `https://luxeparfum-backend.onrender.com/uploads/${getImageFileName(p.imagePath)}`
                     : 'https://via.placeholder.com/300x300?text=Image+Non+Disponible');
 
             // Récupération du nom de la catégorie

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique des commandes - Élégance Parfumée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header existant... -->
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Historique des commandes</h1>
+
+        <div id="orders-container" class="space-y-6">
+            <!-- Les commandes seront injectées ici -->
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '../utils/login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('https://luxeparfum-backend.onrender.com/api/orders/user', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const orders = await response.json();
+                    displayOrders(orders);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+
+            function displayOrders(orders) {
+                const container = document.getElementById('orders-container');
+                
+                if (orders.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-12 bg-white rounded-lg shadow">
+                            <i class="fas fa-box-open text-4xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500">Aucune commande trouvée</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = orders.map(order => `
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <h2 class="text-lg font-semibold">Commande #${order.id}</h2>
+                                <p class="text-sm text-gray-500">
+                                    Passée le ${new Date(order.createdAt).toLocaleDateString()}
+                                </p>
+                            </div>
+                            <span class="px-4 py-2 rounded-full ${getStatusColor(order.status)}">
+                                ${getStatusText(order.status)}
+                            </span>
+                        </div>
+                        
+                        <div class="divide-y divide-gray-200">
+                            ${order.items.map(item => `
+                                <div class="py-4 flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <img src="${item.image}" alt="${item.name}" 
+                                             class="w-16 h-16 object-cover rounded">
+                                        <div class="ml-4">
+                                            <h3 class="font-medium">${item.name}</h3>
+                                            <p class="text-sm text-gray-500">Quantité: ${item.quantity}</p>
+                                        </div>
+                                    </div>
+                                    <p class="font-medium">${(item.price * item.quantity).toFixed(2)} FCFA</p>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold">Total</span>
+                                <span class="font-bold text-lg">${order.total.toFixed(2)} FCFA</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="suivi.html?orderId=${order.id}" 
+                               class="inline-block bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">
+                                Suivre la commande
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function getStatusColor(status) {
+                const colors = {
+                    'pending': 'bg-yellow-100 text-yellow-800',
+                    'processing': 'bg-blue-100 text-blue-800',
+                    'shipped': 'bg-green-100 text-green-800',
+                    'delivered': 'bg-green-100 text-green-800',
+                    'cancelled': 'bg-red-100 text-red-800'
+                };
+                return colors[status] || 'bg-gray-100 text-gray-800';
+            }
+
+            function getStatusText(status) {
+                const texts = {
+                    'pending': 'En attente',
+                    'processing': 'En traitement',
+                    'shipped': 'Expédiée',
+                    'delivered': 'Livrée',
+                    'cancelled': 'Annulée'
+                };
+                return texts[status] || status;
+            }
+        });
+    </script>
+</body>
+</html>

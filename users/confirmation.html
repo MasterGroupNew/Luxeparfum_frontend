@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de commande - Élégance Parfumée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes checkmark {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .checkmark-animate {
+            animation: checkmark 0.5s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <main class="container mx-auto px-4 py-16">
+        <div class="max-w-2xl mx-auto text-center">
+            <!-- Icône de succès -->
+            <div class="mb-8">
+                <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center checkmark-animate">
+                    <i class="fas fa-check text-4xl text-green-500"></i>
+                </div>
+            </div>
+
+            <!-- Message de confirmation -->
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">
+                Merci pour votre commande !
+            </h1>
+            <p class="text-gray-600 mb-8">
+                Votre commande a été confirmée et sera traitée dans les plus brefs délais.
+            </p>
+
+            <!-- Numéro de commande -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <p class="text-gray-600 mb-2">Numéro de commande</p>
+                <p class="text-2xl font-bold text-purple-600" id="orderNumber"></p>
+            </div>
+
+            <!-- Email de confirmation -->
+            <p class="text-sm text-gray-500 mb-8">
+                Un email de confirmation a été envoyé à l'adresse fournie.
+            </p>
+
+            <!-- Boutons d'action -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="./index.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition">
+                    Retour à l'accueil
+                </a>
+                <a href="./profil.html" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition">
+                    Voir mes commandes
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Récupération des paramètres d'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('orderId') || 'CMD' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        
+        // Affichage du numéro de commande
+        document.getElementById('orderNumber').textContent = orderId;
+
+        // Redirection si pas de token
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '../utils/login.html';
+        }
+    });
+    </script>
+</body>
+</html>

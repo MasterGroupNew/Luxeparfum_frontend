@@ -306,6 +306,9 @@
 
       function addToCart(product) {
         const existingItem = cart.find(item => item.id === product.id);
+        const imageUrl = product.imagePath 
+          ? `https://luxeparfum-backend.onrender.com/uploads/${product.imagePath.split('/').pop().split('\\').pop()}`
+          : 'https://via.placeholder.com/300x300?text=Image+non+disponible';
 
         if (existingItem) {
           existingItem.quantity += 1;
@@ -314,9 +317,7 @@
             id: product.id,
             name: product.nom,
             price: product.prix,
-            image: product.imagePath ?
-              `https://luxeparfum-backend.onrender.com/uploads/${product.imagePath.split('\\').pop()}` :
-              'https://via.placeholder.com/300x300?text=Image+non+disponible',
+            image: imageUrl,
             quantity: 1
           });
         }
@@ -463,8 +464,15 @@
       }
 
       function createProductCard(product) {
+        // Fonction pour extraire le nom du fichier
+        const getImageFileName = (path) => {
+          if (!path) return null;
+          const parts = path.split('/');
+          return parts[parts.length - 1];
+        };
+
         const img = product.imagePath
-          ? `https://luxeparfum-backend.onrender.com/uploads/${product.imagePath.split('\\').pop()}`
+          ? `https://luxeparfum-backend.onrender.com/uploads/${getImageFileName(product.imagePath)}`
           : 'https://via.placeholder.com/300x300?text=Image+non+disponible';
 
         return `
@@ -474,10 +482,10 @@
             </div>
             <div class="p-4">
               <h3 class="font-bold text-gray-800">${product.nom}</h3>
-              <p class="text-sm text-gray-500">${product.categorie || 'Unisexe'}</p>
+              <p class="text-sm text-gray-500">${product.categorie?.nom || 'Catégorie non définie'}</p>
               <div class="mt-3 flex justify-between items-center">
                 <span class="font-bold text-gray-800">${product.prix.toFixed(2)} FCFA</span>
-                <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition duration-300" data-product='${JSON.stringify(product).replace(/'/g, "&#39;")}'>
+                <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition duration-300" data-product='${JSON.stringify({...product, image: img}).replace(/'/g, "&#39;")}'>
                   <i class="fas fa-plus mr-1"></i> Ajouter
                 </button>
               </div>

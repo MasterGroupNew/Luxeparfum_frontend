@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi de commande - Élégance Parfumée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header existant... -->
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Suivi de votre commande</h1>
+
+            <div id="order-details" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <!-- Détails de la commande injectés ici -->
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-6">Statut de la livraison</h2>
+                <div id="tracking-steps" class="relative">
+                    <!-- Étapes de suivi injectées ici -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '../utils/login.html';
+                return;
+            }
+
+            const orderId = new URLSearchParams(window.location.search).get('orderId');
+            if (!orderId) {
+                window.location.href = 'historique.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://luxeparfum-backend.onrender.com/api/orders/${orderId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const order = await response.json();
+                    displayOrderDetails(order);
+                    displayTrackingSteps(order.status);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+
+            function displayOrderDetails(order) {
+                const container = document.getElementById('order-details');
+                container.innerHTML = `
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 class="text-xl font-semibold">Commande #${order.id}</h2>
+                            <p class="text-sm text-gray-500">Passée le ${new Date(order.createdAt).toLocaleDateString()}</p>
+                        </div>
+                        <span class="px-4 py-2 rounded-full ${getStatusColor(order.status)}">
+                            ${getStatusText(order.status)}
+                        </span>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-4">
+                        <h3 class="font-medium mb-2">Adresse de livraison</h3>
+                        <p class="text-gray-600">${order.shippingAddress}</p>
+                    </div>
+                `;
+            }
+
+            function displayTrackingSteps(currentStatus) {
+                const steps = [
+                    { status: 'pending', icon: 'shopping-cart', text: 'Commande reçue' },
+                    { status: 'processing', icon: 'box', text: 'En préparation' },
+                    { status: 'shipped', icon: 'truck', text: 'En cours de livraison' },
+                    { status: 'delivered', icon: 'check-circle', text: 'Livrée' }
+                ];
+
+                const container = document.getElementById('tracking-steps');
+                container.innerHTML = `
+                    <div class="flex items-center justify-between relative">
+                        ${steps.map((step, index) => `
+                            <div class="flex flex-col items-center relative z-10">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center ${
+                                    isStepCompleted(step.status, currentStatus)
+                                        ? 'bg-green-500 text-white'
+                                        : 'bg-gray-200 text-gray-500'
+                                }">
+                                    <i class="fas fa-${step.icon}"></i>
+                                </div>
+                                <p class="text-sm mt-2">${step.text}</p>
+                            </div>
+                        `).join('')}
+                        <div class="absolute left-0 right-0 h-1 bg-gray-200 top-5 -z-10"></div>
+                    </div>
+                `;
+            }
+
+            function isStepCompleted(stepStatus, currentStatus) {
+                const order = ['pending', 'processing', 'shipped', 'delivered'];
+                return order.indexOf(stepStatus) <= order.indexOf(currentStatus);
+            }
+
+            function getStatusColor(status) {
+                const colors = {
+                    'pending': 'bg-yellow-100 text-yellow-800',
+                    'processing': 'bg-blue-100 text-blue-800',
+                    'shipped': 'bg-green-100 text-green-800',
+                    'delivered': 'bg-green-100 text-green-800'
+                };
+                return colors[status] || 'bg-gray-100 text-gray-800';
+            }
+
+            function getStatusText(status) {
+                const texts = {
+                    'pending': 'En attente',
+                    'processing': 'En traitement',
+                    'shipped': 'En cours de livraison',
+                    'delivered': 'Livrée'
+                };
+                return texts[status] || status;
+            }
+        });
+    </script>
+</body>
+</html>

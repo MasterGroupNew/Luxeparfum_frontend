@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Connexion | Élégance Parfumée</title>
+  <title>Mon Profil | Élégance Parfumée</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -173,48 +173,57 @@
         </div>
     </header>
 
-  <!-- FORMULAIRE DE CONNEXION -->
-  <main class="min-h-screen flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 login-container">
-    <div class="max-w-6xl w-full mx-auto bg-white rounded-xl shadow-lg overflow-hidden md:flex md:max-h-[600px]">
-      <div class="md:w-1/2 parfum-bg text-white flex flex-col justify-center p-8 md:p-12 hidden md:block">
-        <h1 class="text-4xl title-font mb-4">Élégance Parfumée</h1>
-        <p class="text-lg mb-8">Découvrez l'art subtil de la parfumerie</p>
+  <!-- Contenu principal -->
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <!-- En-tête profil -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="flex items-center space-x-4">
+          <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-3xl text-purple-600"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-gray-800" id="userName">Chargement...</h1>
+            <p class="text-gray-500" id="userEmail">Chargement...</p>
+          </div>
+        </div>
       </div>
 
-      <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-center relative login-form">
-        <div class="text-center mb-8">
-          <h2 class="text-2xl md:text-3xl font-medium title-font text-gray-800 mb-2 login-title">Bienvenue</h2>
-          <p class="text-gray-500 text-sm md:text-base">Connectez-vous à votre compte</p>
-        </div>
-
-        <form class="space-y-4 md:space-y-6" id="loginForm" novalidate>
-          <div>
-            <label for="identifier" class="block text-sm font-medium text-gray-700 mb-1">Email ou contact</label>
-            <input id="identifier" name="identifier" type="text" required
-              class="block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none input-focus"
-              placeholder="email@example.com ou 0123456789" />
+      <!-- Informations personnelles -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-6">Informations personnelles</h2>
+        <form id="profileForm" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+              <input type="text" name="nom" id="nom" class="w-full px-3 py-2 border rounded-md">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+              <input type="text" name="prenom" id="prenom" class="w-full px-3 py-2 border rounded-md">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+              <input type="tel" name="telephone" id="telephone" class="w-full px-3 py-2 border rounded-md">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
+              <input type="text" name="adresse" id="adresse" class="w-full px-3 py-2 border rounded-md">
+            </div>
           </div>
-
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
-            <input id="password" name="password" type="password" required
-              class="block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none input-focus"
-              placeholder="••••••••" />
-          </div>
-
-          <div>
-            <button type="submit"
-              class="w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-amber-700 hover:bg-amber-800 transition btn-hover">
-              Se connecter
+          <div class="flex justify-end">
+            <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700">
+              Sauvegarder
             </button>
           </div>
         </form>
+      </div>
 
-        <div class="mt-6 md:mt-8 text-center">
-          <p class="text-sm text-gray-500">
-            Nouveau client ?
-            <a href="register.html" class="font-medium text-amber-700 hover:text-amber-800">Créez un compte</a>
-          </p>
+      <!-- Historique des commandes -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-6">Mes commandes</h2>
+        <div id="ordersContainer" class="space-y-4">
+          <!-- Les commandes seront injectées ici -->
         </div>
       </div>
     </div>
@@ -332,23 +341,30 @@
   <!-- SCRIPT -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Variables globales
+      const token = localStorage.getItem('token');
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Vérification de l'authentification
+      if (!token) {
+        window.location.href = '../utils/login.html';
+        return;
+      }
+
       // =====================
       // GESTION DU PANIER
       // =====================
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      // Éléments du panier
-      const cartBtn = document.getElementById('cart-btn');
-      const closeCartBtn = document.getElementById('close-cart');
-      const cartOverlay = document.getElementById('cart-overlay');
-      const cartSidebar = document.getElementById('cart-sidebar');
-      const cartCount = document.getElementById('cart-count');
-      const cartItems = document.getElementById('cart-items');
-      const emptyCart = document.getElementById('empty-cart');
-      const cartSummary = document.getElementById('cart-summary');
-      const cartTotal = document.getElementById('cart-total');
-      const checkoutBtn = document.getElementById('checkout-btn');
-      const continueShoppingBtn = document.getElementById('continue-shopping');
+      let cartBtn = document.getElementById('cart-btn');
+      let closeCartBtn = document.getElementById('close-cart');
+      let cartOverlay = document.getElementById('cart-overlay');
+      let cartSidebar = document.getElementById('cart-sidebar');
+      let cartCount = document.getElementById('cart-count');
+      let cartItems = document.getElementById('cart-items');
+      let emptyCart = document.getElementById('empty-cart');
+      let cartSummary = document.getElementById('cart-summary');
+      let cartTotal = document.getElementById('cart-total');
+      let checkoutBtn = document.getElementById('checkout-btn');
+      let continueShoppingBtn = document.getElementById('continue-shopping');
 
       // Fonctions du panier
       function updateCartCount() {
@@ -477,104 +493,124 @@
       // =====================
       // GESTION HEADER DYNAMIQUE
       // =====================
-      const token = localStorage.getItem("token");
-
-      const profileLink = document.getElementById("profile-link");
-      const logoutLink = document.getElementById("logout");
-      const loginLink = document.getElementById("login-link");
-
-      const mobileProfile = document.getElementById("mobile-profile");
-      const mobileLogout = document.getElementById("mobile-logout");
-      const mobileLogin = document.getElementById("mobile-login");
-
+      const loginLink = document.getElementById("login");
+      
       if (token) {
-        profileLink?.classList.remove("hidden");
-        logoutLink?.classList.remove("hidden");
-        loginLink?.classList.add("hidden");
-
-        mobileProfile?.classList.remove("hidden");
-        mobileLogout?.classList.remove("hidden");
-        mobileLogin?.classList.add("hidden");
-
-        const logoutHandler = (e) => {
-          e.preventDefault();
-          localStorage.clear();
-          window.location.href = "../visiteur.html";
-        };
-
-        logoutLink?.addEventListener("click", logoutHandler);
-        mobileLogout?.addEventListener("click", logoutHandler);
+        if (loginLink) {
+          loginLink.textContent = "Déconnexion";
+          loginLink.href = "#";
+          loginLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = "../visiteur.html";
+          });
+        }
       } else {
-        profileLink?.classList.add("hidden");
-        logoutLink?.classList.add("hidden");
-        loginLink?.classList.remove("hidden");
-
-        mobileProfile?.classList.add("hidden");
-        mobileLogout?.classList.add("hidden");
-        mobileLogin?.classList.remove("hidden");
+        if (loginLink) {
+          loginLink.textContent = "Se connecter";
+          loginLink.href = "../utils/login.html";
+        }
       }
 
       // =====================
-      // FORMULAIRE DE CONNEXION
+      // GESTION DU PROFIL
       // =====================
-      document.getElementById('loginForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const identifier = document.getElementById('identifier').value.trim();
-        const password = document.getElementById('password').value;
-
-        if (!identifier || !password) {
-          showToast('Veuillez remplir tous les champs');
-          return;
+      async function loadProfile() {
+        try {
+          const response = await fetch('https://luxeparfum-backend.onrender.com/api/users/profile', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            document.getElementById('userName').textContent = `${data.prenom} ${data.nom}`;
+            document.getElementById('userEmail').textContent = data.email;
+            document.getElementById('nom').value = data.nom || '';
+            document.getElementById('prenom').value = data.prenom || '';
+            document.getElementById('telephone').value = data.telephone || '';
+            document.getElementById('adresse').value = data.adresse || '';
+          }
+        } catch (error) {
+          console.error('Erreur chargement profil:', error);
         }
+      }
+
+      // Charger l'historique des commandes
+      async function loadOrders() {
+        try {
+          const response = await fetch('https://luxeparfum-backend.onrender.com/api/orders/user', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          
+          if (response.ok) {
+            const orders = await response.json();
+            const container = document.getElementById('ordersContainer');
+            
+            if (orders.length === 0) {
+              container.innerHTML = `
+                <div class="text-center py-8 text-gray-500">
+                  <p>Aucune commande pour le moment</p>
+                </div>`;
+              return;
+            }
+
+            container.innerHTML = orders.map(order => `
+              <div class="border rounded-lg p-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="font-medium">Commande #${order.id}</span>
+                  <span class="text-sm text-gray-500">${new Date(order.createdAt).toLocaleDateString()}</span>
+                </div>
+                <div class="space-y-2">
+                  ${order.items.map(item => `
+                    <div class="flex justify-between text-sm">
+                      <span>${item.quantity}x ${item.name}</span>
+                      <span>${(item.price * item.quantity).toFixed(2)} FCFA</span>
+                    </div>
+                  `).join('')}
+                </div>
+                <div class="mt-4 flex justify-between border-t pt-2">
+                  <span class="font-medium">Total</span>
+                  <span class="font-medium">${order.total.toFixed(2)} FCFA</span>
+                </div>
+              </div>
+            `).join('');
+          }
+        } catch (error) {
+          console.error('Erreur chargement commandes:', error);
+        }
+      }
+
+      // Mise à jour du profil
+      document.getElementById('profileForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const userData = Object.fromEntries(formData.entries());
 
         try {
-          const response = await fetch('https://luxeparfum-backend.onrender.com/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ identifier, password }),
+          const response = await fetch('https://luxeparfum-backend.onrender.com/api/users/update', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(userData)
           });
 
-          const data = await response.json();
-
           if (response.ok) {
-            showToast('Connexion réussie ! Redirection...', true);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('role', data.user.role);
-
-            setTimeout(() => {
-              if (data.user.role === 'admin') {
-                window.location.href = '../admin/Dashboard.html';
-              } else {
-                window.location.href = '../users/index.html';
-              }
-            }, 1500);
+            alert('Profil mis à jour avec succès !');
+            await loadProfile();
           } else {
-            showToast(data.error || 'Erreur lors de la connexion');
+            alert('Erreur lors de la mise à jour du profil');
           }
-        } catch (err) {
-          showToast('Erreur réseau ou serveur');
-          console.error(err);
+        } catch (error) {
+          console.error('Erreur mise à jour profil:', error);
+          alert('Erreur réseau');
         }
       });
 
-      function showToast(message, isSuccess = false) {
-        const toast = document.getElementById('toast');
-        const toastContent = document.getElementById('toast-content');
-        const toastMessage = document.getElementById('toast-message');
-
-        toastMessage.textContent = message;
-        toast.classList.remove('hidden');
-
-        if (isSuccess) {
-          toastContent.className = "bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-lg text-sm md:text-base";
-        } else {
-          toastContent.className = "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg text-sm md:text-base";
-        }
-
-        setTimeout(() => toast.classList.add('hidden'), 3500);
-      }
-
-      // Initialiser l'affichage du panier
+      // Initialisation
+      loadProfile();
+      loadOrders();
       updateCartDisplay();
     });
   </script>

@@ -171,14 +171,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!productContainer) return;
 
     productContainer.innerHTML = produits.map(prod => {
-      const imageUrl = `https://luxeparfum-backend.onrender.com${prod.imageUrl || ''}`;
+      // Extraction correcte du nom du fichier
+      const getImageFileName = (path) => {
+        if (!path) return null;
+        const parts = path.split('/');
+        return parts[parts.length - 1];
+      };
+
+      const imageUrl = prod.imagePath
+        ? `https://luxeparfum-backend.onrender.com/uploads/${getImageFileName(prod.imagePath)}`
+        : 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+
       return `
         <div class="product-card border p-4 rounded shadow-sm">
           <img src="${imageUrl}" alt="${prod.nom}" class="w-full h-48 object-cover rounded">
           <h3 class="mt-2 font-semibold text-lg">${prod.nom}</h3>
           <p class="text-sm text-gray-500">${prod.description || ''}</p>
           <p class="font-bold text-primary mt-1">${prod.prix.toFixed(2)} FCFA</p>
-          <button onclick="addToCart('${prod.id}', '${prod.nom}', ${prod.prix}, '${imageUrl}')" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
+          <button onclick="addToCart('${prod.id}', '${prod.nom}', ${prod.prix}, '${imageUrl}')" 
+                  class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
             Ajouter au panier
           </button>
         </div>
