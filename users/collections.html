@@ -37,6 +37,8 @@
                 <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
                 <a href="./collections.html" class="text-purple-600 font-semibold transition">Collections</a>
                 <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
+                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
                 <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
             </nav>
 
@@ -55,13 +57,15 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
             <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
             <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
             <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
             <a href="./collections.html" class="block py-2 text-purple-600 font-semibold transition">Collections</a>
             <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-            <a href="../visiteur.html" id="logout" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
+            <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
         </div>
     </header>
 
@@ -255,15 +259,15 @@
                     <ul class="space-y-2">
                         <li class="flex items-start">
                             <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3"></i>
-                            <span class="text-gray-400">12 Rue des Parfums, 75001 Paris</span>
+                            <span class="text-gray-400">Cocody, Abidjan, Côte d'Ivoire</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
-                            <span class="text-gray-400">01 23 45 67 89</span>
+                            <span class="text-gray-400">+225 07 07 07 07 07</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-envelope text-purple-400 mr-3"></i>
-                            <span class="text-gray-400">contact@elegance-parfumee.com</span>
+                            <span class="text-gray-400">contact@luxeparfum.ci</span>
                         </li>
                     </ul>
                 </div>
@@ -281,7 +285,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Vérification connexion
   // ==========================
   const logoutLinks = document.querySelectorAll("#logout");
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
 
   if (token) {
     // Utilisateur connecté → Déconnexion
@@ -359,6 +363,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       mobileMenu.classList.toggle("hidden");
     });
   }
+
+  const token = localStorage.getItem('token');
+    
+    // Affichage des liens authentifiés
+    if (token) {
+        document.getElementById('historique-link').classList.remove('hidden');
+        document.getElementById('suivi-link').classList.remove('hidden');
+        document.getElementById('logout').classList.remove('hidden');
+        document.getElementById('historique-link-mobile').classList.remove('hidden');
+        document.getElementById('suivi-link-mobile').classList.remove('hidden');
+        document.getElementById('logout-mobile').classList.remove('hidden');
+    }
 });
 </script>
 

@@ -128,47 +128,40 @@
             </div>
 
             <nav class="hidden md:flex space-x-8">
-                <a href="./visiteur.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="./users/homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="./users/femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="./users/collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-                <a href="./utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
+                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
+                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
+                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
+                <a href="./profiles.html" class="text-purple-600 font-semibold transition">Mon Profil</a>
+                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
             </nav>
 
-            <div class="flex items-center space-x-4">
-                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-search"></i>
-                </button>
-                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count"
-                        class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </button>
-                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
+                <a href="./visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
+                <a href="./users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
+                <a href="./users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
+                <a href="./users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
+                <a href="./users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
+                <a href="./utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+                <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+                <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
+                <a href="./profiles.html" class="block py-2 text-purple-600 font-semibold transition">Mon Profil</a>
+                <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
             </div>
-        </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
-            <a href="./visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-            <a href="./users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-            <a href="./users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-            <a href="./users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-            <a href="./users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-            <a href="./utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
-        </div>
-
-        <!-- Search Bar -->
-        <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
-            <div class="container mx-auto flex">
-                <input type="text" placeholder="Rechercher un parfum..."
-                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
-                    <i class="fas fa-search"></i>
-                </button>
+            <!-- Search Bar -->
+            <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
+                <div class="container mx-auto flex">
+                    <input type="text" placeholder="Rechercher un parfum..."
+                        class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -270,9 +263,18 @@
         <div>
           <h4 class="text-lg font-semibold mb-4">Contact</h4>
           <ul class="space-y-2 text-gray-400">
-            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i><span>123 Rue du Parfum, Paris</span></li>
-            <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i><span>+33 1 23 45 67 89</span></li>
-            <li class="flex items-center"><i class="fas fa-envelope mr-2"></i><span>contact@luxeparfum.com</span></li>
+            <li class="flex items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Cocody, Abidjan, Côte d'Ivoire</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-phone-alt mr-2"></i>
+              <span>+225 07 07 07 07 07</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-envelope mr-2"></i>
+              <span>contact@luxeparfum.ci</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -341,15 +343,17 @@
   <!-- SCRIPT -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Variables globales
-      const token = localStorage.getItem('token');
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      // Vérification de l'authentification
-      if (!token) {
-        window.location.href = '../utils/login.html';
-        return;
-      }
+        const token = localStorage.getItem('token');
+        
+        // Affichage des liens authentifiés
+        if (token) {
+            document.getElementById('historique-link').classList.remove('hidden');
+            document.getElementById('suivi-link').classList.remove('hidden');
+            document.getElementById('logout').classList.remove('hidden');
+            document.getElementById('historique-link-mobile').classList.remove('hidden');
+            document.getElementById('suivi-link-mobile').classList.remove('hidden');
+            document.getElementById('logout-mobile').classList.remove('hidden');
+        }
 
       // =====================
       // GESTION DU PANIER

@@ -170,32 +170,91 @@ document.addEventListener('DOMContentLoaded', async () => {
     const productContainer = document.getElementById("product-list");
     if (!productContainer) return;
 
-    productContainer.innerHTML = produits.map(prod => {
-      // Extraction correcte du nom du fichier
+    // Système de cache pour les images
+    const imageCache = new Map();
+
+    async function loadImageWithCache(url) {
+      if (imageCache.has(url)) {
+        return imageCache.get(url);
+      }
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Image non trouvée');
+        imageCache.set(url, url);
+        return url;
+      } catch (error) {
+        console.warn(`Erreur chargement image: ${url}`, error);
+        return 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+      }
+    }
+
+    // Chargement et affichage des produits avec gestion des images
+    Promise.all(produits.map(async (prod) => {
       const getImageFileName = (path) => {
         if (!path) return null;
-        const parts = path.split('/');
-        return parts[parts.length - 1];
+        return path.split('/').pop()?.split('\\').pop();
       };
 
-      const imageUrl = prod.imagePath
-        ? `https://luxeparfum-backend.onrender.com/uploads/${getImageFileName(prod.imagePath)}`
-        : 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+      let imageUrl;
+      if (prod.imagePath) {
+        const fileName = getImageFileName(prod.imagePath);
+        imageUrl = fileName ? 
+          await loadImageWithCache(`https://luxeparfum-backend.onrender.com/uploads/${fileName}`) :
+          'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+      } else {
+        imageUrl = 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+      }
 
       return `
         <div class="product-card border p-4 rounded shadow-sm">
-          <img src="${imageUrl}" alt="${prod.nom}" class="w-full h-48 object-cover rounded">
+          <img src="${imageUrl}" 
+               alt="${prod.nom}" 
+               class="w-full h-48 object-cover rounded"
+               onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300?text=Image+Non+Disponible';">
           <h3 class="mt-2 font-semibold text-lg">${prod.nom}</h3>
           <p class="text-sm text-gray-500">${prod.description || ''}</p>
           <p class="font-bold text-primary mt-1">${prod.prix.toFixed(2)} FCFA</p>
-          <button onclick="addToCart('${prod.id}', '${prod.nom}', ${prod.prix}, '${imageUrl}')" 
+          <button onclick="checkAuthAndAddToCart('${prod.id}', '${prod.nom}', ${prod.prix}, '${imageUrl}')" 
                   class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
             Ajouter au panier
           </button>
         </div>
       `;
-    }).join('');
+    })).then(cards => {
+      productContainer.innerHTML = cards.join('');
+    }).catch(error => {
+      console.error('Erreur affichage produits:', error);
+      productContainer.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-red-500">Erreur d'affichage des produits</p>
+        </div>`;
+    });
   }
+
+  // Ajout de la fonction de vérification au niveau global
+  window.checkAuthAndAddToCart = function(id, nom, prix, image) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Veuillez vous connecter pour ajouter des articles au panier');
+      window.location.href = '../utils/login.html';
+      return;
+    }
+    
+    // Si connecté, on ajoute au panier
+    const exist = cart.find(item => item.id === id);
+    if (exist) {
+      exist.quantity += 1;
+    } else {
+      cart.push({ id, name: nom, price: prix, image, quantity: 1 });
+    }
+    
+    saveCart();
+    updateCartUI();
+    
+    // Feedback visuel
+    alert('Produit ajouté au panier !');
+  };
 
   // Appel de la fonction
   await fetchAndDisplayProducts();

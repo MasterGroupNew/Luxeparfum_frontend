@@ -4,10 +4,19 @@ class SidebarComponent extends HTMLElement {
   }
 
   async connectedCallback() {
+    // Vérification du rôle admin
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    
+    if (!token || role !== 'admin') {
+      window.location.href = '../utils/login.html';
+      return;
+    }
+
     await this.loadStyles();
     this.render();
     this.initEvents();
-    await this.loadUserProfile(); // appel après le render
+    await this.loadUserProfile();
   }
 
   async loadStyles() {
@@ -15,7 +24,31 @@ class SidebarComponent extends HTMLElement {
       const response = await fetch('../Style/styles.css');
       const styles = await response.text();
       const styleEl = document.createElement('style');
-      styleEl.textContent = styles;
+      styleEl.textContent = styles + `
+        @media (max-width: 768px) {
+          .sidebar {
+            position: fixed;
+            left: -256px;
+            top: 0;
+            bottom: 0;
+            transition: left 0.3s ease-in-out;
+            z-index: 50;
+          }
+          .sidebar.open {
+            left: 0;
+          }
+          .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+          }
+          .sidebar-overlay.show {
+            display: block;
+          }
+        }
+      `;
       this.appendChild(styleEl);
     } catch (e) {
       console.error('Erreur au chargement du CSS :', e);
@@ -24,11 +57,24 @@ class SidebarComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
+      <!-- Overlay pour mobile -->
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+      
+      <!-- Bouton menu mobile -->
+      <button id="mobileMenuBtn" class="md:hidden fixed top-4 left-4 z-50 bg-indigo-600 text-white p-2 rounded-lg">
+        <i class="fas fa-bars"></i>
+      </button>
+
       <div class="sidebar bg-indigo-800 text-white w-64 flex flex-col" style="height: 100%;">
-        <!-- Logo -->
-        <div class="p-4 flex items-center space-x-2 border-b border-indigo-700">
-          <i class="fas fa-spa text-2xl text-pink-300"></i>
-          <span class="nav-text text-xl font-bold">Parfumerie Admin</span>
+        <!-- Logo avec bouton fermeture pour mobile -->
+        <div class="p-4 flex items-center justify-between border-b border-indigo-700">
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-spa text-2xl text-pink-300"></i>
+            <span class="nav-text text-xl font-bold">Parfumerie Admin</span>
+          </div>
+          <button id="closeMobileMenu" class="md:hidden text-white">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
 
         <!-- Profile -->
@@ -141,6 +187,44 @@ class SidebarComponent extends HTMLElement {
     this.querySelector('#saveBtn')?.addEventListener('click', () => this.saveProfile());
     this.querySelector('#productImage')?.addEventListener('change', (e) => this.previewImage(e));
     this.querySelector('#logoutBtn')?.addEventListener('click', () => this.logout());
+
+    // Mobile menu events
+    const sidebar = this.querySelector('.sidebar');
+    const overlay = this.querySelector('#sidebarOverlay');
+    const mobileMenuBtn = this.querySelector('#mobileMenuBtn');
+    const closeMenuBtn = this.querySelector('#closeMobileMenu');
+
+    mobileMenuBtn?.addEventListener('click', () => {
+      sidebar?.classList.add('open');
+      overlay?.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeMenu = () => {
+      sidebar?.classList.remove('open');
+      overlay?.classList.remove('show');
+      document.body.style.overflow = '';
+    };
+
+    closeMenuBtn?.addEventListener('click', closeMenu);
+    overlay?.addEventListener('click', closeMenu);
+
+    // Fermer le menu au clic sur un lien (mobile)
+    const menuLinks = sidebar?.querySelectorAll('a');
+    menuLinks?.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) {
+          closeMenu();
+        }
+      });
+    });
+
+    // Gérer le resize de la fenêtre
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        closeMenu();
+      }
+    });
   }
 
   toggleSidebar() {
@@ -154,11 +238,34 @@ class SidebarComponent extends HTMLElement {
   async loadUserProfile() {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = '../utils/login.html';
+        return;
+      }
+
       const res = await fetch('https://luxeparfum-backend.onrender.com/api/auth/profile', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      if (!res.ok) throw new Error('Impossible de récupérer le profil');
+      
+      if (!res.ok) {
+        if (res.status === 401) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          window.location.href = '../utils/login.html';
+          return;
+        }
+        throw new Error('Impossible de récupérer le profil');
+      }
+
       const user = await res.json();
+      
+      // Vérification du rôle
+      if (user.role !== 'admin') {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '../utils/login.html';
+        return;
+      }
 
       // Sidebar dynamique
       const imgEl = this.querySelector('#profileImage');
@@ -181,7 +288,13 @@ class SidebarComponent extends HTMLElement {
         this.querySelector('#selectText').classList.add('hidden');
       }
     } catch (err) {
-      console.error(err);
+      console.error('Erreur profil:', err);
+      // Gestion des erreurs avec redirection
+      if (err.message.includes('401')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '../utils/login.html';
+      }
     }
   }
 
@@ -238,11 +351,17 @@ class SidebarComponent extends HTMLElement {
   }
 
   logout() {
-    alert("Déconnexion réussie !");
-    localStorage.removeItem('token');
-    window.location.href = "../visiteur.html";
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      window.location.href = '../utils/login.html';
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+      window.location.href = '../utils/login.html';
+    }
   }
 }
 
-// Déclaration du composant
+// Déclaration du composant (une seule fois)
+customElements.define('sidebar-component', SidebarComponent);
 customElements.define('sidebar-component', SidebarComponent);

@@ -20,82 +20,249 @@
     <!-- Contenu principal (avec marge à gauche pour la sidebar) -->
     <main class="flex-1 ml-64 p-6">
         <header-component></header-component>
-        <div class="max-w-4xl mx-auto p-8">
+        <div class="max-w-7xl mx-auto p-8">
             <h1 class="text-4xl font-serif font-semibold text-center text-purple-700 mb-6">Voir Toutes les Commandes
             </h1>
 
             <!-- Liste des commandes -->
-            <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-                <thead>
-                    <tr class="bg-purple-600 text-white">
-                        <th class="py-3 px-6 text-left">ID Commande</th>
-                        <th class="py-3 px-6 text-left">Client</th>
-                        <th class="py-3 px-6 text-left">Produits</th>
-                        <th class="py-3 px-6 text-left">Date</th>
-                        <th class="py-3 px-6 text-left">Statut</th>
-                        <th class="py-3 px-6 text-left">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="orderList" class="text-gray-700">
-                    <!-- Les commandes seront insérées ici dynamiquement -->
-                </tbody>
-            </table>
-
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="bg-purple-600 text-white">
+                            <th class="py-3 px-6 text-left">ID Commande</th>
+                            <th class="py-3 px-6 text-left">Client</th>
+                            <th class="py-3 px-6 text-left">Produits</th>
+                            <th class="py-3 px-6 text-left">Date</th>
+                            <th class="py-3 px-6 text-left">Statut</th>
+                            <th class="py-3 px-6 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderList" class="text-gray-700">
+                        <!-- Loader initial -->
+                        <tr>
+                            <td colspan="6" class="text-center py-8">
+                                <i class="fas fa-spinner fa-spin text-3xl text-purple-600 mb-3"></i>
+                                <p class="text-gray-500">Chargement des commandes...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
-        <script>
-            // Charger les commandes à partir du fichier JSON (exemple)
-            document.addEventListener('DOMContentLoaded', function () {
-                fetch('data/orders.json')  // Assurez-vous que le fichier JSON contient les commandes
-                    .then(response => response.json())
-                    .then(data => {
-                        const orderList = document.getElementById('orderList');
-                        if (data.length === 0) {
-                            orderList.innerHTML = `<tr><td colspan="6" class="text-center py-4">Aucune commande trouvée.</td></tr>`;
-                        } else {
-                            data.forEach(order => {
-                                const row = document.createElement('tr');
-                                row.classList.add('transition', 'duration-300', 'hover:bg-indigo-100');
-                                row.innerHTML = `
-                                <td class="py-3 px-6">${order.id}</td>
-                                <td class="py-3 px-6">${order.client}</td>
-                                <td class="py-3 px-6">${order.products.join(', ')}</td>
-                                <td class="py-3 px-6">${order.date}</td>
-                                <td class="py-3 px-6">${order.status}</td>
+
+    <script>
+        // URL de l'API Backend
+        const API_BASE_URL = 'https://luxeparfum-backend.onrender.com/api/orders';
+
+        // Charger les commandes depuis l'API
+        document.addEventListener('DOMContentLoaded', function () {
+            const orderList = document.getElementById('orderList');
+
+            fetch(`${API_BASE_URL}/get_orders`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erreur HTTP: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    orderList.innerHTML = ''; // Effacer le loader
+
+                    // Gérer différentes structures de réponse
+                    const orders = Array.isArray(data) ? data : (data.orders || data.data || []);
+
+                    if (orders.length === 0) {
+                        orderList.innerHTML = `
+                            <tr>
+                                <td colspan="6" class="text-center py-8">
+                                    <i class="fas fa-inbox text-4xl text-gray-300 mb-3"></i>
+                                    <p class="text-gray-500">Aucune commande trouvée.</p>
+                                </td>
+                            </tr>`;
+                    } else {
+                        orders.forEach(order => {
+                            const row = document.createElement('tr');
+                            row.classList.add('transition', 'duration-300', 'hover:bg-indigo-100', 'border-b', 'border-gray-200');
+
+                            // Adapter selon la structure de vos données
+                            const orderId = order.id || order._id || order.orderId;
+                            const client = order.client || order.customerName || order.customer?.name || order.user?.name || 'Client inconnu';
+
+                            // Gérer les produits (peut être un array d'objets ou de strings)
+                            let productsDisplay = 'N/A';
+                            if (Array.isArray(order.products)) {
+                                productsDisplay = order.products
+                                    .map(p => {
+                                        if (typeof p === 'string') return p;
+                                        return p.name || p.productName || p.nom || 'Produit';
+                                    })
+                                    .join(', ');
+                            } else if (order.products) {
+                                productsDisplay = order.products;
+                            }
+
+                            // Gérer la date
+                            let dateDisplay = 'N/A';
+                            const dateValue = order.date || order.createdAt || order.orderDate;
+                            if (dateValue) {
+                                try {
+                                    dateDisplay = new Date(dateValue).toLocaleDateString('fr-FR', {
+                                        day: '2-digit',
+                                        month: '2-digit',
+                                        year: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    });
+                                } catch (e) {
+                                    dateDisplay = dateValue;
+                                }
+                            }
+
+                            const status = order.status || order.orderStatus || 'En attente';
+
+                            row.innerHTML = `
+                                <td class="py-3 px-6 font-semibold text-purple-700">#${orderId}</td>
+                                <td class="py-3 px-6">${client}</td>
+                                <td class="py-3 px-6 text-sm">${productsDisplay}</td>
+                                <td class="py-3 px-6 text-sm">${dateDisplay}</td>
                                 <td class="py-3 px-6">
-                                    <button class="text-blue-600 hover:text-blue-800" onclick="viewOrderDetails(${order.id})">
+                                    <span class="px-3 py-1 rounded-full text-xs font-semibold ${getStatusClass(status)}">
+                                        ${status}
+                                    </span>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <button class="text-blue-600 hover:text-blue-800 transition" onclick='viewOrderDetails(${JSON.stringify(orderId).replace(/'/g, "&#39;")})' title="Voir les détails">
                                         <i class="fas fa-eye"></i> Détails
                                     </button>
-                                    <button class="text-yellow-600 hover:text-yellow-800 ml-4" onclick="editOrderStatus(${order.id})">
-                                        <i class="fas fa-pen"></i> Modifier Statut
+                                    <button class="text-yellow-600 hover:text-yellow-800 ml-4 transition" onclick='editOrderStatus(${JSON.stringify(orderId).replace(/'/g, "&#39;")})' title="Modifier le statut">
+                                        <i class="fas fa-pen"></i> Modifier
                                     </button>
                                 </td>
                             `;
-                                orderList.appendChild(row);
-                            });
+                            orderList.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement des commandes:', error);
+                    orderList.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="text-center py-8">
+                                <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-3"></i>
+                                <p class="text-red-600 font-semibold">Erreur de chargement des commandes</p>
+                                <p class="text-gray-500 text-sm mt-2">${error.message}</p>
+                                <button onclick="location.reload()" class="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">
+                                    <i class="fas fa-redo mr-2"></i>Réessayer
+                                </button>
+                            </td>
+                        </tr>`;
+                });
+        });
+
+        // Fonction pour obtenir la classe CSS selon le statut
+        function getStatusClass(status) {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes('livré') || statusLower === 'delivered') {
+                return 'bg-green-100 text-green-800';
+            }
+            if (statusLower.includes('expédié') || statusLower === 'shipped') {
+                return 'bg-blue-100 text-blue-800';
+            }
+            if (statusLower.includes('préparation') || statusLower === 'processing' || statusLower.includes('attente')) {
+                return 'bg-yellow-100 text-yellow-800';
+            }
+            if (statusLower.includes('annulé') || statusLower === 'cancelled') {
+                return 'bg-red-100 text-red-800';
+            }
+            return 'bg-gray-100 text-gray-800';
+        }
+
+        // Fonction pour afficher les détails d'une commande
+        function viewOrderDetails(orderId) {
+            fetch(`${API_BASE_URL}/get_order/${orderId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Commande introuvable');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const order = data.order || data;
+
+                    // Gérer l'affichage des produits
+                    let productsDisplay = 'N/A';
+                    if (Array.isArray(order.products)) {
+                        productsDisplay = order.products
+                            .map(p => {
+                                if (typeof p === 'string') return p;
+                                const name = p.name || p.productName || p.nom || 'Produit';
+                                const qty = p.quantity || p.qty || '';
+                                const price = p.price || p.prix || '';
+                                return `${name}${qty ? ` (x${qty})` : ''}${price ? ` - ${price} FCFA` : ''}`;
+                            })
+                            .join('\n• ');
+                        productsDisplay = '• ' + productsDisplay;
+                    }
+
+                    const orderId = order.id || order._id;
+                    const client = order.client || order.customerName || order.customer?.name || 'Client inconnu';
+                    const date = order.date || order.createdAt || 'N/A';
+                    const status = order.status || 'En attente';
+                    const total = order.total || order.totalAmount || 'N/A';
+                    const address = order.address || order.shippingAddress || 'N/A';
+
+                    alert(`📦 DÉTAILS DE LA COMMANDE\n\n` +
+                        `ID: #${orderId}\n` +
+                        `Client: ${client}\n` +
+                        `Date: ${date}\n` +
+                        `Statut: ${status}\n` +
+                        `Total: ${total} FCFA\n` +
+                        `Adresse: ${address}\n\n` +
+                        `Produits:\n${productsDisplay}`);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('❌ Impossible de charger les détails de la commande\n\n' + error.message);
+                });
+        }
+
+        // Fonction pour modifier le statut de la commande
+        function editOrderStatus(orderId) {
+            const newStatus = prompt(
+                "📝 Modifier le statut de la commande\n\n" +
+                "Choisissez un statut:\n" +
+                "• En préparation\n" +
+                "• Expédiée\n" +
+                "• Livrée\n" +
+                "• Annulée"
+            );
+
+            if (newStatus && newStatus.trim() !== '') {
+                fetch(`${API_BASE_URL}/update_status/${orderId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: newStatus.trim() })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur lors de la mise à jour');
                         }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert('✅ Statut mis à jour avec succès!');
+                        location.reload(); // Recharger la page pour voir les changements
                     })
                     .catch(error => {
-                        console.error('Erreur lors du chargement des commandes:', error);
-                        document.getElementById('orderList').innerHTML = `<tr><td colspan="6" class="text-center py-4 text-red-600">Erreur de chargement des commandes. Veuillez réessayer plus tard.</td></tr>`;
+                        console.error('Erreur:', error);
+                        alert('❌ Erreur lors de la mise à jour du statut:\n\n' + error.message);
                     });
-            });
-
-            // Fonction pour afficher les détails d'une commande
-            function viewOrderDetails(orderId) {
-                alert(`Voir les détails de la commande ID: ${orderId}`);
-                // Tu peux rediriger vers une page de détails ou afficher un modal avec les infos détaillées de la commande
             }
-
-            // Fonction pour modifier le statut de la commande
-            function editOrderStatus(orderId) {
-                const newStatus = prompt("Entrez le nouveau statut de la commande (ex: En préparation, Expédiée, Livrée):");
-                if (newStatus) {
-                    console.log(`Commande ID: ${orderId} - Nouveau statut: ${newStatus}`);
-                    // Optionnellement, tu peux envoyer ce changement au backend ou modifier le fichier JSON
-                }
-            }
-        </script>
+        }
+    </script>
 </body>
 
 </html>

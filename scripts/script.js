@@ -87,30 +87,44 @@ document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById('products-container');
         if (!container) return;
 
-        if (!produits.length) {
-            container.innerHTML = `
-                <div class="text-center py-8 text-gray-500">
-                    <p>Aucun produit disponible</p>
-                </div>`;
-            return;
+        // Cache pour les images
+        const imageCache = new Map();
+
+        // Fonction pour charger une image avec cache
+        async function loadImageWithCache(url) {
+            if (imageCache.has(url)) {
+                return imageCache.get(url);
+            }
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Image non trouvée');
+                imageCache.set(url, url);
+                return url;
+            } catch (error) {
+                console.warn(`Erreur chargement image: ${url}`, error);
+                return 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+            }
         }
 
-        container.innerHTML = produits.map(p => {
-            // Extraction correcte du nom du fichier
-            const getImageFileName = (path) => {
-                if (!path) return null;
-                // Prend la dernière partie du chemin après le dernier '/'
-                const parts = path.split('/');
-                return parts[parts.length - 1];
-            };
+        // Fonction améliorée pour obtenir l'URL de l'image
+        async function getImageUrl(product) {
+            if (!product.imagePath) {
+                return 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+            }
 
-            const imgUrl = p.image
-                ? p.image
-                : (p.imagePath
-                    ? `https://luxeparfum-backend.onrender.com/uploads/${getImageFileName(p.imagePath)}`
-                    : 'https://via.placeholder.com/300x300?text=Image+Non+Disponible');
+            const fileName = product.imagePath.split('/').pop()?.split('\\').pop();
+            if (!fileName) {
+                return 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+            }
 
-            // Récupération du nom de la catégorie
+            const imageUrl = `https://luxeparfum-backend.onrender.com/uploads/${fileName}`;
+            return await loadImageWithCache(imageUrl);
+        }
+
+        // Affichage des produits avec gestion asynchrone des images
+        Promise.all(produits.map(async (p) => {
+            const imgUrl = await getImageUrl(p);
             const categoryName = p.categorie?.nom || 'Non catégorisé';
 
             return `
@@ -122,7 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 data-description="${p.description}"
                 data-image="${imgUrl}">
                 <div class="relative h-64 overflow-hidden">
-                    <img src="${imgUrl}" alt="${p.nom}" class="w-full h-full object-cover parfum-image">
+                    <img src="${imgUrl}" 
+                         alt="${p.nom}" 
+                         class="w-full h-full object-cover parfum-image"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300?text=Image+Non+Disponible';">
                 </div>
                 <h3 class="font-bold text-gray-800 mt-2">${p.nom}</h3>
                 <p class="text-sm text-gray-500">${categoryName}</p>
@@ -135,10 +152,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     </button>
                 </div>
             </div>`;
-        }).join('');
-
-        attachAddToCartEvents();
-        attachProductModalEvents();
+        })).then(cards => {
+            container.innerHTML = cards.join('');
+            attachAddToCartEvents();
+            attachProductModalEvents();
+        }).catch(error => {
+            console.error('Erreur affichage produits:', error);
+            container.innerHTML = `
+                <div class="text-center py-8">
+                    <p class="text-red-500">Erreur d'affichage des produits</p>
+                </div>`;
+        });
     }
 
     // =====================
@@ -250,12 +274,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
-            if (!cart.length) { alert('Votre panier est vide'); return; }
-            alert('Commande passée avec succès !');
-            cart = [];
-            saveCart();
-            updateCartUI();
-            closeCart();
+            if (!cart.length) { 
+                alert('Votre panier est vide'); 
+                return; 
+            }
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Veuillez vous connecter pour passer commande');
+                window.location.href = './utils/login.html';
+                return;
+            }
+
+            // Redirection vers la page de checkout si authentifié
+            window.location.href = '../users/checkout.html';
         });
     }
 

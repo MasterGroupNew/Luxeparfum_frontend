@@ -284,79 +284,8 @@
                                 Action</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded" src="https://via.placeholder.com/40"
-                                            alt="Parfum">
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">J'adore</div>
-                                        <div class="text-sm text-gray-500">Dior</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Féminin</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">2
-                                    restants</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">120 €</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Réapprovisionner</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded" src="https://via.placeholder.com/40"
-                                            alt="Parfum">
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">Sauvage</div>
-                                        <div class="text-sm text-gray-500">Dior</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Masculin</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">3
-                                    restants</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">95 €</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Réapprovisionner</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded" src="https://via.placeholder.com/40"
-                                            alt="Parfum">
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">Black Opium</div>
-                                        <div class="text-sm text-gray-500">Yves Saint Laurent</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Féminin</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">5
-                                    restants</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">89 €</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Réapprovisionner</a>
-                            </td>
-                        </tr>
+                    <tbody id="lowStockProducts" class="bg-white divide-y divide-gray-200">
+                        <!-- Les produits seront injectés ici -->
                     </tbody>
                 </table>
             </div>
@@ -549,76 +478,157 @@
     </script>-->
 
     <script>
-        // Sales Chart
-        const salesCtx = document.getElementById('salesChart').getContext('2d');
-        new Chart(salesCtx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
-                datasets: [{
-                    label: 'Ventes',
-                    data: [4500, 5200, 4800, 6100, 7200, 8900, 9500, 8200, 7800, 8500, 9200, 11000],
-                    backgroundColor: 'rgba(79, 70, 229, 0.05)',
-                    borderColor: 'rgba(79, 70, 229, 1)',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Fonction pour charger les produits à faible stock
+            async function loadLowStockProducts() {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch('https://luxeparfum-backend.onrender.com/api/products', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) throw new Error('Erreur lors du chargement des produits');
+
+                    const products = await response.json();
+                    const container = document.getElementById('lowStockProducts');
+
+                    // Trier les produits par quantité croissante
+                    const sortedProducts = products.sort((a, b) => a.quantite - b.quantite);
+
+                    // Ne garder que les produits avec stock <= 20
+                    const lowStockProducts = sortedProducts.filter(p => p.quantite <= 20);
+
+                    container.innerHTML = lowStockProducts.map(product => {
+                        // Déterminer le statut et la couleur en fonction de la quantité
+                        let status, colorClasses;
+                        if (product.quantite === 0) {
+                            status = 'Rupture';
+                            colorClasses = 'bg-red-100 text-red-800';
+                        } else if (product.quantite <= 5) {
+                            status = 'Critique';
+                            colorClasses = 'bg-orange-100 text-orange-800';
+                        } else if (product.quantite <= 10) {
+                            status = 'Faible';
+                            colorClasses = 'bg-yellow-100 text-yellow-800';
+                        } else {
+                            status = 'À surveiller';
+                            colorClasses = 'bg-blue-100 text-blue-800';
+                        }
+
+                        return `
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded object-cover" 
+                                                 src="${product.imagePath ? `https://luxeparfum-backend.onrender.com/uploads/${product.imagePath.split('/').pop()}` : 'https://via.placeholder.com/40'}"
+                                                 alt="${product.nom}">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">${product.nom}</div>
+                                            <div class="text-sm text-gray-500">${product.marque || 'Non spécifiée'}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    ${product.categorie?.nom || 'Non catégorisé'}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${colorClasses}">
+                                        ${product.quantite} en stock - ${status}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    ${product.prix.toFixed(2)} FCFA
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="./gerer-produits.html?id=${product.id}" 
+                                       class="text-indigo-600 hover:text-indigo-900">
+                                        Réapprovisionner
+                                    </a>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                } catch (error) {
+                    console.error('Erreur:', error);
+                }
+            }
+
+            // Charger les produits au chargement de la page
+            await loadLowStockProducts();
+            
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
+                    datasets: [{
+                        label: 'Ventes',
+                        data: [4500, 5200, 4800, 6100, 7200, 8900, 9500, 8200, 7800, 8500, 9200, 11000],
+                        backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            drawBorder: false
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
                         }
                     },
-                    x: {
-                        grid: {
-                            display: false
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
                         }
                     }
                 }
-            }
-        });
-        // Top Products Chart
-        const topProductsCtx = document.getElementById('topProductsChart').getContext('2d');
-        new Chart(topProductsCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['J\'adore', 'Sauvage', 'Black Opium', 'La Vie Est Belle', 'Bleu de Chanel'],
-                datasets: [{
-                    data: [35, 28, 20, 12, 5],
-                    backgroundColor: [
-                        'rgba(79, 70, 229, 0.8)',
-                        'rgba(99, 102, 241, 0.8)',
-                        'rgba(129, 140, 248, 0.8)',
-                        'rgba(167, 139, 250, 0.8)',
-                        'rgba(196, 181, 253, 0.8)'
-                    ],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right'
-                    }
+            });
+            // Top Products Chart
+            const topProductsCtx = document.getElementById('topProductsChart').getContext('2d');
+            new Chart(topProductsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['J\'adore', 'Sauvage', 'Black Opium', 'La Vie Est Belle', 'Bleu de Chanel'],
+                    datasets: [{
+                        data: [35, 28, 20, 12, 5],
+                        backgroundColor: [
+                            'rgba(79, 70, 229, 0.8)',
+                            'rgba(99, 102, 241, 0.8)',
+                            'rgba(129, 140, 248, 0.8)',
+                            'rgba(167, 139, 250, 0.8)',
+                            'rgba(196, 181, 253, 0.8)'
+                        ],
+                        borderWidth: 0
+                    }]
                 },
-                cutout: '70%'
-            }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
         });
-
-
     </script>
 
 </body>
