@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const imgUrl = p.image
                 ? p.image
                 : (p.imagePath
-                    ? `https://luxeparfum-backend.onrender.com/uploads/${product.imagePath.split('\\').pop()}`
+                    ? `https://luxeparfum-backend.onrender.com/uploads/${p.imagePath.split('\\').pop()}`
                     : 'https://via.placeholder.com/300x300?text=Image+Non+Disponible');
 
             return `
