@@ -109,9 +109,11 @@
         <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
         <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
         <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-        <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+        <a href="./historique.html" id="historique-link"
+          class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
         <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-        <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+        <a href="../visiteur.html" id="logout"
+          class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
       </nav>
 
       <!-- Mobile Menu -->
@@ -121,9 +123,12 @@
         <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
         <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
         <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-        <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-        <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-        <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+        <a href="./historique.html" id="historique-link-mobile"
+          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+        <a href="./suivi.html" id="suivi-link-mobile"
+          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
+        <a href="../visiteur.html" id="logout-mobile"
+          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
       </div>
 
       <div class="flex items-center space-x-4">
@@ -201,9 +206,11 @@
             <li><a href="./femme.html" class="hover:text-white transition">Femme</a></li>
             <li><a href="./collections.html" class="hover:text-white transition">Collections</a></li>
             <li><a href="./apropos.html" class="hover:text-white transition">À propos</a></li>
-            <li><a href="./historique.html" id="historique-link-footer" class="hover:text-white transition hidden">Historique</a></li>
+            <li><a href="./historique.html" id="historique-link-footer"
+                class="hover:text-white transition hidden">Historique</a></li>
             <li><a href="./suivi.html" id="suivi-link-footer" class="hover:text-white transition hidden">Suivi</a></li>
-            <li><a href="../visiteur.html" id="logout-footer" class="hover:text-white transition hidden">Déconnexion</a></li>
+            <li><a href="../visiteur.html" id="logout-footer" class="hover:text-white transition hidden">Déconnexion</a>
+            </li>
           </ul>
         </div>
 
@@ -343,8 +350,8 @@
 
       function addToCart(product) {
         const existingItem = cart.find(item => item.id === product.id);
-        const imageUrl = product.imagePath 
-          ? `https://luxeparfum-backend.onrender.com/uploads/${product.imagePath.split('/').pop().split('\\').pop()}`
+        const imageUrl = product.imagePath
+          ? product.imagePath  // URL Cloudinary complète
           : 'https://via.placeholder.com/300x300?text=Image+non+disponible';
 
         if (existingItem) {
@@ -509,8 +516,9 @@
         };
 
         const img = product.imagePath
-          ? `https://luxeparfum-backend.onrender.com/uploads/${getImageFileName(product.imagePath)}`
+          ? product.imagePath  // URL Cloudinary complète
           : 'https://via.placeholder.com/300x300?text=Image+non+disponible';
+
 
         return `
           <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition">
@@ -522,7 +530,7 @@
               <p class="text-sm text-gray-500">${product.categorie?.nom || 'Catégorie non définie'}</p>
               <div class="mt-3 flex justify-between items-center">
                 <span class="font-bold text-gray-800">${product.prix.toFixed(2)} FCFA</span>
-                <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition duration-300" data-product='${JSON.stringify({...product, image: img}).replace(/'/g, "&#39;")}'>
+                <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition duration-300" data-product='${JSON.stringify({ ...product, image: img }).replace(/'/g, "&#39;")}'>
                   <i class="fas fa-plus mr-1"></i> Ajouter
                 </button>
               </div>

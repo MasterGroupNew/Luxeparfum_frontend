@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Fonction améliorée pour obtenir l'URL de l'image
-        async function getImageUrl(product) {
+        /*async function getImageUrl(product) {
             if (!product.imagePath) {
                 return 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
             }
@@ -119,6 +119,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const imageUrl = `https://luxeparfum-backend.onrender.com/uploads/${fileName}`;
+            return await loadImageWithCache(imageUrl);
+        }*/
+        // Fonction améliorée pour obtenir l'URL de l'image
+        async function getImageUrl(product) {
+            // Si aucune image, renvoyer un placeholder
+            if (!product.imagePath) {
+                return 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+            }
+
+            // Utiliser directement l'URL Cloudinary stockée dans la DB
+            const imageUrl = product.imagePath;
+
+            // Si tu as une fonction pour précharger/cacher l'image
             return await loadImageWithCache(imageUrl);
         }
 
@@ -274,9 +287,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
-            if (!cart.length) { 
-                alert('Votre panier est vide'); 
-                return; 
+            if (!cart.length) {
+                alert('Votre panier est vide');
+                return;
             }
 
             const token = localStorage.getItem('token');

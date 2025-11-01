@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .hero-bg {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1615397349754-cfa2066a298f?ixlib=rb-4.0.3');
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://images.unsplash.com/photo-1615397349754-cfa2066a298f?ixlib=rb-4.0.3');
             background-size: cover;
             background-position: center;
         }
     </style>
 </head>
+
 <body class="bg-gray-50 font-sans">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
@@ -33,21 +35,29 @@
                 <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
                 <a href="./unisex.html" class="text-purple-600 font-semibold transition">Unisexe</a>
                 <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+                <a href="./historique.html" id="historique-link"
+                    class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+                <a href="./suivi.html" id="suivi-link"
+                    class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
+                <a href="../visiteur.html" id="logout"
+                    class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
             </nav>
 
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
+            <div id="mobile-menu"
+                class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
                 <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
                 <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
                 <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
                 <a href="./unisex.html" class="block py-2 text-purple-600 font-semibold transition">Unisexe</a>
-                <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-                <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+                <a href="./collections.html"
+                    class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
+                <a href="./historique.html" id="historique-link-mobile"
+                    class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+                <a href="./suivi.html" id="suivi-link-mobile"
+                    class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
+                <a href="../visiteur.html" id="logout-mobile"
+                    class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
             </div>
 
             <div class="flex items-center space-x-4">
@@ -56,7 +66,8 @@
                 </button>
                 <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
                     <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    <span id="cart-count"
+                        class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
             </div>
         </div>
@@ -66,7 +77,8 @@
     <section class="hero-bg text-white py-20 md:py-32">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-4xl md:text-6xl font-bold mb-4">Parfums Unisexes</h2>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Des fragrances universelles qui transcendent les genres</p>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Des fragrances universelles qui transcendent les
+                genres</p>
         </div>
     </section>
 
@@ -76,13 +88,15 @@
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-800">Notre collection Unisexe</h2>
                 <div class="flex space-x-4">
-                    <select id="sortSelect" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <select id="sortSelect"
+                        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                         <option value="">Trier par</option>
                         <option value="prixAsc">Prix croissant</option>
                         <option value="prixDesc">Prix décroissant</option>
                         <option value="nouveautes">Nouveautés</option>
                     </select>
-                    <select id="categorySelect" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <select id="categorySelect"
+                        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                         <option value="">Famille olfactive</option>
                         <option value="Boisé">Boisé</option>
                         <option value="Oriental">Oriental</option>
@@ -93,7 +107,8 @@
             </div>
 
             <!-- Filtres mobiles -->
-            <div class="md:hidden w-full mt-4 flex flex-col space-y-2 bg-white p-4 rounded shadow-lg" id="mobile-filters">
+            <div class="md:hidden w-full mt-4 flex flex-col space-y-2 bg-white p-4 rounded shadow-lg"
+                id="mobile-filters">
                 <select id="sortSelect" class="w-full border border-gray-300 rounded px-3 py-2">
                     <option value="">Trier par</option>
                     <option value="prixAsc">Prix croissant</option>
@@ -110,7 +125,8 @@
             </div>
 
             <!-- Container pour les produits -->
-            <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
+            <div id="productsContainer"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
                 <!-- Les produits seront injectés ici dynamiquement -->
             </div>
 
@@ -147,17 +163,17 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             // Fonction pour charger les produits
             async function loadProducts(page = 1, sort = '', category = '') {
                 try {
                     let url = `https://luxeparfum-backend.onrender.com/api/products/genre/Mixte`;
-                    
+
                     const params = new URLSearchParams();
                     if (page) params.append('page', page);
                     if (sort) params.append('sort', sort);
                     if (category) params.append('categorie', category);
-                    
+
                     if (params.toString()) {
                         url += `?${params.toString()}`;
                     }
@@ -181,8 +197,8 @@
                 };
 
                 const imageUrl = product.imagePath
-                    ? `https://luxeparfum-backend.onrender.com/uploads/${getImageFileName(product.imagePath)}`
-                    : 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+                    ? product.imagePath  // URL Cloudinary complète
+                    : 'https://via.placeholder.com/300x300?text=Image+non+disponible';
 
                 return `
                     <div class="bg-white rounded-lg overflow-hidden shadow-sm transition duration-300 hover:shadow-md">
@@ -198,7 +214,7 @@
                             <div class="mt-3 flex justify-between items-center">
                                 <span class="font-bold text-gray-800">${product.prix.toFixed(2)} €</span>
                                 <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition"
-                                        data-product='${JSON.stringify({...product, image: imageUrl})}'>
+                                        data-product='${JSON.stringify({ ...product, image: imageUrl })}'>
                                     <i class="fas fa-plus mr-1"></i> Ajouter
                                 </button>
                             </div>
@@ -248,7 +264,7 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Gestion du menu mobile
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -274,7 +290,7 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem('token');
-            
+
             // Affichage des liens authentifiés
             if (token) {
                 document.getElementById('historique-link').classList.remove('hidden');
@@ -287,4 +303,5 @@
         });
     </script>
 </body>
+
 </html>

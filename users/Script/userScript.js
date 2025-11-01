@@ -196,15 +196,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         return path.split('/').pop()?.split('\\').pop();
       };
 
+
       let imageUrl;
+
       if (prod.imagePath) {
-        const fileName = getImageFileName(prod.imagePath);
-        imageUrl = fileName ? 
-          await loadImageWithCache(`https://luxeparfum-backend.onrender.com/uploads/${fileName}`) :
-          'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
+        // Utiliser directement l'URL Cloudinary stockée dans la DB
+        imageUrl = await loadImageWithCache(prod.imagePath);
       } else {
+        // Placeholder si pas d'image
         imageUrl = 'https://via.placeholder.com/300x300?text=Image+Non+Disponible';
       }
+
 
       return `
         <div class="product-card border p-4 rounded shadow-sm">
@@ -233,14 +235,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Ajout de la fonction de vérification au niveau global
-  window.checkAuthAndAddToCart = function(id, nom, prix, image) {
+  window.checkAuthAndAddToCart = function (id, nom, prix, image) {
     const token = localStorage.getItem('token');
     if (!token) {
       alert('Veuillez vous connecter pour ajouter des articles au panier');
       window.location.href = '../utils/login.html';
       return;
     }
-    
+
     // Si connecté, on ajoute au panier
     const exist = cart.find(item => item.id === id);
     if (exist) {
@@ -248,10 +250,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       cart.push({ id, name: nom, price: prix, image, quantity: 1 });
     }
-    
+
     saveCart();
     updateCartUI();
-    
+
     // Feedback visuel
     alert('Produit ajouté au panier !');
   };

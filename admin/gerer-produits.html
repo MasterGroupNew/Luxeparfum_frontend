@@ -208,12 +208,20 @@
         return 0;
       }
 
-      function getProductImage(product, size = 50) {
+      /*function getProductImage(product, size = 50) {
         if (product.imagePath) {
           // Extraire juste le nom du fichier
           const fileName = product.imagePath.split('/').pop().split('\\').pop();
           return `https://luxeparfum-backend.onrender.com/uploads/${fileName}`;
         }
+        return `https://via.placeholder.com/${size}`;
+      }*/
+
+      function getProductImage(product, size = 50) {
+        if (product.imagePath) {
+          return product.imagePath; // Utilise directement l'URL Cloudinary
+        }
+        // Placeholder si pas d'image
         return `https://via.placeholder.com/${size}`;
       }
 
