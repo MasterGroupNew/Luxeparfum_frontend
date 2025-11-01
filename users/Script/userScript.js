@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', async () => {
+
+  // =====================
+    // Mobile menu toggle
+    // =====================
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+        });
+    }
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   function saveCart() {
