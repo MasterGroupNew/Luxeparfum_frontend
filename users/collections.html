@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collections - Élégance Parfumée</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .hero-bg {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1523293182086-7651a899d37f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://images.unsplash.com/photo-1523293182086-7651a899d37f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');
             background-size: cover;
             background-position: center;
         }
+
         .collection-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .collection-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
+
+        /* Animation du menu mobile */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        #mobile-menu:not(.hidden) {
+            max-height: 500px;
+        }
     </style>
 </head>
+
 <body class="bg-gray-50 font-sans">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
@@ -31,17 +47,35 @@
                 <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
             </div>
 
+            <!-- Navigation Desktop -->
             <nav class="hidden md:flex space-x-8">
-                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="./collections.html" class="text-purple-600 font-semibold transition">Collections</a>
-                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-home mr-1"></i>Accueil
+                </a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-male mr-1"></i>Homme
+                </a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-female mr-1"></i>Femme
+                </a>
+                <a href="./collections.html" class="text-purple-600 font-semibold transition">
+                    <i class="fas fa-th-large mr-1"></i>Collections
+                </a>
+                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-info-circle mr-1"></i>À propos
+                </a>
+                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-history mr-1"></i>Historique
+                </a>
+                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-shipping-fast mr-1"></i>Suivi
+                </a>
+                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                </a>
             </nav>
 
+            <!-- Actions -->
             <div class="flex items-center space-x-4">
                 <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
                     <i class="fas fa-search"></i>
@@ -56,17 +90,46 @@
             </div>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
-            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-            <a href="./collections.html" class="block py-2 text-purple-600 font-semibold transition">Collections</a>
-            <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-            <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
-        </div>
+        <!-- Menu Mobile 
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-male mr-2"></i>Homme
+            </a>
+            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-female mr-2"></i>Femme
+            </a>
+            <a href="./collections.html" class="block py-2 text-purple-600 font-semibold transition">
+                <i class="fas fa-th-large mr-2"></i>Collections
+            </a>
+            <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-info-circle mr-2"></i>À propos
+            </a>
+            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-history mr-2"></i>Historique
+            </a>
+            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-shipping-fast mr-2"></i>Suivi
+            </a>
+            <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </a>
+        </div>  Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
+        <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
+        <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
+        <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
+        <a href="./collections.html" class="block py-2 text-purple-600 font-semibold transition">Collections</a>
+        <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
+        <a href="./historique.html" id="historique-link-mobile"
+          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
+        <a href="./suivi.html" id="suivi-link-mobile"
+          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
+        <a href="../visiteur.html" id="logout-mobile"
+          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+      </div>
     </header>
 
     <!-- Hero Section -->
@@ -84,7 +147,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Collection 1 -->
-                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
                     <div class="h-64 bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center relative">
                         <i class="fas fa-crown text-5xl text-blue-600 opacity-70"></i>
                         <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
@@ -93,14 +156,14 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-600 mb-4">Nos parfums les plus exclusifs, créés avec des ingrédients rares et précieux.</p>
-                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                        <a href="./homme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Collection 2 -->
-                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
                     <div class="h-64 bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center relative">
                         <i class="fas fa-leaf text-5xl text-green-600 opacity-70"></i>
                         <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
@@ -109,14 +172,14 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-600 mb-4">Des fragrances inspirées par la nature, avec des ingrédients biologiques et durables.</p>
-                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                        <a href="./femme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Collection 3 -->
-                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
                     <div class="h-64 bg-gradient-to-br from-amber-100 to-amber-300 flex items-center justify-center relative">
                         <i class="fas fa-gem text-5xl text-amber-600 opacity-70"></i>
                         <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
@@ -125,14 +188,14 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-600 mb-4">Éditions limitées et créations uniques pour les amateurs de parfums rares.</p>
-                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                        <a href="./index.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Collection 4 -->
-                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
                     <div class="h-64 bg-gradient-to-br from-purple-100 to-purple-300 flex items-center justify-center relative">
                         <i class="fas fa-heart text-5xl text-purple-600 opacity-70"></i>
                         <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
@@ -141,14 +204,14 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-600 mb-4">Des fragrances délicates et envoûtantes pour célébrer l'amour et la romance.</p>
-                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                        <a href="./femme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Collection 5 -->
-                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
                     <div class="h-64 bg-gradient-to-br from-red-100 to-red-300 flex items-center justify-center relative">
                         <i class="fas fa-fire text-5xl text-red-600 opacity-70"></i>
                         <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
@@ -157,14 +220,14 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-600 mb-4">Des parfums audacieux et captivants qui éveillent les sens et suscitent l'émotion.</p>
-                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                        <a href="./homme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Collection 6 -->
-                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden">
+                <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
                     <div class="h-64 bg-gradient-to-br from-teal-100 to-teal-300 flex items-center justify-center relative">
                         <i class="fas fa-wind text-5xl text-teal-600 opacity-70"></i>
                         <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
@@ -173,7 +236,7 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-600 mb-4">Des fragrances légères et aériennes, parfaites pour les journées ensoleillées.</p>
-                        <a href="#" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                        <a href="./index.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
@@ -191,20 +254,20 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
                     <div class="h-96 bg-gradient-to-br from-purple-500 to-indigo-700 flex items-center justify-center relative">
                         <div class="text-white text-center p-6">
                             <span class="bg-white text-purple-600 text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">Nouveau</span>
                             <h3 class="text-2xl font-bold mb-2">Midnight Orchid</h3>
                             <p class="mb-4">Une fragrance mystérieuse aux notes d'orchidée noire et de vanille</p>
-                            <button class="bg-white text-purple-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition">
+                            <a href="./femme.html" class="inline-block bg-white text-purple-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition">
                                 Découvrir
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
                     <div class="h-96 bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center relative">
                         <div class="text-white text-center p-6">
                             <span class="bg-white text-amber-600 text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">Bientôt</span>
@@ -235,12 +298,11 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4">Boutique</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
+                        <li><a href="./index.html" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
                         <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
                         <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
                         <li><a href="./collections.html" class="text-gray-400 hover:text-white transition">Collections</a></li>
                         <li><a href="./apropos.html" class="text-gray-400 hover:text-white transition">À propos</a></li>
-                        <li><a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a></li>
                     </ul>
                 </div>
 
@@ -273,111 +335,98 @@
                 </div>
             </div>
 
-            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Élégance Parfumée. Tous droits réservés.</p>
+            <div class="border-t border-gray-700 pt-6 text-center">
+                <p class="text-gray-400 text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  // ==========================
-  // Vérification connexion
-  // ==========================
-  const logoutLinks = document.querySelectorAll("#logout");
-  //const token = localStorage.getItem("token");
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Récupération du token
+            const token = localStorage.getItem("token");
 
-  if (token) {
-    // Utilisateur connecté → Déconnexion
-    logoutLinks.forEach(link => {
-      link.textContent = "Déconnexion";
-      link.classList.remove("hidden");
-      link.href = "#"; // neutre
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        localStorage.removeItem("token");
-        localStorage.removeItem("role");
-        localStorage.removeItem("cart");
-        window.location.href = "../visiteur.html"; // redirection après logout
-      });
-    });
-  } else {
-    // Pas connecté → Connexion
-    logoutLinks.forEach(link => {
-      link.textContent = "Connexion";
-      link.classList.remove("hidden");
-      link.href = "../utils/login.html";
-    });
-  }
+            // =====================
+            // GESTION DE L'AUTHENTIFICATION
+            // =====================
+            const logoutLinks = document.querySelectorAll("#logout, #logout-mobile");
+            
+            if (token) {
+                // Utilisateur connecté
+                logoutLinks.forEach(link => {
+                    link.textContent = "Déconnexion";
+                    link.classList.remove("hidden");
+                    link.href = "#";
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        localStorage.clear();
+                        window.location.href = "../visiteur.html";
+                    });
+                });
 
-  // ==========================
-  // Gestion du panier (localStorage)
-  // ==========================
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const cartCountEl = document.getElementById("cart-count");
-  if (cartCountEl) {
-    cartCountEl.textContent =
-      cart.reduce((total, item) => total + item.quantity, 0) || 0;
-  }
+                // Afficher les liens authentifiés
+                document.getElementById('historique-link')?.classList.remove('hidden');
+                document.getElementById('suivi-link')?.classList.remove('hidden');
+                document.getElementById('historique-link-mobile')?.classList.remove('hidden');
+                document.getElementById('suivi-link-mobile')?.classList.remove('hidden');
+            } else {
+                // Pas connecté
+                logoutLinks.forEach(link => {
+                    link.textContent = "Connexion";
+                    link.classList.remove("hidden");
+                    link.href = "../utils/login.html";
+                });
+            }
 
-  // ==========================
-  // Synchronisation panier avec la BD si connecté
-  // ==========================
-  async function syncCartFromLocal() {
-    if (!token || !cart.length) return;
+            // =====================
+            // GESTION DU PANIER
+            // =====================
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartCountEl = document.getElementById("cart-count");
+            
+            if (cartCountEl) {
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCountEl.textContent = totalItems || 0;
+            }
 
-    try {
-      const response = await fetch("http://localhost:2025/api/cart/sync", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ cart }),
-      });
+            // Bouton panier
+            const cartBtn = document.getElementById("cart-btn");
+            if (cartBtn) {
+                cartBtn.addEventListener("click", () => {
+                    window.location.href = "./checkout.html";
+                });
+            }
 
-      if (response.ok) {
-        console.log("✅ Panier synchronisé avec la BD");
-        localStorage.removeItem("cart"); // vider panier local
-        cart = [];
-      } else {
-        console.error("❌ Erreur lors de la synchro panier");
-      }
-    } catch (err) {
-      console.error("⚠️ Impossible de synchroniser le panier :", err);
-    }
-  }
+            // =====================
+            // MENU MOBILE
+            // =====================
+            const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+            const mobileMenu = document.getElementById("mobile-menu");
 
-  if (token) {
-    await syncCartFromLocal();
-  }
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener("click", () => {
+                    mobileMenu.classList.toggle("hidden");
+                });
 
-  // ==========================
-  // Menu mobile
-  // ==========================
-  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
+                // Fermer le menu quand on clique sur un lien
+                const mobileLinks = mobileMenu.querySelectorAll("a");
+                mobileLinks.forEach(link => {
+                    link.addEventListener("click", () => {
+                        mobileMenu.classList.add("hidden");
+                    });
+                });
+            }
 
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-  }
-
-  const token = localStorage.getItem('token');
-    
-    // Affichage des liens authentifiés
-    if (token) {
-        document.getElementById('historique-link').classList.remove('hidden');
-        document.getElementById('suivi-link').classList.remove('hidden');
-        document.getElementById('logout').classList.remove('hidden');
-        document.getElementById('historique-link-mobile').classList.remove('hidden');
-        document.getElementById('suivi-link-mobile').classList.remove('hidden');
-        document.getElementById('logout-mobile').classList.remove('hidden');
-    }
-});
-</script>
-
-
+            // Fermer le menu si on clique en dehors
+            document.addEventListener("click", (e) => {
+                if (mobileMenu && mobileMenuBtn) {
+                    if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        mobileMenu.classList.add("hidden");
+                    }
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

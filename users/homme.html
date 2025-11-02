@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Parfums Homme - Élégance Parfumée</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -36,23 +37,18 @@
       visibility: visible;
     }
 
+    /* Menu mobile */
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+    }
+
+    #mobile-menu:not(.hidden) {
+      max-height: 600px;
+    }
+
     @media (max-width: 768px) {
-      .mobile-menu {
-        position: fixed;
-        top: -100%;
-        left: 0;
-        right: 0;
-        background: white;
-        z-index: 50;
-        transition: top 0.3s ease-in-out;
-        padding: 1rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      }
-
-      .mobile-menu.active {
-        top: 60px;
-      }
-
       #productsContainer {
         grid-template-columns: repeat(1, 1fr);
         gap: 1rem;
@@ -62,26 +58,12 @@
         display: none;
       }
 
-      .mobile-filters-btn {
-        display: flex;
-      }
-
       .cart-sidebar {
         width: 100%;
-      }
-
-      .mobile-menu-btn {
-        display: flex;
       }
     }
 
     @media (min-width: 769px) {
-
-      .mobile-filters-btn,
-      .mobile-menu-btn {
-        display: none;
-      }
-
       .desktop-filters {
         display: flex;
       }
@@ -103,42 +85,52 @@
         <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
       </div>
 
+      <!-- Navigation Desktop -->
       <nav class="hidden md:flex space-x-8">
-        <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-        <a href="./homme.html" class="text-purple-600 font-semibold transition">Homme</a>
-        <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-        <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-        <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-        <a href="./historique.html" id="historique-link"
-          class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-        <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-        <a href="../visiteur.html" id="logout"
-          class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+        <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">
+          <i class="fas fa-home mr-1"></i>Accueil
+        </a>
+        <a href="./homme.html" class="text-purple-600 font-semibold transition">
+          <i class="fas fa-male mr-1"></i>Homme
+        </a>
+        <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">
+          <i class="fas fa-female mr-1"></i>Femme
+        </a>
+        <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">
+          <i class="fas fa-th-large mr-1"></i>Collections
+        </a>
+        <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">
+          <i class="fas fa-info-circle mr-1"></i>À propos
+        </a>
+        
+        <!-- Liens authentifiés (Desktop) -->
+        <a href="./profile.html" id="profile-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+          <i class="fas fa-user mr-1"></i>Profil
+        </a>
+        <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+          <i class="fas fa-history mr-1"></i>Historique
+        </a>
+        <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+          <i class="fas fa-shipping-fast mr-1"></i>Suivi
+        </a>
+        <a href="#" id="logout-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+          <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+        </a>
+        
+        <!-- Lien connexion (Desktop) -->
+        <a href="../utils/login.html" id="login-link" class="text-gray-700 hover:text-purple-600 transition">
+          <i class="fas fa-sign-in-alt mr-1"></i>Connexion
+        </a>
       </nav>
 
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
-        <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-        <a href="./homme.html" class="block py-2 text-purple-600 font-semibold transition">Homme</a>
-        <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-        <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-        <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-        <a href="./historique.html" id="historique-link-mobile"
-          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-        <a href="./suivi.html" id="suivi-link-mobile"
-          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-        <a href="../visiteur.html" id="logout-mobile"
-          class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
-      </div>
-
+      <!-- Actions -->
       <div class="flex items-center space-x-4">
         <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
           <i class="fas fa-search"></i>
         </button>
         <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
           <i class="fas fa-shopping-cart"></i>
-          <span id="cart-count"
-            class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
         </button>
         <button class="md:hidden text-gray-600" id="mobile-menu-btn">
           <i class="fas fa-bars text-xl"></i>
@@ -146,17 +138,58 @@
       </div>
     </div>
 
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+      <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+        <i class="fas fa-home mr-2"></i>Accueil
+      </a>
+      <a href="./homme.html" class="block py-2 text-purple-600 font-semibold transition">
+        <i class="fas fa-male mr-2"></i>Homme
+      </a>
+      <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+        <i class="fas fa-female mr-2"></i>Femme
+      </a>
+      <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+        <i class="fas fa-th-large mr-2"></i>Collections
+      </a>
+      <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+        <i class="fas fa-info-circle mr-2"></i>À propos
+      </a>
+      
+      <!-- Séparateur -->
+      <div class="border-t border-gray-200 my-2"></div>
+      
+      <!-- Liens authentifiés (Mobile) -->
+      <a href="./profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+        <i class="fas fa-user mr-2"></i>Profil
+      </a>
+      <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+        <i class="fas fa-history mr-2"></i>Historique
+      </a>
+      <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+        <i class="fas fa-shipping-fast mr-2"></i>Suivi
+      </a>
+      <a href="#" id="logout-link-mobile" class="block py-2 text-red-600 hover:text-red-800 transition hidden">
+        <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+      </a>
+      
+      <!-- Lien connexion (Mobile) -->
+      <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-purple-600 hover:text-purple-800 font-semibold transition">
+        <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+      </a>
+    </div>
+
     <!-- Search Bar -->
     <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
       <div class="container mx-auto flex">
-        <input type="text" placeholder="Rechercher un parfum..."
-          class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <input type="text" placeholder="Rechercher un parfum..." class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
         <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
           <i class="fas fa-search"></i>
         </button>
       </div>
     </div>
   </header>
+
   <!-- Hero -->
   <section class="hero-bg text-white py-20 md:py-32 text-center">
     <h2 class="text-4xl md:text-6xl font-bold mb-4">Parfums Homme</h2>
@@ -184,9 +217,8 @@
         </div>
       </div>
 
-      <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-        <!-- loader -->
-        <div id="loader" class="col-span-full py-12 text-gray-500">
+      <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="col-span-full py-12 text-center text-gray-500">
           <i class="fas fa-spinner fa-spin text-3xl mb-3"></i>
           <p>Chargement des parfums...</p>
         </div>
@@ -199,6 +231,14 @@
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fas fa-spray-can text-2xl text-purple-400"></i>
+            <h3 class="text-xl font-bold">Élégance Parfumée</h3>
+          </div>
+          <p class="text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+        </div>
+
+        <div>
           <h4 class="text-lg font-semibold mb-4">Liens utiles</h4>
           <ul class="space-y-2 text-gray-400">
             <li><a href="./index.html" class="hover:text-white transition">Accueil</a></li>
@@ -206,11 +246,6 @@
             <li><a href="./femme.html" class="hover:text-white transition">Femme</a></li>
             <li><a href="./collections.html" class="hover:text-white transition">Collections</a></li>
             <li><a href="./apropos.html" class="hover:text-white transition">À propos</a></li>
-            <li><a href="./historique.html" id="historique-link-footer"
-                class="hover:text-white transition hidden">Historique</a></li>
-            <li><a href="./suivi.html" id="suivi-link-footer" class="hover:text-white transition hidden">Suivi</a></li>
-            <li><a href="../visiteur.html" id="logout-footer" class="hover:text-white transition hidden">Déconnexion</a>
-            </li>
           </ul>
         </div>
 
@@ -232,6 +267,10 @@
           </ul>
         </div>
       </div>
+
+      <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+        <p class="text-gray-400 text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
+      </div>
     </div>
   </footer>
 
@@ -240,7 +279,6 @@
 
   <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full bg-white z-50 overflow-y-auto">
     <div class="p-6">
-      <!-- En-tête du panier -->
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">Mon Panier</h2>
         <button id="close-cart" class="text-gray-500 hover:text-gray-700">
@@ -248,32 +286,26 @@
         </button>
       </div>
 
-      <!-- Contenu du panier -->
       <div id="cart-content">
         <div id="empty-cart" class="text-center py-12">
           <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-4"></i>
           <p class="text-gray-500">Votre panier est vide</p>
         </div>
 
-        <div id="cart-items" class="hidden">
-          <!-- Les articles du panier seront ajoutés ici -->
-        </div>
+        <div id="cart-items" class="hidden"></div>
       </div>
 
-      <!-- Résumé du panier -->
       <div id="cart-summary" class="hidden border-t border-gray-200 pt-4 mt-4">
         <div class="flex justify-between items-center mb-4">
           <span class="text-lg font-semibold">Total:</span>
           <span id="cart-total" class="text-lg font-bold text-purple-600">0 FCFA</span>
         </div>
 
-        <button id="checkout-btn"
-          class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300">
+        <button id="checkout-btn" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300">
           Commander maintenant
         </button>
 
-        <button id="continue-shopping"
-          class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 mt-2">
+        <button id="continue-shopping" class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 mt-2">
           Continuer mes achats
         </button>
       </div>
@@ -283,12 +315,94 @@
   <!-- Script principal -->
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+
+      // =====================
+      // GESTION DE L'AUTHENTIFICATION
+      // =====================
+      const profileLink = document.getElementById('profile-link');
+      const historiqueLink = document.getElementById('historique-link');
+      const suiviLink = document.getElementById('suivi-link');
+      const logoutLink = document.getElementById('logout-link');
+      const loginLink = document.getElementById('login-link');
+      
+      const profileLinkMobile = document.getElementById('profile-link-mobile');
+      const historiqueLinkMobile = document.getElementById('historique-link-mobile');
+      const suiviLinkMobile = document.getElementById('suivi-link-mobile');
+      const logoutLinkMobile = document.getElementById('logout-link-mobile');
+      const loginLinkMobile = document.getElementById('login-link-mobile');
+
+      function handleLogout(e) {
+        e.preventDefault();
+        if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+          localStorage.clear();
+          window.location.href = '../visiteur.html';
+        }
+      }
+
+      if (token) {
+        // Utilisateur connecté
+        profileLink?.classList.remove('hidden');
+        historiqueLink?.classList.remove('hidden');
+        suiviLink?.classList.remove('hidden');
+        logoutLink?.classList.remove('hidden');
+        loginLink?.classList.add('hidden');
+        
+        profileLinkMobile?.classList.remove('hidden');
+        historiqueLinkMobile?.classList.remove('hidden');
+        suiviLinkMobile?.classList.remove('hidden');
+        logoutLinkMobile?.classList.remove('hidden');
+        loginLinkMobile?.classList.add('hidden');
+        
+        logoutLink?.addEventListener('click', handleLogout);
+        logoutLinkMobile?.addEventListener('click', handleLogout);
+      } else {
+        // Utilisateur non connecté
+        profileLink?.classList.add('hidden');
+        historiqueLink?.classList.add('hidden');
+        suiviLink?.classList.add('hidden');
+        logoutLink?.classList.add('hidden');
+        loginLink?.classList.remove('hidden');
+        
+        profileLinkMobile?.classList.add('hidden');
+        historiqueLinkMobile?.classList.add('hidden');
+        suiviLinkMobile?.classList.add('hidden');
+        logoutLinkMobile?.classList.add('hidden');
+        loginLinkMobile?.classList.remove('hidden');
+      }
+
+      // =====================
+      // MENU MOBILE
+      // =====================
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll("a");
+        mobileLinks.forEach(link => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      }
+
+      document.addEventListener("click", (e) => {
+        if (mobileMenu && mobileMenuBtn) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            mobileMenu.classList.add("hidden");
+          }
+        }
+      });
+
       // =====================
       // GESTION DU PANIER
       // =====================
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-      // Éléments du panier
       const cartBtn = document.getElementById('cart-btn');
       const closeCartBtn = document.getElementById('close-cart');
       const cartOverlay = document.getElementById('cart-overlay');
@@ -301,7 +415,6 @@
       const checkoutBtn = document.getElementById('checkout-btn');
       const continueShoppingBtn = document.getElementById('continue-shopping');
 
-      // Fonctions du panier
       function updateCartCount() {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCount.textContent = totalItems;
@@ -317,7 +430,6 @@
           cartItems.classList.remove('hidden');
           cartSummary.classList.remove('hidden');
 
-          // Afficher les articles
           cartItems.innerHTML = cart.map(item => `
             <div class="flex items-center space-x-4 py-4 border-b border-gray-200" data-product-id="${item.id}">
               <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
@@ -340,7 +452,6 @@
             </div>
           `).join('');
 
-          // Calculer le total
           const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
           cartTotal.textContent = `${total.toFixed(2)} FCFA`;
         }
@@ -350,9 +461,7 @@
 
       function addToCart(product) {
         const existingItem = cart.find(item => item.id === product.id);
-        const imageUrl = product.imagePath
-          ? product.imagePath  // URL Cloudinary complète
-          : 'https://via.placeholder.com/300x300?text=Image+non+disponible';
+        const imageUrl = product.imagePath || 'https://via.placeholder.com/300x300?text=Image+non+disponible';
 
         if (existingItem) {
           existingItem.quantity += 1;
@@ -391,18 +500,14 @@
       }
 
       function showCartNotification(message) {
-        // Créer une notification toast
         const toast = document.createElement('div');
         toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-transform duration-300';
         toast.textContent = message;
         document.body.appendChild(toast);
 
-        setTimeout(() => {
-          toast.remove();
-        }, 3000);
+        setTimeout(() => toast.remove(), 3000);
       }
 
-      // Événements du panier
       cartBtn.addEventListener('click', () => {
         cartSidebar.classList.add('open');
         cartOverlay.classList.add('open');
@@ -419,7 +524,6 @@
         document.body.style.overflow = '';
       }
 
-      // Déléguation des événements pour les boutons du panier
       cartItems.addEventListener('click', (e) => {
         const target = e.target.closest('button');
         if (!target) return;
@@ -438,50 +542,14 @@
       checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) return;
 
-        const token = localStorage.getItem('token');
         if (!token) {
           alert('Veuillez vous connecter pour passer commande');
           window.location.href = '../utils/login.html';
           return;
         }
 
-        // Rediriger vers la page de commande
         window.location.href = './checkout.html';
       });
-
-      // =====================
-      // Mobile menu toggle
-      // =====================
-      const mobileBtn = document.getElementById('mobile-menu-btn');
-      if (mobileBtn) {
-        mobileBtn.addEventListener('click', () => {
-          const mobileMenu = document.getElementById('mobile-menu');
-          if (mobileMenu) mobileMenu.classList.toggle('hidden');
-        });
-      }
-
-      // =====================
-      // CONNEXION / DÉCONNEXION
-      // =====================
-      const authLinks = document.querySelectorAll("#login");
-      const token = localStorage.getItem("token");
-
-      if (token) {
-        authLinks.forEach(link => {
-          link.textContent = "Déconnexion";
-          link.href = "#";
-          link.addEventListener("click", (e) => {
-            e.preventDefault();
-            localStorage.clear();
-            window.location.href = "../visiteur.html";
-          });
-        });
-      } else {
-        authLinks.forEach(link => {
-          link.textContent = "Se connecter";
-          link.href = "../utils/login.html";
-        });
-      }
 
       // =====================
       // FONCTIONS PRODUITS
@@ -498,9 +566,7 @@
           if (!res.ok) throw new Error("Erreur API " + res.status);
           const data = await res.json();
 
-          if (Array.isArray(data)) return data;
-          if (Array.isArray(data.items)) return data.items;
-          return [];
+          return Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : []);
         } catch (e) {
           console.error("Erreur de chargement :", e);
           return [];
@@ -508,17 +574,7 @@
       }
 
       function createProductCard(product) {
-        // Fonction pour extraire le nom du fichier
-        const getImageFileName = (path) => {
-          if (!path) return null;
-          const parts = path.split('/');
-          return parts[parts.length - 1];
-        };
-
-        const img = product.imagePath
-          ? product.imagePath  // URL Cloudinary complète
-          : 'https://via.placeholder.com/300x300?text=Image+non+disponible';
-
+        const img = product.imagePath || 'https://via.placeholder.com/300x300?text=Image+non+disponible';
 
         return `
           <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition">
@@ -530,7 +586,8 @@
               <p class="text-sm text-gray-500">${product.categorie?.nom || 'Catégorie non définie'}</p>
               <div class="mt-3 flex justify-between items-center">
                 <span class="font-bold text-gray-800">${product.prix.toFixed(2)} FCFA</span>
-                <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition duration-300" data-product='${JSON.stringify({ ...product, image: img }).replace(/'/g, "&#39;")}'>
+                <button class="add-to-cart bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition duration-300" 
+                        data-product='${JSON.stringify({ ...product, image: img }).replace(/'/g, "&#39;")}'>
                   <i class="fas fa-plus mr-1"></i> Ajouter
                 </button>
               </div>
@@ -540,17 +597,11 @@
 
       async function displayProducts() {
         const container = document.getElementById("productsContainer");
-        const sortSelect = document.getElementById("sortSelect");
-        const categorySelect = document.getElementById("categorySelect");
-        const sortSelectMobile = document.getElementById("sortSelect-mobile");
-        const categorySelectMobile = document.getElementById("categorySelect-mobile");
-
-        // Utiliser la valeur du sélecteur mobile si disponible
-        const sort = sortSelectMobile?.value || sortSelect?.value || '';
-        const category = categorySelectMobile?.value || categorySelect?.value || '';
+        const sort = document.getElementById("sortSelect").value;
+        const category = document.getElementById("categorySelect").value;
 
         container.innerHTML = `
-          <div class="col-span-full py-12 text-gray-500">
+          <div class="col-span-full py-12 text-center text-gray-500">
             <i class="fas fa-spinner fa-spin text-3xl mb-3"></i>
             <p>Chargement des parfums...</p>
           </div>`;
@@ -568,7 +619,6 @@
 
         container.innerHTML = products.map(p => createProductCard(p)).join('');
 
-        // Ajouter les événements pour les boutons "Ajouter au panier"
         document.querySelectorAll('.add-to-cart').forEach(button => {
           button.addEventListener('click', (e) => {
             const productData = JSON.parse(e.target.closest('button').dataset.product.replace(/&#39;/g, "'"));
@@ -577,13 +627,9 @@
         });
       }
 
-      // Événements pour les filtres
-      document.getElementById("sortSelect")?.addEventListener("change", displayProducts);
-      document.getElementById("categorySelect")?.addEventListener("change", displayProducts);
-      document.getElementById("sortSelect-mobile")?.addEventListener("change", displayProducts);
-      document.getElementById("categorySelect-mobile")?.addEventListener("change", displayProducts);
+      document.getElementById("sortSelect").addEventListener("change", displayProducts);
+      document.getElementById("categorySelect").addEventListener("change", displayProducts);
 
-      // Initialiser l'affichage
       updateCartDisplay();
       await displayProducts();
     });
