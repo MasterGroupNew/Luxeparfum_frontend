@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const token = localStorage.getItem('token');
             if (!token) {
                 alert('Veuillez vous connecter pour passer commande');
-                window.location.href = './utils/login.html';
+                window.location.href = '../utils/login.html';
                 return;
             }
 
