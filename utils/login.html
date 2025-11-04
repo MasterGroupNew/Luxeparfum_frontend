@@ -127,23 +127,52 @@
                 <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
             </div>
 
+            <!-- Navigation Desktop -->
             <nav class="hidden md:flex space-x-8">
-                <a href="../visiteur.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-                <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
+                <a href="../users/index.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-home mr-1"></i>Accueil
+                </a>
+                <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-male mr-1"></i>Homme
+                </a>
+                <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-female mr-1"></i>Femme
+                </a>
+                <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-th-large mr-1"></i>Collections
+                </a>
+                <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-info-circle mr-1"></i>À propos
+                </a>
+                
+                <!-- Liens authentifiés (Desktop) -->
+                <a href="../users/profile.html" id="profile-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-user mr-1"></i>Profil
+                </a>
+                <a href="../users/historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-history mr-1"></i>Historique
+                </a>
+                <a href="../users/suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-shipping-fast mr-1"></i>Suivi
+                </a>
+                <a href="#" id="logout-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                </a>
+                
+                <!-- Lien connexion (Desktop) -->
+                <a href="../utils/login.html" id="login-link" class="text-purple-600 font-semibold transition">
+                    <i class="fas fa-sign-in-alt mr-1"></i>Connexion
+                </a>
             </nav>
 
+            <!-- Actions -->
             <div class="flex items-center space-x-4">
                 <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
                     <i class="fas fa-search"></i>
                 </button>
                 <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
                     <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count"
-                        class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
                 <button class="md:hidden text-gray-600" id="mobile-menu-btn">
                     <i class="fas fa-bars text-xl"></i>
@@ -151,25 +180,45 @@
             </div>
         </div>
 
-        <!-- Mobile Menu -->
+        <!-- Menu Mobile -->
         <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
-            <a href="../visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-            <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-            <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-            <a href="../users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-            <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-            <a href="../utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
-        </div>
-
-        <!-- Search Bar -->
-        <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
-            <div class="container mx-auto flex">
-                <input type="text" placeholder="Rechercher un parfum..."
-                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+            <a href="../users/index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-male mr-2"></i>Homme
+            </a>
+            <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-female mr-2"></i>Femme
+            </a>
+            <a href="../users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-th-large mr-2"></i>Collections
+            </a>
+            <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-info-circle mr-2"></i>À propos
+            </a>
+            
+            <!-- Séparateur -->
+            <div class="border-t border-gray-200 my-2"></div>
+            
+            <!-- Liens authentifiés (Mobile) -->
+            <a href="../users/profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-user mr-2"></i>Profil
+            </a>
+            <a href="../users/historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-history mr-2"></i>Historique
+            </a>
+            <a href="../users/suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-shipping-fast mr-2"></i>Suivi
+            </a>
+            <a href="#" id="logout-link-mobile" class="block py-2 text-red-600 hover:text-red-800 transition hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </a>
+            
+            <!-- Lien connexion (Mobile) -->
+            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-purple-600 hover:text-purple-800 font-semibold transition">
+                <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+            </a>
         </div>
     </header>
 
@@ -204,7 +253,7 @@
 
           <div>
             <button type="submit"
-              class="w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-amber-700 hover:bg-amber-800 transition btn-hover">
+              class="w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 transition btn-hover">
               Se connecter
             </button>
           </div>
@@ -213,7 +262,7 @@
         <div class="mt-6 md:mt-8 text-center">
           <p class="text-sm text-gray-500">
             Nouveau client ?
-            <a href="register.html" class="font-medium text-amber-700 hover:text-amber-800">Créez un compte</a>
+            <a href="register.html" class="font-medium text-purple-700 hover:text-purple-800">Créez un compte</a>
           </p>
         </div>
       </div>

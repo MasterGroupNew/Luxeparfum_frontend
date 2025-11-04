@@ -67,48 +67,107 @@
 
 <body class="min-h-screen flex flex-col">
 
-  <!-- HEADER -->
   <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-        <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
-      </div>
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+            </div>
 
-      <nav class="hidden md:flex space-x-8">
-        <a href="../visiteur.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-        <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-        <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-        <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-        <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-        <a href="../utils/login.html" class="text-gray-700 hover:text-purple-600 transition">Se connecter</a>
-      </nav>
+            <!-- Navigation Desktop -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="../users/index.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-home mr-1"></i>Accueil
+                </a>
+                <a href="../users/homme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-male mr-1"></i>Homme
+                </a>
+                <a href="../users/femme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-female mr-1"></i>Femme
+                </a>
+                <a href="../users/collections.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-th-large mr-1"></i>Collections
+                </a>
+                <a href="../users/apropos.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-info-circle mr-1"></i>À propos
+                </a>
+                
+                <!-- Liens authentifiés (Desktop) -->
+                <a href="../users/profile.html" id="profile-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-user mr-1"></i>Profil
+                </a>
+                <a href="../users/historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-history mr-1"></i>Historique
+                </a>
+                <a href="../users/suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-shipping-fast mr-1"></i>Suivi
+                </a>
+                <a href="#" id="logout-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                </a>
+                
+                <!-- Lien connexion (Desktop) -->
+                <a href="../utils/login.html" id="login-link" class="text-purple-600 font-semibold transition">
+                    <i class="fas fa-sign-in-alt mr-1"></i>Connexion
+                </a>
+            </nav>
 
-      <div class="flex items-center space-x-4">
-        <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-          <i class="fas fa-search"></i>
-        </button>
-        <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cart-count"
-            class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-        </button>
-        <button class="md:hidden text-gray-600" id="mobile-menu-btn">
-          <i class="fas fa-bars text-xl"></i>
-        </button>
-      </div>
-    </div>
+            <!-- Actions -->
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
-      <a href="../visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-      <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-      <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-      <a href="../users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-      <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-      <a href="../utils/login.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Se connecter</a>
-    </div>
-  </header>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="../users/index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="../users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-male mr-2"></i>Homme
+            </a>
+            <a href="../users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-female mr-2"></i>Femme
+            </a>
+            <a href="../users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-th-large mr-2"></i>Collections
+            </a>
+            <a href="../users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-info-circle mr-2"></i>À propos
+            </a>
+            
+            <!-- Séparateur -->
+            <div class="border-t border-gray-200 my-2"></div>
+            
+            <!-- Liens authentifiés (Mobile) -->
+            <a href="../users/profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-user mr-2"></i>Profil
+            </a>
+            <a href="../users/historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-history mr-2"></i>Historique
+            </a>
+            <a href="../users/suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-shipping-fast mr-2"></i>Suivi
+            </a>
+            <a href="#" id="logout-link-mobile" class="block py-2 text-red-600 hover:text-red-800 transition hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </a>
+            
+            <!-- Lien connexion (Mobile) -->
+            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-purple-600 hover:text-purple-800 font-semibold transition">
+                <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+            </a>
+        </div>
+    </header>
 
   <!-- FORMULAIRE -->
   <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -171,7 +230,7 @@
 
           <div>
             <button type="submit"
-              class="btn-hover w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-amber-700 hover:bg-amber-800 transition">
+              class="btn-hover w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 transition">
               S'inscrire
             </button>
           </div>
@@ -180,7 +239,7 @@
         <div class="mt-8 text-center">
           <p class="text-sm text-gray-500">
             Vous avez déjà un compte ?
-            <a href="login.html" class="font-medium text-amber-700 hover:text-amber-800">Connectez-vous</a>
+            <a href="login.html" class="font-medium text-purple-700 hover:text-purple-800">Connectez-vous</a>
           </p>
         </div>
       </div>
@@ -193,7 +252,61 @@
       <span id="toast-message">Message d'erreur</span>
     </div>
   </div>
+<footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-spray-can text-2xl text-purple-400"></i>
+                        <h3 class="text-xl font-bold">Élégance <span class="text-purple-400">Parfumée</span></h3>
+                    </div>
+                    <p class="text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+                </div>
 
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Boutique</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
+                        <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
+                        <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
+                        <li><a href="./collections.html" class="text-gray-400 hover:text-white transition">Collections</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Informations</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Paiement sécurisé</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Retours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Conditions générales</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3"></i>
+                            <span>Cocody, Abidjan, Côte d'Ivoire</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
+                            <span>+225 07 07 07 07 07</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                            <span>contact@luxeparfum.ci</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-6 text-center">
+                <p class="text-gray-400 text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
   <script>
     // =====================
     // Mobile menu toggle
