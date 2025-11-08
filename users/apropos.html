@@ -17,13 +17,13 @@
 
         .timeline {
             position: relative;
-            padding-left: 3rem;
+            padding-left: 2rem;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 15px;
+            left: 10px;
             top: 0;
             bottom: 0;
             width: 2px;
@@ -32,31 +32,64 @@
 
         .timeline-item {
             position: relative;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3rem;
-            top: 0.5rem;
-            width: 1rem;
-            height: 1rem;
+            left: -2rem;
+            top: 0.25rem;
+            width: 0.875rem;
+            height: 0.875rem;
             border-radius: 50%;
             background-color: #8b5cf6;
             border: 3px solid #fff;
             box-shadow: 0 0 0 3px #8b5cf6;
         }
 
-        /* Menu mobile */
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
+        @media (min-width: 768px) {
+            .timeline {
+                padding-left: 3rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                margin-bottom: 3rem;
+            }
+
+            .timeline-item::before {
+                left: -3rem;
+                top: 0.5rem;
+                width: 1rem;
+                height: 1rem;
+            }
         }
 
-        #mobile-menu:not(.hidden) {
-            max-height: 600px;
+        .cart-overlay {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .cart-sidebar {
+            width: 90%;
+            max-width: 400px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-sidebar.active {
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -66,7 +99,7 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+                <h1 class="text-lg md:text-xl font-bold text-gray-800">Élégance Parfumée</h1>
             </div>
 
             <!-- Navigation Desktop -->
@@ -86,11 +119,6 @@
                 <a href="./apropos.html" class="text-purple-600 font-semibold transition">
                     <i class="fas fa-info-circle mr-1"></i>À propos
                 </a>
-                
-                <!-- Liens authentifiés (Desktop) -->
-                <a href="./profile.html" id="profile-link" class="text-gray-700 hover:text-purple-600 transition hidden">
-                    <i class="fas fa-user mr-1"></i>Profil
-                </a>
                 <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
                     <i class="fas fa-history mr-1"></i>Historique
                 </a>
@@ -100,20 +128,15 @@
                 <a href="#" id="logout-link" class="text-gray-700 hover:text-purple-600 transition hidden">
                     <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
                 </a>
-                
-                <!-- Lien connexion (Desktop) -->
-                <a href="../utils/login.html" id="login-link" class="text-gray-700 hover:text-purple-600 transition">
-                    <i class="fas fa-sign-in-alt mr-1"></i>Connexion
-                </a>
             </nav>
 
             <!-- Actions -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3 md:space-x-4">
                 <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search text-lg md:text-base"></i>
                 </button>
                 <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-shopping-cart text-lg md:text-base"></i>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
                 <button class="md:hidden text-gray-600" id="mobile-menu-btn">
@@ -140,10 +163,8 @@
                 <i class="fas fa-info-circle mr-2"></i>À propos
             </a>
             
-            <!-- Séparateur -->
             <div class="border-t border-gray-200 my-2"></div>
             
-            <!-- Liens authentifiés (Mobile) -->
             <a href="./profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
                 <i class="fas fa-user mr-2"></i>Profil
             </a>
@@ -157,41 +178,40 @@
                 <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
             </a>
             
-            <!-- Lien connexion (Mobile) -->
-            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-purple-600 hover:text-purple-800 font-semibold transition">
+            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition">
                 <i class="fas fa-sign-in-alt mr-2"></i>Connexion
             </a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-bg text-white py-20 md:py-32">
+    <section class="hero-bg text-white py-12 md:py-20 lg:py-32">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4">Notre Histoire</h2>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Découvrez l'univers d'Élégance Parfumée et notre passion pour les fragrances d'exception</p>
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">Notre Histoire</h2>
+            <p class="text-lg md:text-xl lg:text-2xl mb-8 max-w-2xl mx-auto">Découvrez l'univers d'Élégance Parfumée et notre passion pour les fragrances d'exception</p>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="py-16 bg-white">
+    <section class="py-12 md:py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Qui sommes-nous ?</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Qui sommes-nous ?</h2>
                 
-                <div class="prose prose-lg max-w-none">
-                    <p class="text-gray-600 mb-6">
+                <div class="space-y-4 md:space-y-6">
+                    <p class="text-sm md:text-base text-gray-600">
                         Fondée en 2010, Élégance Parfumée est née de la passion pour les fragrances rares et authentiques. 
                         Notre maison de parfums allie savoir-faire traditionnel et innovation pour créer des senteurs uniques 
                         qui racontent une histoire et subliment la personnalité de chacun.
                     </p>
                     
-                    <p class="text-gray-600 mb-6">
+                    <p class="text-sm md:text-base text-gray-600">
                         Nous sélectionnons rigoureusement nos ingrédients auprès des meilleurs producteurs à travers le monde, 
                         privilégiant toujours la qualité et la durabilité. Chaque flacon est une invitation au voyage, une 
                         expérience olfactive qui éveille les sens et suscite l'émotion.
                     </p>
                     
-                    <p class="text-gray-600 mb-6">
+                    <p class="text-sm md:text-base text-gray-600">
                         Notre équipe de parfumeurs talentueux crée des compositions uniques en harmonie avec les tendances 
                         contemporaines tout en respectant les traditions de la parfumerie française.
                     </p>
@@ -201,73 +221,73 @@
     </section>
 
     <!-- Values Section -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-12 md:py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Nos Valeurs</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Nos Valeurs</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-leaf text-2xl text-purple-600"></i>
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-xl md:text-2xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-800">Durabilité</h3>
-                    <p class="text-gray-600">Nous nous engageons à réduire notre impact environnemental en utilisant des ingrédients durables et des emballages écologiques.</p>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-gray-800">Durabilité</h3>
+                    <p class="text-sm md:text-base text-gray-600">Nous nous engageons à réduire notre impact environnemental en utilisant des ingrédients durables et des emballages écologiques.</p>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-star text-2xl text-purple-600"></i>
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-star text-xl md:text-2xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-800">Qualité</h3>
-                    <p class="text-gray-600">Chaque parfum est le résultat d'un processus de création exigeant et d'une sélection rigoureuse des matières premières.</p>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-gray-800">Qualité</h3>
+                    <p class="text-sm md:text-base text-gray-600">Chaque parfum est le résultat d'un processus de création exigeant et d'une sélection rigoureuse des matières premières.</p>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-heart text-2xl text-purple-600"></i>
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heart text-xl md:text-2xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-800">Passion</h3>
-                    <p class="text-gray-600">Notre amour pour les belles fragrances se traduit dans chaque création, chaque détail, chaque expérience client.</p>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-gray-800">Passion</h3>
+                    <p class="text-sm md:text-base text-gray-600">Notre amour pour les belles fragrances se traduit dans chaque création, chaque détail, chaque expérience client.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Timeline Section -->
-    <section class="py-16 bg-white">
+    <section class="py-12 md:py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Notre Parcours</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Notre Parcours</h2>
             
             <div class="max-w-3xl mx-auto">
                 <div class="timeline">
                     <div class="timeline-item">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">2010</h3>
-                        <p class="text-gray-600">Fondation d'Élégance Parfumée par Sophie Laurent, passionnée de parfumerie.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2010</h3>
+                        <p class="text-sm md:text-base text-gray-600">Fondation d'Élégance Parfumée par Sophie Laurent, passionnée de parfumerie.</p>
                     </div>
                     
                     <div class="timeline-item">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">2012</h3>
-                        <p class="text-gray-600">Lancement de notre première collection signature avec 5 fragrances uniques.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2012</h3>
+                        <p class="text-sm md:text-base text-gray-600">Lancement de notre première collection signature avec 5 fragrances uniques.</p>
                     </div>
                     
                     <div class="timeline-item">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">2015</h3>
-                        <p class="text-gray-600">Ouverture de notre première boutique flagship à Paris, rue Saint-Honoré.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2015</h3>
+                        <p class="text-sm md:text-base text-gray-600">Ouverture de notre première boutique flagship à Paris, rue Saint-Honoré.</p>
                     </div>
                     
                     <div class="timeline-item">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">2018</h3>
-                        <p class="text-gray-600">Lancement de notre ligne de parfums biologiques et durables.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2018</h3>
+                        <p class="text-sm md:text-base text-gray-600">Lancement de notre ligne de parfums biologiques et durables.</p>
                     </div>
                     
                     <div class="timeline-item">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">2020</h3>
-                        <p class="text-gray-600">Expansion internationale avec l'ouverture de boutiques à New York et Tokyo.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2020</h3>
+                        <p class="text-sm md:text-base text-gray-600">Expansion internationale avec l'ouverture de boutiques à New York et Tokyo.</p>
                     </div>
                     
                     <div class="timeline-item">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">2024</h3>
-                        <p class="text-gray-600">Lancement de notre plateforme e-commerce et programme de personnalisation de parfums sur mesure.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2024</h3>
+                        <p class="text-sm md:text-base text-gray-600">Lancement de notre plateforme e-commerce et programme de personnalisation de parfums sur mesure.</p>
                     </div>
                 </div>
             </div>
@@ -275,79 +295,79 @@
     </section>
 
     <!-- Team Section -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-12 md:py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Notre Équipe</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Notre Équipe</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
-                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-1 text-gray-800">Sophie Laurent</h3>
-                    <p class="text-purple-600 mb-3">Fondatrice & Directrice Créative</p>
-                    <p class="text-gray-600 text-sm">Ancienne nez chez plusieurs grandes maisons, Sophie apporte son expertise et sa vision unique.</p>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Sophie Laurent</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Fondatrice & Directrice Créative</p>
+                    <p class="text-xs md:text-sm text-gray-600">Ancienne nez chez plusieurs grandes maisons, Sophie apporte son expertise et sa vision unique.</p>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
-                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-1 text-gray-800">Thomas Martin</h3>
-                    <p class="text-purple-600 mb-3">Maître Parfumeur</p>
-                    <p class="text-gray-600 text-sm">Avec 20 ans d'expérience, Thomas crée des fragrances qui racontent des histoires et éveillent les émotions.</p>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Thomas Martin</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Maître Parfumeur</p>
+                    <p class="text-xs md:text-sm text-gray-600">Avec 20 ans d'expérience, Thomas crée des fragrances qui racontent des histoires et éveillent les émotions.</p>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
-                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-1 text-gray-800">Camille Dubois</h3>
-                    <p class="text-purple-600 mb-3">Responsable Développement Durable</p>
-                    <p class="text-gray-600 text-sm">Camille veille à ce que nos pratiques respectent l'environnement et les communautés.</p>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Camille Dubois</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Responsable Développement Durable</p>
+                    <p class="text-xs md:text-sm text-gray-600">Camille veille à ce que nos pratiques respectent l'environnement et les communautés.</p>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
-                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <i class="fas fa-user text-4xl text-purple-600"></i>
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-1 text-gray-800">Jean Lefèvre</h3>
-                    <p class="text-purple-600 mb-3">Directeur Commercial</p>
-                    <p class="text-gray-600 text-sm">Jean assure le développement de notre présence en France et à l'international avec passion.</p>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Jean Lefèvre</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Directeur Commercial</p>
+                    <p class="text-xs md:text-sm text-gray-600">Jean assure le développement de notre présence en France et à l'international avec passion.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="py-16 bg-white">
+    <section class="py-12 md:py-16 bg-white">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-sm p-8 md:p-12">
-                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Contactez-nous</h2>
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-sm p-6 md:p-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-800">Contactez-nous</h2>
                 
-                <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div>
-                        <label for="name" class="block text-gray-700 mb-2 font-medium">Nom complet</label>
-                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                        <label for="name" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Nom complet</label>
+                        <input type="text" id="name" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required>
                     </div>
                     
                     <div>
-                        <label for="email" class="block text-gray-700 mb-2 font-medium">Adresse email</label>
-                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                        <label for="email" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Adresse email</label>
+                        <input type="email" id="email" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required>
                     </div>
                     
                     <div class="md:col-span-2">
-                        <label for="subject" class="block text-gray-700 mb-2 font-medium">Sujet</label>
-                        <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                        <label for="subject" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Sujet</label>
+                        <input type="text" id="subject" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required>
                     </div>
                     
                     <div class="md:col-span-2">
-                        <label for="message" class="block text-gray-700 mb-2 font-medium">Message</label>
-                        <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
+                        <label for="message" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Message</label>
+                        <textarea id="message" rows="5" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required></textarea>
                     </div>
                     
                     <div class="md:col-span-2 text-center">
-                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded transition">
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 md:px-8 py-2 md:py-3 rounded transition text-sm md:text-base">
                             <i class="fas fa-paper-plane mr-2"></i>Envoyer le message
                         </button>
                     </div>
@@ -357,20 +377,20 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-gray-900 text-white py-8 md:py-12">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
                         <i class="fas fa-spray-can text-2xl text-purple-400"></i>
-                        <h3 class="text-xl font-bold">Élégance <span class="text-purple-400">Parfumée</span></h3>
+                        <h3 class="text-lg md:text-xl font-bold">Élégance <span class="text-purple-400">Parfumée</span></h3>
                     </div>
-                    <p class="text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+                    <p class="text-sm text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-lg mb-4">Boutique</h4>
-                    <ul class="space-y-2">
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Boutique</h4>
+                    <ul class="space-y-2 text-sm">
                         <li><a href="./index.html" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
                         <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
                         <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
@@ -379,8 +399,8 @@
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-lg mb-4">Informations</h4>
-                    <ul class="space-y-2">
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Informations</h4>
+                    <ul class="space-y-2 text-sm">
                         <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition">Paiement sécurisé</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition">Retours</a></li>
@@ -389,87 +409,692 @@
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-lg mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
                         <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3"></i>
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3 flex-shrink-0"></i>
                             <span>Cocody, Abidjan, Côte d'Ivoire</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
+                            <i class="fas fa-phone-alt text-purple-400 mr-3 flex-shrink-0"></i>
                             <span>+225 07 07 07 07 07</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-envelope text-purple-400 mr-3"></i>
-                            <span>contact@luxeparfum.ci</span>
+                            <i class="fas fa-envelope text-purple-400 mr-3 flex-shrink-0"></i>
+                            <span class="break-all">contact@luxeparfum.ci</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-gray-700 pt-6 text-center">
-                <p class="text-gray-400 text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
+                <p class="text-gray-400 text-xs md:text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Panier Sidebar -->
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full bg-white z-50 overflow-y-auto">
+        <div class="p-4 md:p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-shopping-cart mr-2 text-purple-600"></i>
+                    Mon Panier
+                </h2>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <div id="cart-content">
+                <div id="empty-cart" class="text-center py-12">
+                    <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">Votre panier est vide</p>
+                    <p class="text-sm text-gray-400 mt-2">Ajoutez des produits pour commencer</p>
+                </div>
+
+                <div id="cart-items" class="hidden space-y-4"></div>
+            </div>
+
+            <div id="cart-summary" class="hidden border-t border-gray-200 pt-4 mt-6">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-semibold">Total:</span>
+                    <span id="cart-total" class="text-xl font-bold text-purple-600">0<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Élégance Parfumée</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1774&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 0.875rem;
+            height: 0.875rem;
+            border-radius: 50%;
+            background-color: #8b5cf6;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px #8b5cf6;
+        }
+
+        @media (min-width: 768px) {
+            .timeline {
+                padding-left: 3rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                margin-bottom: 3rem;
+            }
+
+            .timeline-item::before {
+                left: -3rem;
+                top: 0.5rem;
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+
+        .cart-overlay {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .cart-sidebar {
+            width: 90%;
+            max-width: 400px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-sidebar.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+                <h1 class="text-lg md:text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+            </div>
+
+            <!-- Navigation Desktop -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-home mr-1"></i>Accueil
+                </a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-male mr-1"></i>Homme
+                </a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-female mr-1"></i>Femme
+                </a>
+                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-th-large mr-1"></i>Collections
+                </a>
+                <a href="./apropos.html" class="text-purple-600 font-semibold transition">
+                    <i class="fas fa-info-circle mr-1"></i>À propos
+                </a>
+                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-history mr-1"></i>Historique
+                </a>
+                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-shipping-fast mr-1"></i>Suivi
+                </a>
+                <a href="#" id="logout-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                </a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center space-x-3 md:space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-search text-lg md:text-base"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-shopping-cart text-lg md:text-base"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-male mr-2"></i>Homme
+            </a>
+            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-female mr-2"></i>Femme
+            </a>
+            <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-th-large mr-2"></i>Collections
+            </a>
+            <a href="./apropos.html" class="block py-2 text-purple-600 font-semibold transition">
+                <i class="fas fa-info-circle mr-2"></i>À propos
+            </a>
+            
+            <div class="border-t border-gray-200 my-2"></div>
+            
+            <a href="./profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-user mr-2"></i>Profil
+            </a>
+            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-history mr-2"></i>Historique
+            </a>
+            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-shipping-fast mr-2"></i>Suivi
+            </a>
+            <a href="#" id="logout-link-mobile" class="block py-2 text-red-600 hover:text-red-800 transition hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </a>
+            
+            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-12 md:py-20 lg:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">Notre Histoire</h2>
+            <p class="text-lg md:text-xl lg:text-2xl mb-8 max-w-2xl mx-auto">Découvrez l'univers d'Élégance Parfumée et notre passion pour les fragrances d'exception</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-12 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Qui sommes-nous ?</h2>
+                
+                <div class="space-y-4 md:space-y-6">
+                    <p class="text-sm md:text-base text-gray-600">
+                        Fondée en 2010, Élégance Parfumée est née de la passion pour les fragrances rares et authentiques. 
+                        Notre maison de parfums allie savoir-faire traditionnel et innovation pour créer des senteurs uniques 
+                        qui racontent une histoire et subliment la personnalité de chacun.
+                    </p>
+                    
+                    <p class="text-sm md:text-base text-gray-600">
+                        Nous sélectionnons rigoureusement nos ingrédients auprès des meilleurs producteurs à travers le monde, 
+                        privilégiant toujours la qualité et la durabilité. Chaque flacon est une invitation au voyage, une 
+                        expérience olfactive qui éveille les sens et suscite l'émotion.
+                    </p>
+                    
+                    <p class="text-sm md:text-base text-gray-600">
+                        Notre équipe de parfumeurs talentueux crée des compositions uniques en harmonie avec les tendances 
+                        contemporaines tout en respectant les traditions de la parfumerie française.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Nos Valeurs</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-xl md:text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-gray-800">Durabilité</h3>
+                    <p class="text-sm md:text-base text-gray-600">Nous nous engageons à réduire notre impact environnemental en utilisant des ingrédients durables et des emballages écologiques.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-star text-xl md:text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-gray-800">Qualité</h3>
+                    <p class="text-sm md:text-base text-gray-600">Chaque parfum est le résultat d'un processus de création exigeant et d'une sélection rigoureuse des matières premières.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heart text-xl md:text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-gray-800">Passion</h3>
+                    <p class="text-sm md:text-base text-gray-600">Notre amour pour les belles fragrances se traduit dans chaque création, chaque détail, chaque expérience client.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-12 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Notre Parcours</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2010</h3>
+                        <p class="text-sm md:text-base text-gray-600">Fondation d'Élégance Parfumée par Sophie Laurent, passionnée de parfumerie.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2012</h3>
+                        <p class="text-sm md:text-base text-gray-600">Lancement de notre première collection signature avec 5 fragrances uniques.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2015</h3>
+                        <p class="text-sm md:text-base text-gray-600">Ouverture de notre première boutique flagship à Paris, rue Saint-Honoré.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2018</h3>
+                        <p class="text-sm md:text-base text-gray-600">Lancement de notre ligne de parfums biologiques et durables.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2020</h3>
+                        <p class="text-sm md:text-base text-gray-600">Expansion internationale avec l'ouverture de boutiques à New York et Tokyo.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-gray-800">2024</h3>
+                        <p class="text-sm md:text-base text-gray-600">Lancement de notre plateforme e-commerce et programme de personnalisation de parfums sur mesure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Notre Équipe</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Sophie Laurent</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Fondatrice & Directrice Créative</p>
+                    <p class="text-xs md:text-sm text-gray-600">Ancienne nez chez plusieurs grandes maisons, Sophie apporte son expertise et sa vision unique.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Thomas Martin</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Maître Parfumeur</p>
+                    <p class="text-xs md:text-sm text-gray-600">Avec 20 ans d'expérience, Thomas crée des fragrances qui racontent des histoires et éveillent les émotions.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Camille Dubois</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Responsable Développement Durable</p>
+                    <p class="text-xs md:text-sm text-gray-600">Camille veille à ce que nos pratiques respectent l'environnement et les communautés.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-lg transition">
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl md:text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-1 text-gray-800">Jean Lefèvre</h3>
+                    <p class="text-sm md:text-base text-purple-600 mb-3">Directeur Commercial</p>
+                    <p class="text-xs md:text-sm text-gray-600">Jean assure le développement de notre présence en France et à l'international avec passion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-12 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-sm p-6 md:p-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-800">Contactez-nous</h2>
+                
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <div>
+                        <label for="name" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Nom complet</label>
+                        <input type="text" id="name" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Adresse email</label>
+                        <input type="email" id="email" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="subject" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Sujet</label>
+                        <input type="text" id="subject" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="message" class="block text-gray-700 mb-2 font-medium text-sm md:text-base">Message</label>
+                        <textarea id="message" rows="5" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base" required></textarea>
+                    </div>
+                    
+                    <div class="md:col-span-2 text-center">
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 md:px-8 py-2 md:py-3 rounded transition text-sm md:text-base">
+                            <i class="fas fa-paper-plane mr-2"></i>Envoyer le message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 md:py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-spray-can text-2xl text-purple-400"></i>
+                        <h3 class="text-lg md:text-xl font-bold">Élégance <span class="text-purple-400">Parfumée</span></h3>
+                    </div>
+                    <p class="text-sm text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Boutique</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="./index.html" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
+                        <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
+                        <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
+                        <li><a href="./collections.html" class="text-gray-400 hover:text-white transition">Collections</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Informations</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Paiement sécurisé</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Retours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Conditions générales</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3 flex-shrink-0"></i>
+                            <span>Cocody, Abidjan, Côte d'Ivoire</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-purple-400 mr-3 flex-shrink-0"></i>
+                            <span>+225 07 07 07 07 07</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-purple-400 mr-3 flex-shrink-0"></i>
+                            <span class="break-all">contact@luxeparfum.ci</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-6 text-center">
+                <p class="text-gray-400 text-xs md:text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Panier Sidebar -->
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full bg-white z-50 overflow-y-auto">
+        <div class="p-4 md:p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-shopping-cart mr-2 text-purple-600"></i>
+                    Mon Panier
+                </h2>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <div id="cart-content">
+                <div id="empty-cart" class="text-center py-12">
+                    <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">Votre panier est vide</p>
+                    <p class="text-sm text-gray-400 mt-2">Ajoutez des produits pour commencer</p>
+                </div>
+
+                <div id="cart-items" class="hidden space-y-4"></div>
+            </div>
+
+            <div id="cart-summary" class="hidden border-t border-gray-200 pt-4 mt-6">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-semibold">Total:</span>
+                    <span id="cart-total" class="text-xl font-bold text-purple-600">0 FCFA</span>
+                </div>
+
+                <button id="checkout-btn" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300 mb-2 font-medium">
+                    Commander maintenant
+                </button>
+
+                <button id="continue-shopping" class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 font-medium">
+                    Continuer mes achats
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
             const token = localStorage.getItem("token");
-            
+            const userId = localStorage.getItem("userId");
+
+            // Éléments du panier
+            const cartBtn = document.getElementById("cart-btn");
+            const cartSidebar = document.getElementById("cart-sidebar");
+            const cartOverlay = document.getElementById("cart-overlay");
+            const closeCart = document.getElementById("close-cart");
+            const continueShopping = document.getElementById("continue-shopping");
+            const checkoutBtn = document.getElementById("checkout-btn");
+            const cartCountEl = document.getElementById("cart-count");
+
             // =====================
             // GESTION DE L'AUTHENTIFICATION
             // =====================
-            const profileLink = document.getElementById('profile-link');
-            const historiqueLink = document.getElementById('historique-link');
-            const suiviLink = document.getElementById('suivi-link');
-            const logoutLink = document.getElementById('logout-link');
-            const loginLink = document.getElementById('login-link');
-            
-            const profileLinkMobile = document.getElementById('profile-link-mobile');
-            const historiqueLinkMobile = document.getElementById('historique-link-mobile');
-            const suiviLinkMobile = document.getElementById('suivi-link-mobile');
-            const logoutLinkMobile = document.getElementById('logout-link-mobile');
-            const loginLinkMobile = document.getElementById('login-link-mobile');
+            if (token) {
+                document.getElementById('historique-link')?.classList.remove('hidden');
+                document.getElementById('suivi-link')?.classList.remove('hidden');
+                document.getElementById('logout-link')?.classList.remove('hidden');
+                document.getElementById('historique-link-mobile')?.classList.remove('hidden');
+                document.getElementById('suivi-link-mobile')?.classList.remove('hidden');
+                document.getElementById('logout-link-mobile')?.classList.remove('hidden');
+                document.getElementById('profile-link-mobile')?.classList.remove('hidden');
+                document.getElementById('login-link-mobile')?.classList.add('hidden');
 
-            function handleLogout(e) {
-                e.preventDefault();
-                if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-                    localStorage.clear();
-                    window.location.href = '../visiteur.html';
+                // Gestion déconnexion
+                const handleLogout = (e) => {
+                    e.preventDefault();
+                    if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('userId');
+                        window.location.href = '../visiteur.html';
+                    }
+                };
+
+                document.getElementById('logout-link')?.addEventListener('click', handleLogout);
+                document.getElementById('logout-link-mobile')?.addEventListener('click', handleLogout);
+            }
+
+            // =====================
+            // GESTION DU PANIER
+            // =====================
+            
+            // Mise à jour du compteur
+            function updateCartCount() {
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                if (cartCountEl) {
+                    cartCountEl.textContent = totalItems || 0;
                 }
             }
 
-            if (token) {
-                // Utilisateur connecté
-                profileLink?.classList.remove('hidden');
-                historiqueLink?.classList.remove('hidden');
-                suiviLink?.classList.remove('hidden');
-                logoutLink?.classList.remove('hidden');
-                loginLink?.classList.add('hidden');
-                
-                profileLinkMobile?.classList.remove('hidden');
-                historiqueLinkMobile?.classList.remove('hidden');
-                suiviLinkMobile?.classList.remove('hidden');
-                logoutLinkMobile?.classList.remove('hidden');
-                loginLinkMobile?.classList.add('hidden');
-                
-                logoutLink?.addEventListener('click', handleLogout);
-                logoutLinkMobile?.addEventListener('click', handleLogout);
-            } else {
-                // Utilisateur non connecté
-                profileLink?.classList.add('hidden');
-                historiqueLink?.classList.add('hidden');
-                suiviLink?.classList.add('hidden');
-                logoutLink?.classList.add('hidden');
-                loginLink?.classList.remove('hidden');
-                
-                profileLinkMobile?.classList.add('hidden');
-                historiqueLinkMobile?.classList.add('hidden');
-                suiviLinkMobile?.classList.add('hidden');
-                logoutLinkMobile?.classList.add('hidden');
-                loginLinkMobile?.classList.remove('hidden');
+            // Affichage du panier
+            function displayCart() {
+                const emptyCart = document.getElementById("empty-cart");
+                const cartItems = document.getElementById("cart-items");
+                const cartSummary = document.getElementById("cart-summary");
+                const cartTotal = document.getElementById("cart-total");
+
+                if (cart.length === 0) {
+                    emptyCart.classList.remove("hidden");
+                    cartItems.classList.add("hidden");
+                    cartSummary.classList.add("hidden");
+                    return;
+                }
+
+                emptyCart.classList.add("hidden");
+                cartItems.classList.remove("hidden");
+                cartSummary.classList.remove("hidden");
+
+                let total = 0;
+                cartItems.innerHTML = cart.map((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    return `
+                        <div class="flex gap-3 pb-4 border-b">
+                            <img src="${item.image || ''}" alt="${item.name}" 
+                                 class="w-16 h-16 object-cover rounded flex-shrink-0"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22%3E%3Crect fill=%22%23ddd%22 width=%2264%22 height=%2264%22/%3E%3C/svg%3E'">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-semibold text-sm text-gray-800 mb-1">${item.name}</h3>
+                                <p class="text-xs text-gray-500 mb-2">${item.price.toLocaleString('fr-FR')} FCFA</p>
+                                <div class="flex items-center gap-2">
+                                    <div class="flex items-center border rounded">
+                                        <button onclick="updateQuantity(${index}, -1)" class="px-2 py-1 hover:bg-gray-100">
+                                            <i class="fas fa-minus text-xs"></i>
+                                        </button>
+                                        <span class="px-2 py-1 text-sm font-medium">${item.quantity}</span>
+                                        <button onclick="updateQuantity(${index}, 1)" class="px-2 py-1 hover:bg-gray-100">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
+                                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-sm text-gray-800">${itemTotal.toLocaleString('fr-FR')} F</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                cartTotal.textContent = `${total.toLocaleString('fr-FR')} FCFA`;
             }
+
+            // Ouvrir le panier
+            cartBtn?.addEventListener("click", () => {
+                displayCart();
+                cartSidebar.classList.add("active");
+                cartOverlay.classList.add("active");
+                document.body.style.overflow = "hidden";
+            });
+
+            // Fermer le panier
+            function closeCartSidebar() {
+                cartSidebar.classList.remove("active");
+                cartOverlay.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+
+            closeCart?.addEventListener("click", closeCartSidebar);
+            cartOverlay?.addEventListener("click", closeCartSidebar);
+            continueShopping?.addEventListener("click", closeCartSidebar);
+
+            // Aller au checkout
+            checkoutBtn?.addEventListener("click", () => {
+                if (cart.length === 0) {
+                    alert("Votre panier est vide");
+                    return;
+                }
+                window.location.href = "./checkout.html";
+            });
+
+            // Mettre à jour la quantité
+            window.updateQuantity = function(index, change) {
+                if (cart[index]) {
+                    cart[index].quantity += change;
+                    if (cart[index].quantity <= 0) {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    displayCart();
+                    updateCartCount();
+                }
+            };
+
+            // Supprimer un article
+            window.removeFromCart = function(index) {
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                displayCart();
+                updateCartCount();
+            };
 
             // =====================
             // MENU MOBILE
@@ -498,16 +1123,8 @@
                 }
             });
 
-            // =====================
-            // GESTION DU PANIER
-            // =====================
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const cartCountEl = document.getElementById("cart-count");
-            
-            if (cartCountEl) {
-                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-                cartCountEl.textContent = totalItems || 0;
-            }
+            // Initialisation
+            updateCartCount();
         });
     </script>
 </body>

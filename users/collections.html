@@ -25,15 +25,27 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Animation du menu mobile */
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
+        .cart-overlay {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        #mobile-menu:not(.hidden) {
-            max-height: 500px;
+        .cart-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .cart-sidebar {
+            width: 90%;
+            max-width: 400px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-sidebar.active {
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -44,7 +56,7 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+                <h1 class="text-lg md:text-xl font-bold text-gray-800">Élégance Parfumée</h1>
             </div>
 
             <!-- Navigation Desktop -->
@@ -70,18 +82,18 @@
                 <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">
                     <i class="fas fa-shipping-fast mr-1"></i>Suivi
                 </a>
-                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">
+                <a href="#" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">
                     <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
                 </a>
             </nav>
 
             <!-- Actions -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3 md:space-x-4">
                 <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search text-lg md:text-base"></i>
                 </button>
                 <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-shopping-cart text-lg md:text-base"></i>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
                 <button class="md:hidden text-gray-600" id="mobile-menu-btn">
@@ -90,34 +102,8 @@
             </div>
         </div>
 
-        <!-- Menu Mobile 
+        <!-- Menu Mobile -->
         <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
-            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
-                <i class="fas fa-home mr-2"></i>Accueil
-            </a>
-            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
-                <i class="fas fa-male mr-2"></i>Homme
-            </a>
-            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
-                <i class="fas fa-female mr-2"></i>Femme
-            </a>
-            <a href="./collections.html" class="block py-2 text-purple-600 font-semibold transition">
-                <i class="fas fa-th-large mr-2"></i>Collections
-            </a>
-            <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
-                <i class="fas fa-info-circle mr-2"></i>À propos
-            </a>
-            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
-                <i class="fas fa-history mr-2"></i>Historique
-            </a>
-            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
-                <i class="fas fa-shipping-fast mr-2"></i>Suivi
-            </a>
-            <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
-                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
-            </a>
-        </div>  Mobile Menu -->
-      <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
             <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
                 <i class="fas fa-home mr-2"></i>Accueil
             </a>
@@ -156,30 +142,30 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-bg text-white py-20 md:py-32">
+    <section class="hero-bg text-white py-12 md:py-20 lg:py-32">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4">Nos Collections</h2>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Découvrez nos gammes de parfums exclusifs et éditions limitées</p>
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">Nos Collections</h2>
+            <p class="text-lg md:text-xl lg:text-2xl mb-8 max-w-2xl mx-auto">Découvrez nos gammes de parfums exclusifs et éditions limitées</p>
         </div>
     </section>
 
     <!-- Collections Section -->
-    <section class="py-16 bg-white">
+    <section class="py-12 md:py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Explorez nos univers</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Explorez nos univers</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Collection 1 -->
                 <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center relative">
-                        <i class="fas fa-crown text-5xl text-blue-600 opacity-70"></i>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                            <h3 class="font-bold text-lg">Collection Prestige</h3>
+                    <div class="h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center relative">
+                        <i class="fas fa-crown text-4xl md:text-5xl text-blue-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 md:p-4">
+                            <h3 class="font-bold text-base md:text-lg">Collection Prestige</h3>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 mb-4">Nos parfums les plus exclusifs, créés avec des ingrédients rares et précieux.</p>
-                        <a href="./homme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                    <div class="p-4 md:p-6">
+                        <p class="text-sm md:text-base text-gray-600 mb-4">Nos parfums les plus exclusifs, créés avec des ingrédients rares et précieux.</p>
+                        <a href="./homme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center text-sm md:text-base">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
@@ -187,15 +173,15 @@
 
                 <!-- Collection 2 -->
                 <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center relative">
-                        <i class="fas fa-leaf text-5xl text-green-600 opacity-70"></i>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                            <h3 class="font-bold text-lg">Collection Nature</h3>
+                    <div class="h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center relative">
+                        <i class="fas fa-leaf text-4xl md:text-5xl text-green-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 md:p-4">
+                            <h3 class="font-bold text-base md:text-lg">Collection Nature</h3>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 mb-4">Des fragrances inspirées par la nature, avec des ingrédients biologiques et durables.</p>
-                        <a href="./femme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                    <div class="p-4 md:p-6">
+                        <p class="text-sm md:text-base text-gray-600 mb-4">Des fragrances inspirées par la nature, avec des ingrédients biologiques et durables.</p>
+                        <a href="./femme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center text-sm md:text-base">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
@@ -203,15 +189,15 @@
 
                 <!-- Collection 3 -->
                 <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-amber-100 to-amber-300 flex items-center justify-center relative">
-                        <i class="fas fa-gem text-5xl text-amber-600 opacity-70"></i>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                            <h3 class="font-bold text-lg">Collection Exclusive</h3>
+                    <div class="h-48 md:h-64 bg-gradient-to-br from-amber-100 to-amber-300 flex items-center justify-center relative">
+                        <i class="fas fa-gem text-4xl md:text-5xl text-amber-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 md:p-4">
+                            <h3 class="font-bold text-base md:text-lg">Collection Exclusive</h3>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 mb-4">Éditions limitées et créations uniques pour les amateurs de parfums rares.</p>
-                        <a href="./index.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                    <div class="p-4 md:p-6">
+                        <p class="text-sm md:text-base text-gray-600 mb-4">Éditions limitées et créations uniques pour les amateurs de parfums rares.</p>
+                        <a href="./index.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center text-sm md:text-base">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
@@ -219,15 +205,15 @@
 
                 <!-- Collection 4 -->
                 <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-purple-100 to-purple-300 flex items-center justify-center relative">
-                        <i class="fas fa-heart text-5xl text-purple-600 opacity-70"></i>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                            <h3 class="font-bold text-lg">Collection Romantique</h3>
+                    <div class="h-48 md:h-64 bg-gradient-to-br from-purple-100 to-purple-300 flex items-center justify-center relative">
+                        <i class="fas fa-heart text-4xl md:text-5xl text-purple-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 md:p-4">
+                            <h3 class="font-bold text-base md:text-lg">Collection Romantique</h3>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 mb-4">Des fragrances délicates et envoûtantes pour célébrer l'amour et la romance.</p>
-                        <a href="./femme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                    <div class="p-4 md:p-6">
+                        <p class="text-sm md:text-base text-gray-600 mb-4">Des fragrances délicates et envoûtantes pour célébrer l'amour et la romance.</p>
+                        <a href="./femme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center text-sm md:text-base">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
@@ -235,15 +221,15 @@
 
                 <!-- Collection 5 -->
                 <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-red-100 to-red-300 flex items-center justify-center relative">
-                        <i class="fas fa-fire text-5xl text-red-600 opacity-70"></i>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                            <h3 class="font-bold text-lg">Collection Sensuelle</h3>
+                    <div class="h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-300 flex items-center justify-center relative">
+                        <i class="fas fa-fire text-4xl md:text-5xl text-red-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 md:p-4">
+                            <h3 class="font-bold text-base md:text-lg">Collection Sensuelle</h3>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 mb-4">Des parfums audacieux et captivants qui éveillent les sens et suscitent l'émotion.</p>
-                        <a href="./homme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                    <div class="p-4 md:p-6">
+                        <p class="text-sm md:text-base text-gray-600 mb-4">Des parfums audacieux et captivants qui éveillent les sens et suscitent l'émotion.</p>
+                        <a href="./homme.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center text-sm md:text-base">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
@@ -251,15 +237,15 @@
 
                 <!-- Collection 6 -->
                 <div class="collection-card bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-teal-100 to-teal-300 flex items-center justify-center relative">
-                        <i class="fas fa-wind text-5xl text-teal-600 opacity-70"></i>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                            <h3 class="font-bold text-lg">Collection Fraîcheur</h3>
+                    <div class="h-48 md:h-64 bg-gradient-to-br from-teal-100 to-teal-300 flex items-center justify-center relative">
+                        <i class="fas fa-wind text-4xl md:text-5xl text-teal-600 opacity-70"></i>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-3 md:p-4">
+                            <h3 class="font-bold text-base md:text-lg">Collection Fraîcheur</h3>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <p class="text-gray-600 mb-4">Des fragrances légères et aériennes, parfaites pour les journées ensoleillées.</p>
-                        <a href="./index.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                    <div class="p-4 md:p-6">
+                        <p class="text-sm md:text-base text-gray-600 mb-4">Des fragrances légères et aériennes, parfaites pour les journées ensoleillées.</p>
+                        <a href="./index.html" class="text-purple-600 hover:text-purple-800 font-medium flex items-center text-sm md:text-base">
                             Découvrir <i class="fas fa-arrow-right ml-2 text-sm"></i>
                         </a>
                     </div>
@@ -269,21 +255,21 @@
     </section>
 
     <!-- Limited Edition Section -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-12 md:py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Éditions Limitées</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Découvrez nos créations exclusives disponibles en quantités limitées</p>
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Éditions Limitées</h2>
+                <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">Découvrez nos créations exclusives disponibles en quantités limitées</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="h-96 bg-gradient-to-br from-purple-500 to-indigo-700 flex items-center justify-center relative">
+                    <div class="h-64 md:h-96 bg-gradient-to-br from-purple-500 to-indigo-700 flex items-center justify-center relative">
                         <div class="text-white text-center p-6">
                             <span class="bg-white text-purple-600 text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">Nouveau</span>
-                            <h3 class="text-2xl font-bold mb-2">Midnight Orchid</h3>
-                            <p class="mb-4">Une fragrance mystérieuse aux notes d'orchidée noire et de vanille</p>
-                            <a href="./femme.html" class="inline-block bg-white text-purple-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Midnight Orchid</h3>
+                            <p class="text-sm md:text-base mb-4">Une fragrance mystérieuse aux notes d'orchidée noire et de vanille</p>
+                            <a href="./femme.html" class="inline-block bg-white text-purple-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition text-sm md:text-base">
                                 Découvrir
                             </a>
                         </div>
@@ -291,12 +277,12 @@
                 </div>
 
                 <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="h-96 bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center relative">
+                    <div class="h-64 md:h-96 bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center relative">
                         <div class="text-white text-center p-6">
                             <span class="bg-white text-amber-600 text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">Bientôt</span>
-                            <h3 class="text-2xl font-bold mb-2">Golden Amber</h3>
-                            <p class="mb-4">Une création chaude et enveloppante aux notes d'ambre et de santal</p>
-                            <button class="bg-white text-amber-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Golden Amber</h3>
+                            <p class="text-sm md:text-base mb-4">Une création chaude et enveloppante aux notes d'ambre et de santal</p>
+                            <button class="bg-white text-amber-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-full transition text-sm md:text-base">
                                 Être alerté
                             </button>
                         </div>
@@ -307,20 +293,20 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white pt-12 pb-6">
+    <footer class="bg-gray-800 text-white pt-8 md:pt-12 pb-6">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
                         <i class="fas fa-spray-can text-2xl text-purple-400"></i>
-                        <h3 class="text-xl font-bold">Élégance Parfumée</h3>
+                        <h3 class="text-lg md:text-xl font-bold">Élégance Parfumée</h3>
                     </div>
-                    <p class="text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
+                    <p class="text-sm text-gray-400">Depuis 2010, nous créons des fragrances uniques qui subliment votre personnalité.</p>
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-lg mb-4">Boutique</h4>
-                    <ul class="space-y-2">
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Boutique</h4>
+                    <ul class="space-y-2 text-sm">
                         <li><a href="./index.html" class="text-gray-400 hover:text-white transition">Nouveautés</a></li>
                         <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums homme</a></li>
                         <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums femme</a></li>
@@ -330,8 +316,8 @@
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-lg mb-4">Informations</h4>
-                    <ul class="space-y-2">
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Informations</h4>
+                    <ul class="space-y-2 text-sm">
                         <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition">Paiement sécurisé</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition">Retours</a></li>
@@ -340,85 +326,229 @@
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-lg mb-4">Contact</h4>
-                    <ul class="space-y-2">
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm">
                         <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3"></i>
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-3 flex-shrink-0"></i>
                             <span class="text-gray-400">Cocody, Abidjan, Côte d'Ivoire</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
+                            <i class="fas fa-phone-alt text-purple-400 mr-3 flex-shrink-0"></i>
                             <span class="text-gray-400">+225 07 07 07 07 07</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-envelope text-purple-400 mr-3"></i>
-                            <span class="text-gray-400">contact@luxeparfum.ci</span>
+                            <i class="fas fa-envelope text-purple-400 mr-3 flex-shrink-0"></i>
+                            <span class="text-gray-400 break-all">contact@luxeparfum.ci</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-gray-700 pt-6 text-center">
-                <p class="text-gray-400 text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
+                <p class="text-gray-400 text-xs md:text-sm">© 2024 Élégance Parfumée. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Panier Sidebar -->
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full bg-white z-50 overflow-y-auto">
+        <div class="p-4 md:p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-shopping-cart mr-2 text-purple-600"></i>
+                    Mon Panier
+                </h2>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <div id="cart-content">
+                <div id="empty-cart" class="text-center py-12">
+                    <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">Votre panier est vide</p>
+                    <p class="text-sm text-gray-400 mt-2">Ajoutez des produits pour commencer</p>
+                </div>
+
+                <div id="cart-items" class="hidden space-y-4"></div>
+            </div>
+
+            <div id="cart-summary" class="hidden border-t border-gray-200 pt-4 mt-6">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-semibold">Total:</span>
+                    <span id="cart-total" class="text-xl font-bold text-purple-600">0 FCFA</span>
+                </div>
+
+                <button id="checkout-btn" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300 mb-2 font-medium">
+                    Commander maintenant
+                </button>
+
+                <button id="continue-shopping" class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 font-medium">
+                    Continuer mes achats
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Récupération du token
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
             const token = localStorage.getItem("token");
+
+            // Éléments du panier
+            const cartBtn = document.getElementById("cart-btn");
+            const cartSidebar = document.getElementById("cart-sidebar");
+            const cartOverlay = document.getElementById("cart-overlay");
+            const closeCart = document.getElementById("close-cart");
+            const continueShopping = document.getElementById("continue-shopping");
+            const checkoutBtn = document.getElementById("checkout-btn");
+            const cartCountEl = document.getElementById("cart-count");
 
             // =====================
             // GESTION DE L'AUTHENTIFICATION
             // =====================
-            const logoutLinks = document.querySelectorAll("#logout, #logout-mobile");
-            
             if (token) {
-                // Utilisateur connecté
-                logoutLinks.forEach(link => {
-                    link.textContent = "Déconnexion";
-                    link.classList.remove("hidden");
-                    link.href = "#";
-                    link.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        localStorage.clear();
-                        window.location.href = "../visiteur.html";
-                    });
-                });
-
-                // Afficher les liens authentifiés
                 document.getElementById('historique-link')?.classList.remove('hidden');
                 document.getElementById('suivi-link')?.classList.remove('hidden');
+                document.getElementById('logout')?.classList.remove('hidden');
                 document.getElementById('historique-link-mobile')?.classList.remove('hidden');
                 document.getElementById('suivi-link-mobile')?.classList.remove('hidden');
-            } else {
-                // Pas connecté
-                logoutLinks.forEach(link => {
-                    link.textContent = "Connexion";
-                    link.classList.remove("hidden");
-                    link.href = "../utils/login.html";
+                document.getElementById('logout-link-mobile')?.classList.remove('hidden');
+                document.getElementById('profile-link-mobile')?.classList.remove('hidden');
+                document.getElementById('login-link-mobile')?.classList.add('hidden');
+
+                document.getElementById('logout')?.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userId');
+                    window.location.href = "../visiteur.html";
+                });
+
+                document.getElementById('logout-link-mobile')?.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userId');
+                    window.location.href = "../visiteur.html";
                 });
             }
 
             // =====================
             // GESTION DU PANIER
             // =====================
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const cartCountEl = document.getElementById("cart-count");
             
-            if (cartCountEl) {
+            // Mise à jour du compteur
+            function updateCartCount() {
                 const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-                cartCountEl.textContent = totalItems || 0;
+                if (cartCountEl) {
+                    cartCountEl.textContent = totalItems || 0;
+                }
             }
 
-            // Bouton panier
-            const cartBtn = document.getElementById("cart-btn");
-            if (cartBtn) {
-                cartBtn.addEventListener("click", () => {
-                    window.location.href = "./checkout.html";
-                });
+            // Affichage du panier
+            function displayCart() {
+                const emptyCart = document.getElementById("empty-cart");
+                const cartItems = document.getElementById("cart-items");
+                const cartSummary = document.getElementById("cart-summary");
+                const cartTotal = document.getElementById("cart-total");
+
+                if (cart.length === 0) {
+                    emptyCart.classList.remove("hidden");
+                    cartItems.classList.add("hidden");
+                    cartSummary.classList.add("hidden");
+                    return;
+                }
+
+                emptyCart.classList.add("hidden");
+                cartItems.classList.remove("hidden");
+                cartSummary.classList.remove("hidden");
+
+                let total = 0;
+                cartItems.innerHTML = cart.map((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    return `
+                        <div class="flex gap-3 pb-4 border-b">
+                            <img src="${item.image || ''}" alt="${item.name}" 
+                                 class="w-16 h-16 object-cover rounded flex-shrink-0"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22%3E%3Crect fill=%22%23ddd%22 width=%2264%22 height=%2264%22/%3E%3C/svg%3E'">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-semibold text-sm text-gray-800 mb-1">${item.name}</h3>
+                                <p class="text-xs text-gray-500 mb-2">${item.price.toLocaleString('fr-FR')} FCFA</p>
+                                <div class="flex items-center gap-2">
+                                    <div class="flex items-center border rounded">
+                                        <button onclick="updateQuantity(${index}, -1)" class="px-2 py-1 hover:bg-gray-100">
+                                            <i class="fas fa-minus text-xs"></i>
+                                        </button>
+                                        <span class="px-2 py-1 text-sm font-medium">${item.quantity}</span>
+                                        <button onclick="updateQuantity(${index}, 1)" class="px-2 py-1 hover:bg-gray-100">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
+                                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-sm text-gray-800">${itemTotal.toLocaleString('fr-FR')} F</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                cartTotal.textContent = `${total.toLocaleString('fr-FR')} FCFA`;
             }
+
+            // Ouvrir le panier
+            cartBtn?.addEventListener("click", () => {
+                displayCart();
+                cartSidebar.classList.add("active");
+                cartOverlay.classList.add("active");
+                document.body.style.overflow = "hidden";
+            });
+
+            // Fermer le panier
+            function closeCartSidebar() {
+                cartSidebar.classList.remove("active");
+                cartOverlay.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+
+            closeCart?.addEventListener("click", closeCartSidebar);
+            cartOverlay?.addEventListener("click", closeCartSidebar);
+            continueShopping?.addEventListener("click", closeCartSidebar);
+
+            // Aller au checkout
+            checkoutBtn?.addEventListener("click", () => {
+                if (cart.length === 0) {
+                    alert("Votre panier est vide");
+                    return;
+                }
+                window.location.href = "./checkout.html";
+            });
+
+            // Mettre à jour la quantité
+            window.updateQuantity = function(index, change) {
+                if (cart[index]) {
+                    cart[index].quantity += change;
+                    if (cart[index].quantity <= 0) {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    displayCart();
+                    updateCartCount();
+                }
+            };
+
+            // Supprimer un article
+            window.removeFromCart = function(index) {
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                displayCart();
+                updateCartCount();
+            };
 
             // =====================
             // MENU MOBILE
@@ -431,7 +561,6 @@
                     mobileMenu.classList.toggle("hidden");
                 });
 
-                // Fermer le menu quand on clique sur un lien
                 const mobileLinks = mobileMenu.querySelectorAll("a");
                 mobileLinks.forEach(link => {
                     link.addEventListener("click", () => {
@@ -440,7 +569,6 @@
                 });
             }
 
-            // Fermer le menu si on clique en dehors
             document.addEventListener("click", (e) => {
                 if (mobileMenu && mobileMenuBtn) {
                     if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
@@ -448,6 +576,9 @@
                     }
                 }
             });
+
+            // Initialisation
+            updateCartCount();
         });
     </script>
 </body>

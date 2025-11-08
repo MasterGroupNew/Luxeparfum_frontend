@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suivi de commande - Élégance Parfumée</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,57 +13,109 @@
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-purple-600">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
                 <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+                <h1 class="text-lg md:text-xl font-bold text-gray-800">Élégance Parfumée</h1>
             </div>
 
+            <!-- Navigation Desktop -->
             <nav class="hidden md:flex space-x-8">
-                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="./unisex.html" class="text-gray-700 hover:text-purple-600 transition">Unisexe</a>
-                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link" class="text-purple-600 font-semibold transition hidden">Suivi</a>
-                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-home mr-1"></i>Accueil
+                </a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-male mr-1"></i>Homme
+                </a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-female mr-1"></i>Femme
+                </a>
+                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-th-large mr-1"></i>Collections
+                </a>
+                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-info-circle mr-1"></i>À propos
+                </a>
+                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-history mr-1"></i>Historique
+                </a>
+                <a href="./suivi.html" id="suivi-link" class="text-purple-600 font-semibold transition hidden">
+                    <i class="fas fa-shipping-fast mr-1"></i>Suivi
+                </a>
+                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                </a>
             </nav>
 
-            <div class="flex items-center space-x-4">
+            <!-- Actions -->
+            <div class="flex items-center space-x-3 md:space-x-4">
                 <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search text-lg md:text-base"></i>
                 </button>
                 <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-shopping-cart text-lg md:text-base"></i>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0">
-            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-            <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-purple-600 font-semibold transition hidden">Suivi</a>
-            <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-male mr-2"></i>Homme
+            </a>
+            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-female mr-2"></i>Femme
+            </a>
+            <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-th-large mr-2"></i>Collections
+            </a>
+            <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-info-circle mr-2"></i>À propos
+            </a>
+            
+            <div class="border-t border-gray-200 my-2"></div>
+            
+            <a href="./profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-user mr-2"></i>Profil
+            </a>
+            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-history mr-2"></i>Historique
+            </a>
+            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-purple-600 font-semibold transition hidden">
+                <i class="fas fa-shipping-fast mr-2"></i>Suivi
+            </a>
+            <a href="#" id="logout-link-mobile" class="block py-2 text-red-600 hover:text-red-800 transition hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </a>
+            
+            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+            </a>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-6 md:py-8">
         <div class="max-w-3xl mx-auto">
-            <h1 class="text-3xl font-bold text-gray-800 mb-8">Suivi de votre commande</h1>
+            <div class="mb-4">
+                <a href="./historique.html" class="inline-flex items-center text-purple-600 hover:text-purple-700 transition">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    <span class="text-sm md:text-base">Retour à l'historique</span>
+                </a>
+            </div>
 
-            <div id="order-details" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Suivi de votre commande</h1>
+
+            <div id="order-details" class="bg-white rounded-lg shadow-md p-4 md:p-6 mb-6 md:mb-8">
                 <!-- Détails de la commande injectés ici -->
             </div>
 
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold mb-6">Statut de la livraison</h2>
+            <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+                <h2 class="text-lg md:text-xl font-semibold mb-6">Statut de la livraison</h2>
                 <div id="tracking-steps" class="relative">
                     <!-- Étapes de suivi injectées ici -->
                 </div>
@@ -71,7 +124,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-gray-900 text-white py-8 md:py-12 mt-12">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
@@ -98,15 +151,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             const token = localStorage.getItem('token');
+            const userId = localStorage.getItem('userId');
 
             // Gestion de l'authentification et affichage des liens
             if (token) {
-                document.getElementById('historique-link').classList.remove('hidden');
-                document.getElementById('suivi-link').classList.remove('hidden');
-                document.getElementById('logout').classList.remove('hidden');
-                document.getElementById('historique-link-mobile').classList.remove('hidden');
-                document.getElementById('suivi-link-mobile').classList.remove('hidden');
-                document.getElementById('logout-mobile').classList.remove('hidden');
+                document.getElementById('historique-link')?.classList.remove('hidden');
+                document.getElementById('suivi-link')?.classList.remove('hidden');
+                document.getElementById('logout')?.classList.remove('hidden');
+                document.getElementById('historique-link-mobile')?.classList.remove('hidden');
+                document.getElementById('suivi-link-mobile')?.classList.remove('hidden');
+                document.getElementById('logout-link-mobile')?.classList.remove('hidden');
+                document.getElementById('profile-link-mobile')?.classList.remove('hidden');
+                document.getElementById('login-link-mobile')?.classList.add('hidden');
             } else {
                 window.location.href = '../utils/login.html';
                 return;
@@ -128,6 +184,21 @@
                 });
             }
 
+            // Gestion déconnexion
+            document.getElementById('logout')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                window.location.href = '../visiteur.html';
+            });
+
+            document.getElementById('logout-link-mobile')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                window.location.href = '../visiteur.html';
+            });
+
             const orderId = new URLSearchParams(window.location.search).get('orderId');
             if (!orderId) {
                 window.location.href = 'historique.html';
@@ -143,28 +214,73 @@
                     const order = await response.json();
                     displayOrderDetails(order);
                     displayTrackingSteps(order.status);
+                } else {
+                    showError();
                 }
             } catch (error) {
                 console.error('Erreur:', error);
+                showError();
+            }
+
+            function showError() {
+                const container = document.getElementById('order-details');
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fas fa-exclamation-circle text-4xl text-red-400 mb-4"></i>
+                        <p class="text-gray-600">Impossible de charger les détails de la commande</p>
+                        <a href="./historique.html" class="inline-block mt-4 text-purple-600 hover:text-purple-700">
+                            Retour à l'historique
+                        </a>
+                    </div>
+                `;
             }
 
             function displayOrderDetails(order) {
                 const container = document.getElementById('order-details');
                 container.innerHTML = `
-                    <div class="flex justify-between items-start mb-6">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-6 space-y-3 sm:space-y-0">
                         <div>
-                            <h2 class="text-xl font-semibold">Commande #${order.id}</h2>
-                            <p class="text-sm text-gray-500">Passée le ${new Date(order.createdAt).toLocaleDateString()}</p>
+                            <h2 class="text-lg md:text-xl font-semibold">Commande #${order.id}</h2>
+                            <p class="text-xs md:text-sm text-gray-500">
+                                Passée le ${new Date(order.createdAt).toLocaleDateString('fr-FR', {
+                                    day: 'numeric',
+                                    month: 'long',
+                                    year: 'numeric'
+                                })}
+                            </p>
                         </div>
-                        <span class="px-4 py-2 rounded-full ${getStatusColor(order.status)}">
+                        <span class="px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm ${getStatusColor(order.status)} self-start">
                             ${getStatusText(order.status)}
                         </span>
                     </div>
 
                     <div class="border-t border-gray-200 pt-4">
-                        <h3 class="font-medium mb-2">Adresse de livraison</h3>
-                        <p class="text-gray-600">${order.shippingAddress}</p>
+                        <h3 class="font-medium mb-2 text-sm md:text-base">Adresse de livraison</h3>
+                        <p class="text-gray-600 text-sm md:text-base">${order.shippingAddress || 'Non spécifiée'}</p>
                     </div>
+
+                    ${order.items ? `
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <h3 class="font-medium mb-3 text-sm md:text-base">Articles commandés</h3>
+                        <div class="space-y-3">
+                            ${order.items.map(item => `
+                                <div class="flex items-center gap-3">
+                                    <img src="${item.image}" alt="${item.name}" 
+                                         class="w-12 h-12 md:w-16 md:h-16 object-cover rounded flex-shrink-0">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-medium text-sm md:text-base truncate">${item.name}</p>
+                                        <p class="text-xs md:text-sm text-gray-500">Qté: ${item.quantity}</p>
+                                    </div>
+                                    <p class="font-medium text-sm md:text-base whitespace-nowrap">${(item.price * item.quantity).toLocaleString('fr-FR')} F</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200 flex justify-between items-center">
+                            <span class="font-semibold text-sm md:text-base">Total</span>
+                            <span class="font-bold text-base md:text-lg">${order.total.toLocaleString('fr-FR')} FCFA</span>
+                        </div>
+                    </div>
+                    ` : ''}
                 `;
             }
 
@@ -172,28 +288,73 @@
                 const steps = [
                     { status: 'pending', icon: 'shopping-cart', text: 'Commande reçue' },
                     { status: 'processing', icon: 'box', text: 'En préparation' },
-                    { status: 'shipped', icon: 'truck', text: 'En cours de livraison' },
+                    { status: 'shipped', icon: 'truck', text: 'En livraison' },
                     { status: 'delivered', icon: 'check-circle', text: 'Livrée' }
                 ];
 
                 const container = document.getElementById('tracking-steps');
-                container.innerHTML = `
-                    <div class="flex items-center justify-between relative">
-                        ${steps.map((step, index) => `
-                            <div class="flex flex-col items-center relative z-10">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center ${
-                                    isStepCompleted(step.status, currentStatus)
-                                        ? 'bg-green-500 text-white'
-                                        : 'bg-gray-200 text-gray-500'
-                                }">
-                                    <i class="fas fa-${step.icon}"></i>
+                
+                // Version mobile (verticale)
+                const mobileView = `
+                    <div class="md:hidden space-y-4">
+                        ${steps.map((step, index) => {
+                            const isCompleted = isStepCompleted(step.status, currentStatus);
+                            const isActive = step.status === currentStatus;
+                            return `
+                                <div class="flex items-start gap-4">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                            isCompleted
+                                                ? 'bg-green-500 text-white'
+                                                : isActive
+                                                ? 'bg-purple-500 text-white'
+                                                : 'bg-gray-200 text-gray-500'
+                                        }">
+                                            <i class="fas fa-${step.icon}"></i>
+                                        </div>
+                                        ${index < steps.length - 1 ? `
+                                            <div class="w-0.5 h-12 ${isCompleted ? 'bg-green-500' : 'bg-gray-200'}"></div>
+                                        ` : ''}
+                                    </div>
+                                    <div class="flex-1 pt-2">
+                                        <p class="text-sm font-medium ${isCompleted ? 'text-gray-900' : 'text-gray-500'}">${step.text}</p>
+                                    </div>
                                 </div>
-                                <p class="text-sm mt-2">${step.text}</p>
-                            </div>
-                        `).join('')}
-                        <div class="absolute left-0 right-0 h-1 bg-gray-200 top-5 -z-10"></div>
+                            `;
+                        }).join('')}
                     </div>
                 `;
+
+                // Version desktop (horizontale)
+                const desktopView = `
+                    <div class="hidden md:block">
+                        <div class="flex items-start justify-between relative">
+                            ${steps.map((step, index) => {
+                                const isCompleted = isStepCompleted(step.status, currentStatus);
+                                const isActive = step.status === currentStatus;
+                                return `
+                                    <div class="flex flex-col items-center relative z-10 flex-1">
+                                        <div class="w-12 h-12 rounded-full flex items-center justify-center ${
+                                            isCompleted
+                                                ? 'bg-green-500 text-white'
+                                                : isActive
+                                                ? 'bg-purple-500 text-white'
+                                                : 'bg-gray-200 text-gray-500'
+                                        }">
+                                            <i class="fas fa-${step.icon}"></i>
+                                        </div>
+                                        <p class="text-sm mt-3 text-center">${step.text}</p>
+                                    </div>
+                                `;
+                            }).join('')}
+                            <div class="absolute left-0 right-0 h-1 bg-gray-200 top-6" style="margin: 0 6%;"></div>
+                            <div class="absolute left-0 h-1 bg-green-500 top-6 transition-all duration-500" 
+                                 style="width: ${getProgressWidth(currentStatus)}; margin-left: 6%;"></div>
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML = mobileView + desktopView;
             }
 
             function isStepCompleted(stepStatus, currentStatus) {
@@ -201,12 +362,23 @@
                 return order.indexOf(stepStatus) <= order.indexOf(currentStatus);
             }
 
+            function getProgressWidth(currentStatus) {
+                const progress = {
+                    'pending': '0%',
+                    'processing': '33%',
+                    'shipped': '66%',
+                    'delivered': '100%'
+                };
+                return progress[currentStatus] || '0%';
+            }
+
             function getStatusColor(status) {
                 const colors = {
                     'pending': 'bg-yellow-100 text-yellow-800',
                     'processing': 'bg-blue-100 text-blue-800',
-                    'shipped': 'bg-green-100 text-green-800',
-                    'delivered': 'bg-green-100 text-green-800'
+                    'shipped': 'bg-purple-100 text-purple-800',
+                    'delivered': 'bg-green-100 text-green-800',
+                    'cancelled': 'bg-red-100 text-red-800'
                 };
                 return colors[status] || 'bg-gray-100 text-gray-800';
             }
@@ -216,7 +388,8 @@
                     'pending': 'En attente',
                     'processing': 'En traitement',
                     'shipped': 'En cours de livraison',
-                    'delivered': 'Livrée'
+                    'delivered': 'Livrée',
+                    'cancelled': 'Annulée'
                 };
                 return texts[status] || status;
             }

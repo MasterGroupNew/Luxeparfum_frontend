@@ -5,105 +5,191 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finaliser la commande - Élégance Parfumée</title>
     <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-50">
-    <!-- En-tête similaire aux autres pages -->
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-purple-600">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
                 <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+                <h1 class="text-lg md:text-xl font-bold text-gray-800">Élégance Parfumée</h1>
             </div>
 
+            <!-- Navigation Desktop -->
             <nav class="hidden md:flex space-x-8">
-                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="./unisex.html" class="text-purple-600 font-semibold transition">Unisexe</a>
-                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-home mr-1"></i>Accueil
+                </a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-male mr-1"></i>Homme
+                </a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-female mr-1"></i>Femme
+                </a>
+                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-th-large mr-1"></i>Collections
+                </a>
+                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-info-circle mr-1"></i>À propos
+                </a>
+                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-history mr-1"></i>Historique
+                </a>
+                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-shipping-fast mr-1"></i>Suivi
+                </a>
+                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                </a>
             </nav>
 
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0">
-                <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-                <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
-            </div>
-
-            <div class="flex items-center space-x-4">
+            <!-- Actions -->
+            <div class="flex items-center space-x-3 md:space-x-4">
                 <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search text-lg md:text-base"></i>
                 </button>
                 <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-shopping-cart text-lg md:text-base"></i>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-male mr-2"></i>Homme
+            </a>
+            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-female mr-2"></i>Femme
+            </a>
+            <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-th-large mr-2"></i>Collections
+            </a>
+            <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-info-circle mr-2"></i>À propos
+            </a>
+            
+            <div class="border-t border-gray-200 my-2"></div>
+            
+            <a href="./profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-user mr-2"></i>Profil
+            </a>
+            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-history mr-2"></i>Historique
+            </a>
+            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-shipping-fast mr-2"></i>Suivi
+            </a>
+            <a href="#" id="logout-link-mobile" class="block py-2 text-red-600 hover:text-red-800 transition hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </a>
+            
+            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+            </a>
+        </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-6 md:py-8">
         <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl font-bold text-gray-800 mb-8">Finaliser votre commande</h1>
+            <!-- Breadcrumb -->
+            <div class="mb-4 md:mb-6">
+                <a href="./index.html" class="inline-flex items-center text-purple-600 hover:text-purple-700 transition text-sm md:text-base">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Retour au panier
+                </a>
+            </div>
+
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Finaliser votre commande</h1>
 
             <!-- Résumé du panier -->
-            <div class="bg-white rounded-lg shadow p-6 mb-8">
-                <h2 class="text-xl font-semibold mb-4">Récapitulatif de votre panier</h2>
+            <div class="bg-white rounded-lg shadow p-4 md:p-6 mb-6 md:mb-8">
+                <h2 class="text-lg md:text-xl font-semibold mb-4 flex items-center">
+                    <i class="fas fa-shopping-bag mr-2 text-purple-600"></i>
+                    Récapitulatif de votre panier
+                </h2>
                 <div id="cart-summary" class="divide-y divide-gray-200">
                     <!-- Rempli dynamiquement -->
                 </div>
-                <div class="mt-4 text-right">
-                    <p class="text-lg font-bold">Total: <span id="cart-total">0 FCFA</span></p>
+                <div id="empty-cart-message" class="hidden text-center py-8">
+                    <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-3"></i>
+                    <p class="text-gray-500">Votre panier est vide</p>
+                    <a href="./index.html" class="inline-block mt-4 text-purple-600 hover:text-purple-700">
+                        Continuer vos achats
+                    </a>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200 flex justify-between items-center">
+                    <span class="text-base md:text-lg font-semibold">Total</span>
+                    <span class="text-lg md:text-xl font-bold text-purple-600" id="cart-total">0 FCFA</span>
                 </div>
             </div>
 
             <!-- Formulaire de commande -->
-            <form id="checkout-form" class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-semibold mb-6">Informations de livraison</h2>
+            <form id="checkout-form" class="bg-white rounded-lg shadow p-4 md:p-6">
+                <h2 class="text-lg md:text-xl font-semibold mb-4 md:mb-6 flex items-center">
+                    <i class="fas fa-truck mr-2 text-purple-600"></i>
+                    Informations de livraison
+                </h2>
                 
                 <!-- Informations personnelles -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Nom <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="nom" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
+                            placeholder="Votre nom">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Prénom <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="prenom" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
+                            placeholder="Votre prénom">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Téléphone <span class="text-red-500">*</span>
+                        </label>
                         <input type="tel" name="telephone" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
+                            placeholder="+225 XX XX XX XX XX"
+                            pattern="[0-9+\s\-()]+">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Email <span class="text-red-500">*</span>
+                        </label>
                         <input type="email" name="email" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
+                            placeholder="votre@email.com">
                     </div>
                 </div>
 
                 <!-- Lieu de livraison -->
-                <div class="mt-8">
-                    <h3 class="text-lg font-medium text-gray-800 mb-4">Lieu de livraison</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="mt-6 md:mt-8">
+                    <h3 class="text-base md:text-lg font-medium text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2 text-purple-600"></i>
+                        Lieu de livraison
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
-                            <select name="ville" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Ville <span class="text-red-500">*</span>
+                            </label>
+                            <select name="ville" required 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base">
                                 <option value="">Sélectionner une ville</option>
                                 <option value="Abidjan">Abidjan</option>
                                 <option value="Yamoussoukro">Yamoussoukro</option>
@@ -116,126 +202,146 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Commune</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Commune <span class="text-red-500">*</span>
+                            </label>
                             <input type="text" name="commune" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
+                                placeholder="Ex: Cocody, Yopougon...">
                         </div>
                     </div>
                     <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Point de repère</label>
                         <input type="text" name="pointRepere"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            placeholder="Ex: près du marché de X">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
+                            placeholder="Ex: près du marché de X, face à l'école Y...">
+                        <p class="text-xs text-gray-500 mt-1">Pour faciliter la livraison</p>
                     </div>
                 </div>
 
                 <!-- Mode de paiement -->
-                <div class="mt-8">
-                    <h3 class="text-lg font-medium text-gray-800 mb-4">Mode de paiement</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
+                <div class="mt-6 md:mt-8">
+                    <h3 class="text-base md:text-lg font-medium text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-credit-card mr-2 text-purple-600"></i>
+                        Mode de paiement
+                    </h3>
+                    <div class="space-y-3 md:space-y-4">
+                        <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-purple-300 transition">
                             <input type="radio" id="momo" name="paiement" value="momo" required
-                                class="h-4 w-4 text-purple-600 focus:ring-purple-500">
-                            <label for="momo" class="ml-3">
-                                <span class="block text-sm font-medium text-gray-700">Mobile Money</span>
-                                <span class="block text-sm text-gray-500">Orange Money, MTN Money, Moov Money, Wave</span>
-                            </label>
-                        </div>
-                        <div class="flex items-center">
+                                class="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 flex-shrink-0">
+                            <div class="ml-3 flex-1">
+                                <span class="block text-sm md:text-base font-medium text-gray-700">Mobile Money</span>
+                                <span class="block text-xs md:text-sm text-gray-500 mt-1">Orange Money, MTN Money, Moov Money, Wave</span>
+                            </div>
+                            <i class="fas fa-mobile-alt text-purple-600 text-xl ml-2 flex-shrink-0"></i>
+                        </label>
+                        <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-purple-300 transition">
                             <input type="radio" id="cash" name="paiement" value="cash" required
-                                class="h-4 w-4 text-purple-600 focus:ring-purple-500">
-                            <label for="cash" class="ml-3">
-                                <span class="block text-sm font-medium text-gray-700">Paiement à la livraison</span>
-                                <span class="block text-sm text-gray-500">Paiement en espèces à la réception</span>
-                            </label>
-                        </div>
+                                class="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 flex-shrink-0">
+                            <div class="ml-3 flex-1">
+                                <span class="block text-sm md:text-base font-medium text-gray-700">Paiement à la livraison</span>
+                                <span class="block text-xs md:text-sm text-gray-500 mt-1">Paiement en espèces à la réception</span>
+                            </div>
+                            <i class="fas fa-money-bill-wave text-green-600 text-xl ml-2 flex-shrink-0"></i>
+                        </label>
                     </div>
                 </div>
 
-                <div class="mt-8">
-                    <button type="submit" 
-                        class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition duration-300">
-                        Confirmer la commande
+                <div class="mt-6 md:mt-8">
+                    <button type="submit" id="submit-btn"
+                        class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition duration-300 font-medium text-sm md:text-base flex items-center justify-center">
+                        <i class="fas fa-lock mr-2"></i>
+                        <span>Confirmer la commande</span>
                     </button>
+                    <p class="text-xs text-center text-gray-500 mt-3">
+                        <i class="fas fa-shield-alt mr-1"></i>
+                        Vos informations sont sécurisées
+                    </p>
                 </div>
             </form>
         </div>
     </main>
- <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 md:py-12 mt-12 md:mt-16">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 <div>
                     <div class="flex items-center mb-4">
                         <i class="fas fa-spray-can text-2xl text-purple-400 mr-2"></i>
-                        <h3 class="text-xl font-bold">Élégance <span class="text-purple-400">Parfumée</span></h3>
+                        <h3 class="text-lg md:text-xl font-bold">Élégance <span class="text-purple-400">Parfumée</span></h3>
                     </div>
-                    <p class="text-gray-400 mb-4">Votre destination premium pour des fragrances exceptionnelles.</p>
+                    <p class="text-sm text-gray-400 mb-4">Votre destination premium pour des fragrances exceptionnelles.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Boutique</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Nouveautés</a></li>
-                        <li><a href="./femme.html" class="text-gray-400 hover:text-white">Parfums Femmes</a></li>
-                        <li><a href="./homme.html" class="text-gray-400 hover:text-white">Parfums Hommes</a></li>
-                        <li><a href="./collections.html" class="text-gray-400 hover:text-white">Collections</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Offres spéciales</a></li>
+                    <h4 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Boutique</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="./femme.html" class="text-gray-400 hover:text-white transition">Parfums Femmes</a></li>
+                        <li><a href="./homme.html" class="text-gray-400 hover:text-white transition">Parfums Hommes</a></li>
+                        <li><a href="./collections.html" class="text-gray-400 hover:text-white transition">Collections</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Informations</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Retours</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    <h4 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Informations</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="./apropos.html" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Livraison</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
+                    <h4 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mr-2 mt-1 flex-shrink-0"></i>
                             <span>Cocody, Abidjan, Côte d'Ivoire</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-phone-alt mr-2"></i>
+                            <i class="fas fa-phone-alt mr-2 flex-shrink-0"></i>
                             <span>+225 07 07 07 07 07</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-envelope mr-2"></i>
-                            <span>contact@luxeparfum.ci</span>
+                            <i class="fas fa-envelope mr-2 flex-shrink-0"></i>
+                            <span class="break-all">contact@luxeparfum.ci</span>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Élégance Parfumée. Tous droits réservés.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
-                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
-                    <a href="#" class="text-gray-400 hover:text-white">Conditions générales</a>
-                </div>
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center">
+                <p class="text-xs md:text-sm text-gray-500">© 2024 Élégance Parfumée. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
+
     <!-- Toast pour les messages -->
-    <div id="toast" class="fixed bottom-4 right-4 hidden">
-        <div class="bg-white border-l-4 p-4 shadow-lg max-w-sm">
-            <div id="toast-content" class="flex items-center">
-                <div class="text-sm font-medium" id="toast-message"></div>
+    <div id="toast" class="fixed bottom-4 right-4 left-4 md:left-auto md:w-96 hidden z-50">
+        <div id="toast-content" class="bg-white border-l-4 p-4 shadow-lg rounded-lg">
+            <div class="flex items-center">
+                <i id="toast-icon" class="fas text-xl mr-3"></i>
+                <div class="flex-1">
+                    <p id="toast-message" class="text-sm font-medium"></p>
+                </div>
+                <button onclick="document.getElementById('toast').classList.add('hidden')" class="ml-3 text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 flex flex-col items-center">
+            <i class="fas fa-spinner fa-spin text-4xl text-purple-600 mb-4"></i>
+            <p class="text-gray-700 font-medium">Traitement de votre commande...</p>
         </div>
     </div>
 
@@ -243,6 +349,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const token = localStorage.getItem('token');
+            const userId = localStorage.getItem('userId');
 
             // Vérification de l'authentification
             if (!token) {
@@ -250,42 +357,74 @@
                 return;
             }
 
+            // Mise à jour du compteur de panier
+            updateCartCount();
+
             // Affichage du résumé du panier
             function displayCartSummary() {
                 const summaryContainer = document.getElementById('cart-summary');
                 const totalElement = document.getElementById('cart-total');
+                const emptyMessage = document.getElementById('empty-cart-message');
+                const form = document.getElementById('checkout-form');
                 
+                if (cart.length === 0) {
+                    summaryContainer.classList.add('hidden');
+                    totalElement.parentElement.classList.add('hidden');
+                    emptyMessage.classList.remove('hidden');
+                    form.classList.add('hidden');
+                    return;
+                }
+
                 let total = 0;
                 summaryContainer.innerHTML = cart.map(item => {
                     total += item.price * item.quantity;
                     return `
-                        <div class="py-4 flex justify-between">
-                            <div>
-                                <h3 class="font-medium">${item.name}</h3>
-                                <p class="text-sm text-gray-500">Quantité: ${item.quantity}</p>
+                        <div class="py-3 md:py-4 flex items-start gap-3">
+                            <img src="${item.image || ''}" alt="${item.name}" 
+                                 class="w-12 h-12 md:w-16 md:h-16 object-cover rounded flex-shrink-0"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22%3E%3Crect fill=%22%23ddd%22 width=%2250%22 height=%2250%22/%3E%3C/svg%3E'">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-medium text-sm md:text-base truncate">${item.name}</h3>
+                                <p class="text-xs md:text-sm text-gray-500">Quantité: ${item.quantity}</p>
                             </div>
-                            <p class="font-medium">${(item.price * item.quantity).toFixed(2)} F CFA</p>
+                            <p class="font-medium text-sm md:text-base whitespace-nowrap">${(item.price * item.quantity).toLocaleString('fr-FR')} F</p>
                         </div>
                     `;
                 }).join('');
 
-                totalElement.textContent = `${total.toFixed(2)} F CFA`;
+                totalElement.textContent = `${total.toLocaleString('fr-FR')} FCFA`;
+            }
+
+            // Mise à jour du compteur de panier
+            function updateCartCount() {
+                const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById('cart-count').textContent = count;
             }
 
             // Soumission du formulaire
             document.getElementById('checkout-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
 
+                const submitBtn = document.getElementById('submit-btn');
+                const loader = document.getElementById('loader');
+                
+                // Désactiver le bouton et afficher le loader
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Traitement...';
+                loader.classList.remove('hidden');
+
                 const formData = new FormData(this);
-                // Correction du champ commune
                 const orderData = {
                     items: cart,
                     shippingInfo: {
-                        ...Object.fromEntries(formData.entries()),
+                        nom: formData.get('nom'),
+                        prenom: formData.get('prenom'),
+                        telephone: formData.get('telephone'),
+                        email: formData.get('email'),
                         adresseLivraison: {
                             ville: formData.get('ville'),
                             commune: formData.get('commune'),
-                            pointRepere: formData.get('pointRepere')
+                            pointRepere: formData.get('pointRepere') || ''
                         },
                         modePaiement: formData.get('paiement')
                     }
@@ -304,18 +443,18 @@
                     const data = await response.json();
 
                     if (response.ok) {
-                        // Succès
-                        localStorage.removeItem('cart');
                         showToast('Commande passée avec succès !', 'success');
                         setTimeout(() => {
-                            window.location.href = './confirmation.html';
+                            window.location.href = `./confirmation.html?orderId=${data.orderId || 'CMD' + Date.now()}`;
                         }, 1500);
                     } else {
-                        // Erreur
-                        showToast(data.error || 'Erreur lors de la commande', 'error');
+                        throw new Error(data.error || 'Erreur lors de la commande');
                     }
                 } catch (error) {
-                    showToast('Erreur de connexion', 'error');
+                    loader.classList.add('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-lock mr-2"></i><span>Confirmer la commande</span>';
+                    showToast(error.message || 'Erreur de connexion', 'error');
                     console.error('Erreur:', error);
                 }
             });
@@ -324,28 +463,48 @@
                 const toast = document.getElementById('toast');
                 const toastMessage = document.getElementById('toast-message');
                 const toastContent = document.getElementById('toast-content');
+                const toastIcon = document.getElementById('toast-icon');
 
                 toastMessage.textContent = message;
-                toastContent.className = `flex items-center ${
-                    type === 'success' ? 'border-green-500 text-green-700' : 'border-red-500 text-red-700'
-                }`;
+                
+                if (type === 'success') {
+                    toastContent.className = 'bg-white border-l-4 border-green-500 p-4 shadow-lg rounded-lg';
+                    toastIcon.className = 'fas fa-check-circle text-xl mr-3 text-green-500';
+                } else {
+                    toastContent.className = 'bg-white border-l-4 border-red-500 p-4 shadow-lg rounded-lg';
+                    toastIcon.className = 'fas fa-exclamation-circle text-xl mr-3 text-red-500';
+                }
 
                 toast.classList.remove('hidden');
-                setTimeout(() => toast.classList.add('hidden'), 3000);
+                setTimeout(() => toast.classList.add('hidden'), 4000);
             }
 
             // Gestion de l'affichage des liens authentifiés
             if (token) {
-                // Desktop links
-                document.getElementById('historique-link').classList.remove('hidden');
-                document.getElementById('suivi-link').classList.remove('hidden');
-                document.getElementById('logout').classList.remove('hidden');
-
-                // Mobile links
-                document.getElementById('historique-link-mobile').classList.remove('hidden');
-                document.getElementById('suivi-link-mobile').classList.remove('hidden');
-                document.getElementById('logout-mobile').classList.remove('hidden');
+                document.getElementById('historique-link')?.classList.remove('hidden');
+                document.getElementById('suivi-link')?.classList.remove('hidden');
+                document.getElementById('logout')?.classList.remove('hidden');
+                document.getElementById('historique-link-mobile')?.classList.remove('hidden');
+                document.getElementById('suivi-link-mobile')?.classList.remove('hidden');
+                document.getElementById('logout-link-mobile')?.classList.remove('hidden');
+                document.getElementById('profile-link-mobile')?.classList.remove('hidden');
+                document.getElementById('login-link-mobile')?.classList.add('hidden');
             }
+
+            // Gestion déconnexion
+            document.getElementById('logout')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                window.location.href = '../visiteur.html';
+            });
+
+            document.getElementById('logout-link-mobile')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                window.location.href = '../visiteur.html';
+            });
 
             // Mobile menu toggle
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -356,7 +515,6 @@
                     mobileMenu.classList.toggle('hidden');
                 });
 
-                // Fermer le menu mobile en cliquant ailleurs
                 document.addEventListener('click', (e) => {
                     if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
                         mobileMenu.classList.add('hidden');
