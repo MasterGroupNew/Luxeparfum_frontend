@@ -198,7 +198,7 @@
       const newStatus = document.getElementById('newStatus').value;
       const token = getToken();
 
-      fetch(`${API_BASE_URL}/update_status/${currentOrderId}`, {
+      fetch(`${API_BASE_URL}/update_order_status/${currentOrderId}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
