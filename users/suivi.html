@@ -206,7 +206,7 @@
             }
 
             try {
-                const response = await fetch(`https://luxeparfum-backend.onrender.com/api/orders/${orderId}`, {
+                const response = await fetch(`https://luxeparfum-backend.onrender.com/api/orders/get_order/${orderId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
