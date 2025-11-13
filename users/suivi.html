@@ -7,6 +7,24 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .progress-line {
+            transition: width 0.8s ease-in-out;
+        }
+        
+        .step-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .step-icon.completed {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
@@ -80,7 +98,7 @@
             
             <div class="border-t border-gray-200 my-2"></div>
             
-            <a href="./profile.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+            <a href="./profiles.html" id="profile-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
                 <i class="fas fa-user mr-2"></i>Profil
             </a>
             <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
@@ -111,7 +129,10 @@
             <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Suivi de votre commande</h1>
 
             <div id="order-details" class="bg-white rounded-lg shadow-md p-4 md:p-6 mb-6 md:mb-8">
-                <!-- Détails de la commande injectés ici -->
+                <div class="text-center py-8">
+                    <i class="fas fa-spinner fa-spin text-4xl text-purple-600 mb-3"></i>
+                    <p class="text-gray-600">Chargement...</p>
+                </div>
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
@@ -120,6 +141,7 @@
                     <!-- Étapes de suivi injectées ici -->
                 </div>
             </div>
+            <p style="text-align: center;"><span>Le Livreur va vous appelez</span></p>
         </div>
     </main>
 
@@ -129,7 +151,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
+                    <ul class="space-y-2 text-gray-400 text-sm">
                         <li class="flex items-center">
                             <i class="fas fa-map-marker-alt mr-2"></i>
                             <span>Cocody, Abidjan, Côte d'Ivoire</span>
@@ -145,15 +167,18 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400 text-sm">© 2025 Élégance Parfumée. Tous droits réservés.</p>
+            </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             const token = localStorage.getItem('token');
-            const userId = localStorage.getItem('userId');
 
-            // Gestion de l'authentification et affichage des liens
+            // Gestion de l'authentification
             if (token) {
                 document.getElementById('historique-link')?.classList.remove('hidden');
                 document.getElementById('suivi-link')?.classList.remove('hidden');
@@ -168,7 +193,7 @@
                 return;
             }
 
-            // Gestion menu mobile
+            // Menu mobile
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
 
@@ -184,21 +209,20 @@
                 });
             }
 
-            // Gestion déconnexion
+            // Déconnexion
             document.getElementById('logout')?.addEventListener('click', (e) => {
                 e.preventDefault();
-                localStorage.removeItem('token');
-                localStorage.removeItem('userId');
+                localStorage.clear();
                 window.location.href = '../visiteur.html';
             });
 
             document.getElementById('logout-link-mobile')?.addEventListener('click', (e) => {
                 e.preventDefault();
-                localStorage.removeItem('token');
-                localStorage.removeItem('userId');
+                localStorage.clear();
                 window.location.href = '../visiteur.html';
             });
 
+            // Récupération de l'ID de commande
             const orderId = new URLSearchParams(window.location.search).get('orderId');
             if (!orderId) {
                 window.location.href = 'historique.html';
@@ -240,7 +264,7 @@
                 container.innerHTML = `
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-6 space-y-3 sm:space-y-0">
                         <div>
-                            <h2 class="text-lg md:text-xl font-semibold">Commande #${order.id}</h2>
+                            <h2 class="text-lg md:text-xl font-semibold">Commande #${order._id?.slice(-8) || order.id}</h2>
                             <p class="text-xs md:text-sm text-gray-500">
                                 Passée le ${new Date(order.createdAt).toLocaleDateString('fr-FR', {
                                     day: 'numeric',
@@ -249,14 +273,18 @@
                                 })}
                             </p>
                         </div>
-                        <span class="px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm ${getStatusColor(order.status)} self-start">
+                        <span class="px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium ${getStatusColor(order.status)} self-start">
                             ${getStatusText(order.status)}
                         </span>
                     </div>
 
                     <div class="border-t border-gray-200 pt-4">
                         <h3 class="font-medium mb-2 text-sm md:text-base">Adresse de livraison</h3>
-                        <p class="text-gray-600 text-sm md:text-base">${order.shippingAddress || 'Non spécifiée'}</p>
+                        <p class="text-gray-600 text-sm md:text-base">
+                            ${order.shippingInfo?.adresseLivraison ? 
+                                `${order.shippingInfo.adresseLivraison.commune}, ${order.shippingInfo.adresseLivraison.ville}` : 
+                                'Non spécifiée'}
+                        </p>
                     </div>
 
                     ${order.items ? `
@@ -265,19 +293,19 @@
                         <div class="space-y-3">
                             ${order.items.map(item => `
                                 <div class="flex items-center gap-3">
-                                    <img src="${item.image}" alt="${item.name}" 
+                                    <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}" 
                                          class="w-12 h-12 md:w-16 md:h-16 object-cover rounded flex-shrink-0">
                                     <div class="flex-1 min-w-0">
                                         <p class="font-medium text-sm md:text-base truncate">${item.name}</p>
                                         <p class="text-xs md:text-sm text-gray-500">Qté: ${item.quantity}</p>
                                     </div>
-                                    <p class="font-medium text-sm md:text-base whitespace-nowrap">${(item.price * item.quantity).toLocaleString('fr-FR')} F</p>
+                                    <p class="font-medium text-sm md:text-base whitespace-nowrap">${((item.price || 0) * (item.quantity || 1)).toLocaleString('fr-FR')} FCFA</p>
                                 </div>
                             `).join('')}
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-200 flex justify-between items-center">
                             <span class="font-semibold text-sm md:text-base">Total</span>
-                            <span class="font-bold text-base md:text-lg">${order.total.toLocaleString('fr-FR')} FCFA</span>
+                            <span class="font-bold text-base md:text-lg text-purple-600">${(order.total || 0).toLocaleString('fr-FR')} FCFA</span>
                         </div>
                     </div>
                     ` : ''}
@@ -285,6 +313,24 @@
             }
 
             function displayTrackingSteps(currentStatus) {
+                // Mapper les statuts français vers les étapes
+                const statusMapping = {
+                    'en attente': 'pending',
+                    'pending': 'pending',
+                    'en cours': 'processing',
+                    'processing': 'processing',
+                    'en préparation': 'processing',
+                    'expédiée': 'shipped',
+                    'shipped': 'shipped',
+                    'en livraison': 'shipped',
+                    'livrée': 'delivered',
+                    'delivered': 'delivered',
+                    'livré': 'delivered'
+                };
+
+                // Normaliser le statut
+                const normalizedStatus = statusMapping[currentStatus.toLowerCase()] || 'pending';
+
                 const steps = [
                     { status: 'pending', icon: 'shopping-cart', text: 'Commande reçue' },
                     { status: 'processing', icon: 'box', text: 'En préparation' },
@@ -298,26 +344,28 @@
                 const mobileView = `
                     <div class="md:hidden space-y-4">
                         ${steps.map((step, index) => {
-                            const isCompleted = isStepCompleted(step.status, currentStatus);
-                            const isActive = step.status === currentStatus;
+                            const isCompleted = isStepCompleted(step.status, normalizedStatus);
+                            const isActive = step.status === normalizedStatus;
                             return `
                                 <div class="flex items-start gap-4">
                                     <div class="flex flex-col items-center">
-                                        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                        <div class="step-icon w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                                             isCompleted
-                                                ? 'bg-green-500 text-white'
+                                                ? 'bg-green-500 text-white shadow-lg completed'
                                                 : isActive
-                                                ? 'bg-purple-500 text-white'
-                                                : 'bg-gray-200 text-gray-500'
+                                                ? 'bg-purple-500 text-white shadow-lg ring-4 ring-purple-200'
+                                                : 'bg-gray-200 text-gray-400'
                                         }">
-                                            <i class="fas fa-${step.icon}"></i>
+                                            <i class="fas fa-${step.icon} ${isActive ? 'fa-beat' : ''}"></i>
                                         </div>
                                         ${index < steps.length - 1 ? `
-                                            <div class="w-0.5 h-12 ${isCompleted ? 'bg-green-500' : 'bg-gray-200'}"></div>
+                                            <div class="w-0.5 h-12 transition-colors duration-500 ${isCompleted ? 'bg-green-500' : 'bg-gray-200'}"></div>
                                         ` : ''}
                                     </div>
                                     <div class="flex-1 pt-2">
-                                        <p class="text-sm font-medium ${isCompleted ? 'text-gray-900' : 'text-gray-500'}">${step.text}</p>
+                                        <p class="text-sm font-medium ${isCompleted || isActive ? 'text-gray-900' : 'text-gray-400'}">${step.text}</p>
+                                        ${isActive ? '<p class="text-xs text-purple-600 mt-1">En cours</p>' : ''}
+                                        ${isCompleted && !isActive ? '<p class="text-xs text-green-600 mt-1"><i class="fas fa-check mr-1"></i>Terminé</p>' : ''}
                                     </div>
                                 </div>
                             `;
@@ -330,26 +378,30 @@
                     <div class="hidden md:block">
                         <div class="flex items-start justify-between relative">
                             ${steps.map((step, index) => {
-                                const isCompleted = isStepCompleted(step.status, currentStatus);
-                                const isActive = step.status === currentStatus;
+                                const isCompleted = isStepCompleted(step.status, normalizedStatus);
+                                const isActive = step.status === normalizedStatus;
                                 return `
                                     <div class="flex flex-col items-center relative z-10 flex-1">
-                                        <div class="w-12 h-12 rounded-full flex items-center justify-center ${
+                                        <div class="step-icon w-14 h-14 rounded-full flex items-center justify-center ${
                                             isCompleted
-                                                ? 'bg-green-500 text-white'
+                                                ? 'bg-green-500 text-white shadow-lg completed'
                                                 : isActive
-                                                ? 'bg-purple-500 text-white'
-                                                : 'bg-gray-200 text-gray-500'
+                                                ? 'bg-purple-500 text-white shadow-lg ring-4 ring-purple-200'
+                                                : 'bg-gray-200 text-gray-400'
                                         }">
-                                            <i class="fas fa-${step.icon}"></i>
+                                            <i class="fas fa-${step.icon} text-xl ${isActive ? 'fa-beat' : ''}"></i>
                                         </div>
-                                        <p class="text-sm mt-3 text-center">${step.text}</p>
+                                        <p class="text-sm font-medium mt-3 text-center ${isCompleted || isActive ? 'text-gray-900' : 'text-gray-400'}">${step.text}</p>
+                                        ${isActive ? '<p class="text-xs text-purple-600 mt-1">En cours</p>' : ''}
+                                        ${isCompleted && !isActive ? '<p class="text-xs text-green-600 mt-1"><i class="fas fa-check mr-1"></i>Terminé</p>' : ''}
                                     </div>
                                 `;
                             }).join('')}
-                            <div class="absolute left-0 right-0 h-1 bg-gray-200 top-6" style="margin: 0 6%;"></div>
-                            <div class="absolute left-0 h-1 bg-green-500 top-6 transition-all duration-500" 
-                                 style="width: ${getProgressWidth(currentStatus)}; margin-left: 6%;"></div>
+                            <!-- Ligne de fond -->
+                            <div class="absolute left-0 right-0 h-1 bg-gray-200 top-7" style="margin: 0 7%;"></div>
+                            <!-- Ligne de progression -->
+                            <div class="progress-line absolute left-0 h-1 bg-gradient-to-r from-green-400 to-green-500 top-7 shadow-md" 
+                                 style="width: ${getProgressWidth(normalizedStatus)}; margin-left: 7%;"></div>
                         </div>
                     </div>
                 `;
@@ -359,7 +411,9 @@
 
             function isStepCompleted(stepStatus, currentStatus) {
                 const order = ['pending', 'processing', 'shipped', 'delivered'];
-                return order.indexOf(stepStatus) <= order.indexOf(currentStatus);
+                const stepIndex = order.indexOf(stepStatus);
+                const currentIndex = order.indexOf(currentStatus);
+                return stepIndex < currentIndex;
             }
 
             function getProgressWidth(currentStatus) {
@@ -373,25 +427,43 @@
             }
 
             function getStatusColor(status) {
+                const statusLower = status.toLowerCase();
                 const colors = {
                     'pending': 'bg-yellow-100 text-yellow-800',
+                    'en attente': 'bg-yellow-100 text-yellow-800',
                     'processing': 'bg-blue-100 text-blue-800',
+                    'en cours': 'bg-blue-100 text-blue-800',
+                    'en préparation': 'bg-blue-100 text-blue-800',
                     'shipped': 'bg-purple-100 text-purple-800',
+                    'expédiée': 'bg-purple-100 text-purple-800',
+                    'en livraison': 'bg-purple-100 text-purple-800',
                     'delivered': 'bg-green-100 text-green-800',
-                    'cancelled': 'bg-red-100 text-red-800'
+                    'livrée': 'bg-green-100 text-green-800',
+                    'livré': 'bg-green-100 text-green-800',
+                    'cancelled': 'bg-red-100 text-red-800',
+                    'annulée': 'bg-red-100 text-red-800'
                 };
-                return colors[status] || 'bg-gray-100 text-gray-800';
+                return colors[statusLower] || 'bg-gray-100 text-gray-800';
             }
 
             function getStatusText(status) {
+                const statusLower = status.toLowerCase();
                 const texts = {
                     'pending': 'En attente',
+                    'en attente': 'En attente',
                     'processing': 'En traitement',
+                    'en cours': 'En traitement',
+                    'en préparation': 'En préparation',
                     'shipped': 'En cours de livraison',
+                    'expédiée': 'Expédiée',
+                    'en livraison': 'En livraison',
                     'delivered': 'Livrée',
-                    'cancelled': 'Annulée'
+                    'livrée': 'Livrée',
+                    'livré': 'Livrée',
+                    'cancelled': 'Annulée',
+                    'annulée': 'Annulée'
                 };
-                return texts[status] || status;
+                return texts[statusLower] || status;
             }
         });
     </script>

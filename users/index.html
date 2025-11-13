@@ -47,6 +47,39 @@
         #cart-sidebar.open {
             transform: translateX(0);
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 
@@ -356,11 +389,33 @@
         </div>
     </div>
     <div id="cart-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-    <script src="../scripts/script.js"></script>
-    <script src="./Script/userScript.js"></script>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content bg-white rounded-lg shadow-xl max-w-4xl mx-4 md:mx-auto my-8 overflow-hidden">
+            <div class="flex justify-between items-center p-4 md:p-6 border-b">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-800">Détails du produit</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            
+            <div id="modal-body" class="p-4 md:p-6">
+                <!-- Contenu dynamique -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hidden items-center space-x-2 z-50">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Produit ajouté au panier</span>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const token = localStorage.getItem('token');
+            let allProducts = [];
             
             const profileLink = document.getElementById('profile-link');
             const historiqueLink = document.getElementById('historique-link');
@@ -411,6 +466,7 @@
                 loginLinkMobile?.classList.remove('hidden');
             }
 
+            // Mobile Menu
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
 
@@ -435,7 +491,8 @@
                 }
             });
 
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            // Cart Management
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartCount = document.getElementById('cart-count');
             const cartBtn = document.getElementById('cart-btn');
             const cartSidebar = document.getElementById('cart-sidebar');
@@ -449,9 +506,115 @@
                 if (cartCount) cartCount.textContent = totalItems || 0;
             }
 
+            function updateCartDisplay() {
+                const cartItems = document.getElementById('cart-items');
+                const subtotal = document.getElementById('cart-subtotal');
+                const total = document.getElementById('cart-total');
+
+                if (cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-shopping-cart text-4xl mb-3 opacity-30"></i>
+                            <p>Votre panier est vide</p>
+                        </div>
+                    `;
+                    subtotal.textContent = '0,00 FCFA';
+                    total.textContent = '0,00 FCFA';
+                } else {
+                    let totalPrice = 0;
+                    cartItems.innerHTML = cart.map(item => {
+                        totalPrice += item.price * item.quantity;
+                        return `
+                            <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                                <div class="flex-1">
+                                    <h4 class="font-medium text-sm">${item.name}</h4>
+                                    <p class="text-xs text-gray-500">${item.price.toLocaleString('fr-FR')} FCFA × ${item.quantity}</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="updateQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded">
+                                        <i class="fas fa-minus text-xs"></i>
+                                    </button>
+                                    <span class="w-8 text-center">${item.quantity}</span>
+                                    <button onclick="updateQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded">
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </button>
+                                    <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700 ml-2">
+                                        <i class="fas fa-trash text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    subtotal.textContent = `${totalPrice.toLocaleString('fr-FR')} FCFA`;
+                    total.textContent = `${totalPrice.toLocaleString('fr-FR')} FCFA`;
+                }
+            }
+
+            window.updateQuantity = function(productId, change) {
+                const item = cart.find(i => i.id === productId);
+                if (item) {
+                    item.quantity += change;
+                    if (item.quantity <= 0) {
+                        cart = cart.filter(i => i.id !== productId);
+                    }
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount();
+                    updateCartDisplay();
+                }
+            };
+
+            window.removeFromCart = function(productId) {
+                cart = cart.filter(item => item.id !== productId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                updateCartDisplay();
+                showToast('Produit retiré du panier', 'warning');
+            };
+
+            function addToCart(product) {
+                const existingItem = cart.find(item => item.id === product._id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product._id,
+                        name: product.nom,
+                        price: product.prix,
+                        image: product.imagePath || 'https://via.placeholder.com/100x100',
+                        quantity: 1
+                    });
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                updateCartDisplay();
+                showToast('Produit ajouté au panier !');
+            }
+
+            function showToast(message, type = 'success') {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+                
+                toastMessage.textContent = message;
+                
+                if (type === 'success') {
+                    toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50';
+                } else if (type === 'warning') {
+                    toast.className = 'fixed bottom-4 right-4 bg-orange-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50';
+                }
+                
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3000);
+            }
+
             updateCartCount();
 
             cartBtn?.addEventListener('click', () => {
+                updateCartDisplay();
                 cartSidebar.classList.add('open');
                 cartOverlay.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
@@ -490,6 +653,104 @@
                 window.location.href = './checkout.html';
             });
 
+            // Product Modal
+            const productModal = document.getElementById('product-modal');
+            const closeModal = document.getElementById('close-modal');
+
+            function showProductDetails(product) {
+                const modalBody = document.getElementById('modal-body');
+                
+                modalBody.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <img src="${product.imagePath || 'https://via.placeholder.com/400x400'}" 
+                                 alt="${product.nom}" 
+                                 class="w-full h-auto rounded-lg shadow-md">
+                        </div>
+                        
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">${product.nom}</h2>
+                            <p class="text-purple-600 font-medium mb-4">
+                                <i class="fas fa-tag mr-1"></i>${product.categorie?.nom || 'Non catégorisé'}
+                            </p>
+                            
+                            <div class="mb-6">
+                                <p class="text-3xl font-bold text-gray-800">${product.prix.toLocaleString('fr-FR')} FCFA</p>
+                            </div>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">
+                                        <i class="fas fa-info-circle mr-2 text-purple-600"></i>Description
+                                    </h4>
+                                    <p class="text-gray-600 leading-relaxed">${product.description || 'Une fragrance exceptionnelle qui révèle votre personnalité unique.'}</p>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">
+                                        <i class="fas fa-spray-can mr-2 text-purple-600"></i>Caractéristiques
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li><strong>Genre :</strong> ${product.genre || 'Unisexe'}</li>
+                                        <li><strong>Catégorie :</strong> ${product.categorie?.nom || 'Non spécifié'}</li>
+                                        <li><strong>Volume :</strong> ${product.volume || '50ml'}</li>
+                                        ${product.stock ? `<li><strong>Stock :</strong> ${product.stock > 0 ? 'Disponible' : 'Rupture de stock'}</li>` : ''}
+                                    </ul>
+                                </div>
+                                
+                                ${product.notes ? `
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">
+                                        <i class="fas fa-leaf mr-2 text-purple-600"></i>Notes olfactives
+                                    </h4>
+                                    <p class="text-gray-600">${product.notes}</p>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button onclick="addToCartFromModal('${product._id}')" 
+                                        class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-medium transition flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i>
+                                    Ajouter au panier
+                                </button>
+                                <button onclick="closeProductModal()" 
+                                        class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-medium transition">
+                                    Fermer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                productModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            window.addToCartFromModal = function(productId) {
+                const product = allProducts.find(p => p._id === productId);
+                if (product) {
+                    addToCart(product);
+                    closeProductModal();
+                }
+            };
+
+            window.closeProductModal = function() {
+                productModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            closeModal?.addEventListener('click', () => {
+                closeProductModal();
+            });
+
+            productModal?.addEventListener('click', (e) => {
+                if (e.target === productModal) {
+                    closeProductModal();
+                }
+            });
+
+            // Load Products
             async function loadProducts() {
                 const container = document.getElementById('products-container');
                 
@@ -498,6 +759,7 @@
                     if (!response.ok) throw new Error('Erreur de chargement');
                     
                     const products = await response.json();
+                    allProducts = products;
                     const limitedProducts = products.slice(0, 8);
                     
                     if (limitedProducts.length === 0) {
@@ -509,22 +771,32 @@
                         const img = product.imagePath || 'https://via.placeholder.com/300x300?text=Image+non+disponible';
                         return `
                             <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition parfum-card">
-                                <div class="h-64 overflow-hidden">
+                                <div class="h-64 overflow-hidden cursor-pointer" onclick='showProductDetails(${JSON.stringify(product).replace(/'/g, "&apos;")})'>
                                     <img src="${img}" alt="${product.nom}" class="w-full h-full object-cover parfum-image transition">
                                 </div>
                                 <div class="p-4">
-                                    <h3 class="font-bold text-gray-800">${product.nom}</h3>
-                                    <p class="text-sm text-gray-500">${product.categorie?.nom || 'Non catégorisé'}</p>
-                                    <div class="mt-3 flex justify-between items-center">
-                                        <span class="font-bold text-gray-800">${product.prix.toFixed(2)} FCFA</span>
-                                        <a href="${product.genre === 'Homme' ? './homme.html' : './femme.html'}" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm transition">
-                                            Voir détails
-                                        </a>
+                                    <h3 class="font-bold text-gray-800 mb-1 truncate">${product.nom}</h3>
+                                    <p class="text-sm text-gray-500 mb-3">${product.categorie?.nom || 'Non catégorisé'}</p>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-lg font-bold text-gray-800">${product.prix.toLocaleString('fr-FR')} FCFA</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button onclick='showProductDetails(${JSON.stringify(product).replace(/'/g, "&apos;")})'
+                                                class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg text-sm font-medium transition">
+                                            <i class="fas fa-eye mr-1"></i>Détails
+                                        </button>
+                                        <button onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&apos;")})'
+                                                class="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition">
+                                            <i class="fas fa-cart-plus mr-1"></i>Panier
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         `;
                     }).join('');
+
+                    window.showProductDetails = showProductDetails;
+                    window.addToCart = addToCart;
                 } catch (error) {
                     console.error('Erreur:', error);
                     container.innerHTML = '<div class="col-span-full text-center py-8 text-red-500"><i class="fas fa-exclamation-triangle text-3xl mb-3"></i><p>Erreur de chargement des produits</p></div>';

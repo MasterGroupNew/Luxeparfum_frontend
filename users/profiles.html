@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mon Profil | Élégance Parfumée</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
@@ -18,33 +20,6 @@
       font-family: 'Playfair Display', serif;
     }
 
-    .parfum-bg {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-        url('https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-      background-size: cover;
-      background-position: center;
-    }
-
-    .input-focus:focus {
-      box-shadow: 0 0 0 3px rgba(210, 180, 140, 0.3);
-      border-color: #d2b48c;
-    }
-
-    .btn-hover:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(210, 180, 140, 0.4);
-    }
-
-    #toast {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: 300px;
-      z-index: 50;
-    }
-
-    /* Panier */
     .cart-sidebar {
       transform: translateX(100%);
       transition: transform 0.3s ease-in-out;
@@ -65,51 +40,13 @@
       visibility: visible;
     }
 
-    /* Styles mobile */
     @media (max-width: 768px) {
-      .mobile-menu {
-        position: fixed;
-        top: -100%;
-        left: 0;
-        right: 0;
-        background: white;
-        z-index: 50;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        transition: top 0.3s ease-in-out;
-        padding: 1rem;
-      }
-
-      .mobile-menu.active {
-        top: 60px;
-      }
-
-      .mobile-menu-btn {
-        display: flex;
-      }
-
       .cart-sidebar {
         width: 100%;
-      }
-
-      .login-container {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      .login-form {
-        padding: 1.5rem;
-      }
-
-      .login-title {
-        font-size: 1.75rem;
       }
     }
 
     @media (min-width: 769px) {
-      .mobile-menu-btn {
-        display: none;
-      }
-
       .cart-sidebar {
         width: 400px;
       }
@@ -120,51 +57,105 @@
 <body class="bg-gray-50">
 
   <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-spray-can text-2xl text-purple-600"></i>
-                <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
-            </div>
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-spray-can text-2xl text-purple-600"></i>
+        <h1 class="text-xl font-bold text-gray-800">Élégance Parfumée</h1>
+      </div>
 
+      <!-- Navigation Desktop -->
             <nav class="hidden md:flex space-x-8">
-                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">À propos</a>
-                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link" class="text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-                <a href="./profiles.html" class="text-purple-600 font-semibold transition">Mon Profil</a>
-                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
+                <a href="./index.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-home mr-1"></i>Accueil
+                </a>
+                <a href="./homme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-male mr-1"></i>Homme
+                </a>
+                <a href="./femme.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-female mr-1"></i>Femme
+                </a>
+                <a href="./collections.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-th-large mr-1"></i>Collections
+                </a>
+                <a href="./apropos.html" class="text-gray-700 hover:text-purple-600 transition">
+                    <i class="fas fa-info-circle mr-1"></i>À propos
+                </a>
+                <a href="./historique.html" id="historique-link" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-history mr-1"></i>Historique
+                </a>
+                <a href="./suivi.html" id="suivi-link" class="text-purple-600 font-semibold transition hidden">
+                    <i class="fas fa-shipping-fast mr-1"></i>Suivi
+                </a>
+                <a href="../visiteur.html" id="logout" class="text-gray-700 hover:text-purple-600 transition hidden">
+                    <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                </a>
             </nav>
 
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md absolute top-full left-0 right-0 z-50">
-                <a href="./visiteur.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Accueil</a>
-                <a href="./users/homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Homme</a>
-                <a href="./users/femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Femme</a>
-                <a href="./users/collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">Collections</a>
-                <a href="./users/apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">À propos</a>
-                <a href="./utils/login.html" id="login" class="text-gray-700 hover:text-purple-600 transition">Se Connecter</a>
-                <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Historique</a>
-                <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Suivi</a>
-                <a href="./profiles.html" class="block py-2 text-purple-600 font-semibold transition">Mon Profil</a>
-                <a href="../visiteur.html" id="logout-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">Déconnexion</a>
-            </div>
-
-            <!-- Search Bar -->
-            <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
-                <div class="container mx-auto flex">
-                    <input type="text" placeholder="Rechercher un parfum..."
-                        class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+            <!-- Actions -->
+            <div class="flex items-center space-x-3 md:space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-search text-lg md:text-base"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-purple-600 transition">
+                    <i class="fas fa-shopping-cart text-lg md:text-base"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
-    </header>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-md">
+            <a href="./index.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="./homme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-male mr-2"></i>Homme
+            </a>
+            <a href="./femme.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-female mr-2"></i>Femme
+            </a>
+            <a href="./collections.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-th-large mr-2"></i>Collections
+            </a>
+            <a href="./apropos.html" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-info-circle mr-2"></i>À propos
+            </a>
+            
+            <div class="border-t border-gray-200 my-2"></div>
+            
+            <a href="./profiles.html" id="profile-link-mobile" class="block py-2 text-purple-600 font-semibold transition transition ">
+                <i class="fas fa-user mr-2"></i>Profil
+            </a>
+            <a href="./historique.html" id="historique-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-history mr-2"></i>Historique
+            </a>
+            <a href="./suivi.html" id="suivi-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition hidden">
+                <i class="fas fa-shipping-fast mr-2"></i>Suivi
+            </a>
+            <a href="#" id="logout-link-mobile" class="block py-2 text-red-600 hover:text-red-800 transition hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </a>
+            
+            <a href="../utils/login.html" id="login-link-mobile" class="block py-2 text-gray-700 hover:text-purple-600 transition">
+                <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+            </a>
+        </div>
+
+    <!-- Search Bar -->
+    <div id="search-bar" class="hidden bg-white py-3 px-4 shadow-md">
+      <div class="container mx-auto flex">
+        <input type="text" placeholder="Rechercher un parfum..."
+          class="flex-grow px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <button class="bg-purple-600 text-white px-4 py-2 rounded-r hover:bg-purple-700 transition">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </header>
 
   <!-- Contenu principal -->
   <main class="container mx-auto px-4 py-8">
@@ -189,41 +180,48 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-              <input type="text" name="nom" id="nom" class="w-full px-3 py-2 border rounded-md">
+              <input type="text" name="nom" id="nom"
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
-              <input type="text" name="prenom" id="prenom" class="w-full px-3 py-2 border rounded-md">
+              <input type="text" name="prenoms" id="prenom"
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
-              <input type="tel" name="telephone" id="telephone" class="w-full px-3 py-2 border rounded-md">
+              <input type="tel" name="contact" id="telephone"
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
-              <input type="text" name="adresse" id="adresse" class="w-full px-3 py-2 border rounded-md">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Ville</label>
+              <input type="text" name="city" id="adresse"
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
             </div>
           </div>
           <div class="flex justify-end">
-            <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700">
+            <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition">
               Sauvegarder
             </button>
           </div>
         </form>
       </div>
 
-      <!-- Historique des commandes -->
+      <!-- Historique des commandes
       <div class="bg-white rounded-lg shadow-md p-6">
         <h2 class="text-xl font-semibold mb-6">Mes commandes</h2>
         <div id="ordersContainer" class="space-y-4">
-          <!-- Les commandes seront injectées ici -->
+          <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-spinner fa-spin text-3xl mb-3"></i>
+            <p>Chargement des commandes...</p>
+          </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-gray-900 text-white py-12">
+  <footer class="bg-gray-900 text-white py-12 mt-12">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
@@ -243,10 +241,10 @@
         <div>
           <h4 class="text-lg font-semibold mb-4">Boutique</h4>
           <ul class="space-y-2">
-            <li><a href="../users/femme.html" class="text-gray-400 hover:text-white">Parfums Femmes</a></li>
-            <li><a href="../users/homme.html" class="text-gray-400 hover:text-white">Parfums Hommes</a></li>
-            <li><a href="../users/collections.html" class="text-gray-400 hover:text-white">Collections</a></li>
-            <li><a href="../users/apropos.html" class="text-gray-400 hover:text-white">À propos</a></li>
+            <li><a href="./femme.html" class="text-gray-400 hover:text-white">Parfums Femmes</a></li>
+            <li><a href="./homme.html" class="text-gray-400 hover:text-white">Parfums Hommes</a></li>
+            <li><a href="./collections.html" class="text-gray-400 hover:text-white">Collections</a></li>
+            <li><a href="./apropos.html" class="text-gray-400 hover:text-white">À propos</a></li>
           </ul>
         </div>
 
@@ -292,10 +290,9 @@
 
   <!-- PANIER SIDEBAR -->
   <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-  
-  <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full bg-white z-50 overflow-y-auto">
+
+  <div id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full bg-white z-50 overflow-y-auto shadow-2xl">
     <div class="p-6">
-      <!-- En-tête du panier -->
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">Mon Panier</h2>
         <button id="close-cart" class="text-gray-500 hover:text-gray-700">
@@ -303,30 +300,28 @@
         </button>
       </div>
 
-      <!-- Contenu du panier -->
       <div id="cart-content">
         <div id="empty-cart" class="text-center py-12">
           <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-4"></i>
           <p class="text-gray-500">Votre panier est vide</p>
         </div>
-        
-        <div id="cart-items" class="hidden">
-          <!-- Les articles du panier seront ajoutés ici -->
-        </div>
+
+        <div id="cart-items" class="hidden space-y-4"></div>
       </div>
 
-      <!-- Résumé du panier -->
       <div id="cart-summary" class="hidden border-t border-gray-200 pt-4 mt-4">
         <div class="flex justify-between items-center mb-4">
           <span class="text-lg font-semibold">Total:</span>
           <span id="cart-total" class="text-lg font-bold text-purple-600">0 FCFA</span>
         </div>
-        
-        <button id="checkout-btn" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300">
+
+        <button id="checkout-btn"
+          class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition duration-300">
           Commander maintenant
         </button>
-        
-        <button id="continue-shopping" class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 mt-2">
+
+        <button id="continue-shopping"
+          class="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition duration-300 mt-2">
           Continuer mes achats
         </button>
       </div>
@@ -334,86 +329,122 @@
   </div>
 
   <!-- TOAST -->
-  <div id="toast" class="hidden fixed bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:transform md:-translate-x-1/2 min-w-[300px] z-50">
-    <div id="toast-content" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg text-sm md:text-base">
-      <span id="toast-message">Message d'erreur</span>
+  <div id="toast" class="hidden fixed bottom-4 right-4 z-50">
+    <div id="toast-content" class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2">
+      <i class="fas fa-check-circle"></i>
+      <span id="toast-message">Message</span>
     </div>
   </div>
 
-  <!-- SCRIPT -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const token = localStorage.getItem('token');
-        
-        // Affichage des liens authentifiés
-        if (token) {
-            document.getElementById('historique-link').classList.remove('hidden');
-            document.getElementById('suivi-link').classList.remove('hidden');
-            document.getElementById('logout').classList.remove('hidden');
-            document.getElementById('historique-link-mobile').classList.remove('hidden');
-            document.getElementById('suivi-link-mobile').classList.remove('hidden');
-            document.getElementById('logout-mobile').classList.remove('hidden');
+    document.addEventListener('DOMContentLoaded', function () {
+      const token = localStorage.getItem('token');
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let userProfile = null;
+      const userId = localStorage.getItem('userId');
+      if (!token) {
+        alert('Veuillez vous connecter pour accéder à votre profil');
+        window.location.href = '../utils/login.html';
+        return;
+      }
+
+      const historiqueLink = document.getElementById('historique-link');
+      const suiviLink = document.getElementById('suivi-link');
+      const logoutLink = document.getElementById('logout');
+      const historiqueLinkMobile = document.getElementById('historique-link-mobile');
+      const suiviLinkMobile = document.getElementById('suivi-link-mobile');
+      const logoutLinkMobile = document.getElementById('logout-mobile');
+
+      if (token) {
+        historiqueLink?.classList.remove('hidden');
+        suiviLink?.classList.remove('hidden');
+        logoutLink?.classList.remove('hidden');
+        historiqueLinkMobile?.classList.remove('hidden');
+        suiviLinkMobile?.classList.remove('hidden');
+        logoutLinkMobile?.classList.remove('hidden');
+      }
+
+      function handleLogout(e) {
+        e.preventDefault();
+        if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+          localStorage.clear();
+          window.location.href = '../visiteur.html';
         }
+      }
 
-      // =====================
-      // GESTION DU PANIER
-      // =====================
-      let cartBtn = document.getElementById('cart-btn');
-      let closeCartBtn = document.getElementById('close-cart');
-      let cartOverlay = document.getElementById('cart-overlay');
-      let cartSidebar = document.getElementById('cart-sidebar');
-      let cartCount = document.getElementById('cart-count');
-      let cartItems = document.getElementById('cart-items');
-      let emptyCart = document.getElementById('empty-cart');
-      let cartSummary = document.getElementById('cart-summary');
-      let cartTotal = document.getElementById('cart-total');
-      let checkoutBtn = document.getElementById('checkout-btn');
-      let continueShoppingBtn = document.getElementById('continue-shopping');
+      logoutLink?.addEventListener('click', handleLogout);
+      logoutLinkMobile?.addEventListener('click', handleLogout);
 
-      // Fonctions du panier
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      }
+
+      const cartBtn = document.getElementById('cart-btn');
+      const closeCartBtn = document.getElementById('close-cart');
+      const cartOverlay = document.getElementById('cart-overlay');
+      const cartSidebar = document.getElementById('cart-sidebar');
+      const cartCount = document.getElementById('cart-count');
+      const cartItems = document.getElementById('cart-items');
+      const emptyCart = document.getElementById('empty-cart');
+      const cartSummary = document.getElementById('cart-summary');
+      const cartTotal = document.getElementById('cart-total');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      const continueShoppingBtn = document.getElementById('continue-shopping');
+
       function updateCartCount() {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCount.textContent = totalItems;
+        if (cartCount) cartCount.textContent = totalItems;
       }
 
       function updateCartDisplay() {
         if (cart.length === 0) {
-          emptyCart.classList.remove('hidden');
-          cartItems.classList.add('hidden');
-          cartSummary.classList.add('hidden');
+          emptyCart?.classList.remove('hidden');
+          cartItems?.classList.add('hidden');
+          cartSummary?.classList.add('hidden');
         } else {
-          emptyCart.classList.add('hidden');
-          cartItems.classList.remove('hidden');
-          cartSummary.classList.remove('hidden');
-          
-          // Afficher les articles
-          cartItems.innerHTML = cart.map(item => `
-            <div class="flex items-center space-x-4 py-4 border-b border-gray-200" data-product-id="${item.id}">
-              <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
-              <div class="flex-1">
-                <h3 class="font-semibold text-gray-800">${item.name}</h3>
-                <p class="text-purple-600 font-bold">${item.price.toFixed(2)} FCFA</p>
-                <div class="flex items-center space-x-2 mt-2">
-                  <button class="decrease-qty text-gray-500 hover:text-purple-600" data-id="${item.id}">
-                    <i class="fas fa-minus text-sm"></i>
-                  </button>
-                  <span class="quantity-display w-8 text-center">${item.quantity}</span>
-                  <button class="increase-qty text-gray-500 hover:text-purple-600" data-id="${item.id}">
-                    <i class="fas fa-plus text-sm"></i>
-                  </button>
-                  <button class="remove-item text-red-500 hover:text-red-700 ml-4" data-id="${item.id}">
-                    <i class="fas fa-trash"></i>
-                  </button>
+          emptyCart?.classList.add('hidden');
+          cartItems?.classList.remove('hidden');
+          cartSummary?.classList.remove('hidden');
+
+          if (cartItems) {
+            cartItems.innerHTML = cart.map(item => `
+              <div class="flex items-center space-x-4 py-4 border-b border-gray-200">
+                <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-800 text-sm">${item.name}</h3>
+                  <p class="text-purple-600 font-bold text-sm">${item.price.toLocaleString('fr-FR')} FCFA</p>
+                  <div class="flex items-center space-x-2 mt-2">
+                    <button class="decrease-qty w-6 h-6 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded" data-id="${item.id}">
+                      <i class="fas fa-minus text-xs"></i>
+                    </button>
+                    <span class="quantity-display w-8 text-center text-sm">${item.quantity}</span>
+                    <button class="increase-qty w-6 h-6 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded" data-id="${item.id}">
+                      <i class="fas fa-plus text-xs"></i>
+                    </button>
+                    <button class="remove-item text-red-500 hover:text-red-700 ml-4" data-id="${item.id}">
+                      <i class="fas fa-trash text-sm"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          `).join('');
+            `).join('');
+          }
 
-          // Calculer le total
           const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-          cartTotal.textContent = `${total.toFixed(2)} FCFA`;
+          if (cartTotal) cartTotal.textContent = `${total.toLocaleString('fr-FR')} FCFA`;
         }
-        
+
         updateCartCount();
       }
 
@@ -421,10 +452,11 @@
         cart = cart.filter(item => item.id !== productId);
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartDisplay();
+        showToast('Produit retiré du panier');
       }
 
       function updateQuantity(productId, change) {
-        const item = cart.find(item => item.id === productId);
+        const item = cart.find(i => i.id === productId);
         if (item) {
           item.quantity += change;
           if (item.quantity <= 0) {
@@ -436,30 +468,48 @@
         }
       }
 
-      // Événements du panier
-      cartBtn.addEventListener('click', () => {
-        cartSidebar.classList.add('open');
-        cartOverlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-
-      closeCartBtn.addEventListener('click', closeCart);
-      cartOverlay.addEventListener('click', closeCart);
-      continueShoppingBtn.addEventListener('click', closeCart);
-
       function closeCart() {
-        cartSidebar.classList.remove('open');
-        cartOverlay.classList.remove('open');
+        cartSidebar?.classList.remove('open');
+        cartOverlay?.classList.remove('open');
         document.body.style.overflow = '';
       }
 
-      // Déléguation des événements pour les boutons du panier
-      cartItems.addEventListener('click', (e) => {
+      function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastContent = document.getElementById('toast-content');
+        const toastMessage = document.getElementById('toast-message');
+
+        if (toast && toastMessage && toastContent) {
+          toastMessage.textContent = message;
+
+          if (type === 'success') {
+            toastContent.className = 'bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2';
+          } else if (type === 'error') {
+            toastContent.className = 'bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2';
+          }
+
+          toast.classList.remove('hidden');
+          setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+      }
+
+      cartBtn?.addEventListener('click', () => {
+        updateCartDisplay();
+        cartSidebar?.classList.add('open');
+        cartOverlay?.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+
+      closeCartBtn?.addEventListener('click', closeCart);
+      cartOverlay?.addEventListener('click', closeCart);
+      continueShoppingBtn?.addEventListener('click', closeCart);
+
+      cartItems?.addEventListener('click', (e) => {
         const target = e.target.closest('button');
         if (!target) return;
 
         const productId = target.dataset.id;
-        
+
         if (target.classList.contains('increase-qty')) {
           updateQuantity(productId, 1);
         } else if (target.classList.contains('decrease-qty')) {
@@ -469,129 +519,110 @@
         }
       });
 
-      checkoutBtn.addEventListener('click', () => {
+      checkoutBtn?.addEventListener('click', () => {
         if (cart.length === 0) return;
-        
-        const token = localStorage.getItem('token');
-        if (!token) {
-          alert('Veuillez vous connecter pour passer commande');
-          window.location.href = '../utils/login.html';
-          return;
-        }
-        
-        // Rediriger vers la page de commande
-        window.location.href = '../users/checkout.html';
+        window.location.href = './checkout.html';
       });
 
-     // =====================
-    // Mobile menu toggle
-    // =====================
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    if (mobileBtn) {
-        mobileBtn.addEventListener('click', () => {
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu) mobileMenu.classList.toggle('hidden');
-        });
-    }
-
-      // =====================
-      // GESTION HEADER DYNAMIQUE
-      // =====================
-      const loginLink = document.getElementById("login");
-      
-      if (token) {
-        if (loginLink) {
-          loginLink.textContent = "Déconnexion";
-          loginLink.href = "#";
-          loginLink.addEventListener("click", (e) => {
-            e.preventDefault();
-            localStorage.clear();
-            window.location.href = "../visiteur.html";
-          });
-        }
-      } else {
-        if (loginLink) {
-          loginLink.textContent = "Se connecter";
-          loginLink.href = "../utils/login.html";
-        }
-      }
-
-      // =====================
-      // GESTION DU PROFIL
-      // =====================
       async function loadProfile() {
         try {
-          const response = await fetch('https://luxeparfum-backend.onrender.com/api/users/profile', {
+          const response = await fetch('https://luxeparfum-backend.onrender.com/api/auth/profile', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
-          
+
           if (response.ok) {
             const data = await response.json();
-            document.getElementById('userName').textContent = `${data.prenom} ${data.nom}`;
-            document.getElementById('userEmail').textContent = data.email;
+            userProfile = data;
+
+            document.getElementById('userName').textContent = `${data.prenoms || ''} ${data.nom || ''}`.trim() || 'Utilisateur';
+            document.getElementById('userEmail').textContent = data.email || '';
             document.getElementById('nom').value = data.nom || '';
-            document.getElementById('prenom').value = data.prenom || '';
-            document.getElementById('telephone').value = data.telephone || '';
-            document.getElementById('adresse').value = data.adresse || '';
+            document.getElementById('prenom').value = data.prenoms || '';
+            document.getElementById('telephone').value = data.contact || '';
+            document.getElementById('adresse').value = data.city || '';
+
+            if (data._id) {
+              await loadOrders(data._id);
+            }
+          } else {
+            showToast('Erreur de chargement du profil', 'error');
           }
         } catch (error) {
           console.error('Erreur chargement profil:', error);
+          showToast('Erreur de connexion', 'error');
         }
       }
 
-      // Charger l'historique des commandes
-      async function loadOrders() {
+      async function loadOrders(order) {
+        const container = document.getElementById('ordersContainer');
+
         try {
-          const response = await fetch('https://luxeparfum-backend.onrender.com/api/orders/user', {
+          const response = await fetch(`https://luxeparfum-backend.onrender.com/api/orders/user/${userId}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
-          
+
           if (response.ok) {
             const orders = await response.json();
-            const container = document.getElementById('ordersContainer');
-            
+
+            if (!container) return;
+
             if (orders.length === 0) {
               container.innerHTML = `
                 <div class="text-center py-8 text-gray-500">
+                  <i class="fas fa-box-open text-4xl mb-3 opacity-30"></i>
                   <p>Aucune commande pour le moment</p>
                 </div>`;
               return;
             }
 
             container.innerHTML = orders.map(order => `
-              <div class="border rounded-lg p-4">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="font-medium">Commande #${order.id}</span>
-                  <span class="text-sm text-gray-500">${new Date(order.createdAt).toLocaleDateString()}</span>
+              <div class="border rounded-lg p-4 hover:shadow-md transition">
+                <div class="flex justify-between items-center mb-3">
+                  <span class="font-medium text-gray-800">Commande #${order._id?.slice(-8) || 'N/A'}</span>
+                  <span class="text-sm text-gray-500">${new Date(order.createdAt).toLocaleDateString('fr-FR')}</span>
                 </div>
-                <div class="space-y-2">
-                  ${order.items.map(item => `
-                    <div class="flex justify-between text-sm">
-                      <span>${item.quantity}x ${item.name}</span>
-                      <span>${(item.price * item.quantity).toFixed(2)} FCFA</span>
+                <div class="space-y-2 mb-3">
+                  ${order.items?.map(item => `
+                    <div class="flex justify-between text-sm text-gray-600">
+                      <span>${item.quantity}x ${item.name || 'Produit'}</span>
+                      <span>${((item.price || 0) * (item.quantity || 0)).toLocaleString('fr-FR')} FCFA</span>
                     </div>
-                  `).join('')}
+                  `).join('') || ''}
                 </div>
-                <div class="mt-4 flex justify-between border-t pt-2">
-                  <span class="font-medium">Total</span>
-                  <span class="font-medium">${order.total.toFixed(2)} FCFA</span>
+                <div class="flex justify-between items-center border-t pt-3">
+                  <span class="font-semibold text-gray-800">Total</span>
+                  <span class="font-bold text-purple-600">${(order.total || 0).toLocaleString('fr-FR')} FCFA</span>
+                </div>
+                <div class="mt-2">
+                  <span class="inline-block px-3 py-1 text-xs rounded-full ${order.status === 'livré' ? 'bg-green-100 text-green-700' :
+                order.status === 'en cours' ? 'bg-blue-100 text-blue-700' :
+                  'bg-yellow-100 text-yellow-700'
+              }">
+                    ${order.status || 'En attente'}
+                  </span>
                 </div>
               </div>
             `).join('');
+          } else {
+            if (container) {
+              container.innerHTML = '<div class="text-center py-8 text-gray-500"><p>Erreur de chargement des commandes</p></div>';
+            }
           }
         } catch (error) {
           console.error('Erreur chargement commandes:', error);
+          if (container) {
+            container.innerHTML = '<div class="text-center py-8 text-red-500"><p>Erreur de connexion</p></div>';
+          }
         }
       }
 
-      // Mise à jour du profil
-      document.getElementById('profileForm').addEventListener('submit', async function(e) {
+      document.getElementById('profileForm')?.addEventListener('submit', async function (e) {
         e.preventDefault();
         const formData = new FormData(this);
         const userData = Object.fromEntries(formData.entries());
 
         try {
-          const response = await fetch('https://luxeparfum-backend.onrender.com/api/users/update', {
+          const response = await fetch('https://luxeparfum-backend.onrender.com/api/auth/update', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -601,23 +632,41 @@
           });
 
           if (response.ok) {
-            alert('Profil mis à jour avec succès !');
+            showToast('Profil mis à jour avec succès !', 'success');
             await loadProfile();
           } else {
-            alert('Erreur lors de la mise à jour du profil');
+            showToast('Erreur lors de la mise à jour', 'error');
           }
         } catch (error) {
           console.error('Erreur mise à jour profil:', error);
-          alert('Erreur réseau');
+          showToast('Erreur réseau', 'error');
         }
       });
 
-      // Initialisation
+      const searchBtn = document.getElementById('search-btn');
+      const searchBar = document.getElementById('search-bar');
+
+      searchBtn?.addEventListener('click', () => {
+        searchBar?.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (searchBar && searchBtn && !searchBar.contains(e.target) && !searchBtn.contains(e.target)) {
+          searchBar.classList.add('hidden');
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (mobileMenu && mobileMenuBtn && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+
+      updateCartCount();
       loadProfile();
-      loadOrders();
-      updateCartDisplay();
     });
   </script>
 
 </body>
+
 </html>
